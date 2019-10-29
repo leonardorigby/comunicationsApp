@@ -1,21 +1,288 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="page-wrapper chiller-theme toggled">
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a href="#">Sanmina | News</a>
+        <div id="close-sidebar" (click)="closeSideBar()">
+          <i class="fa fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
+            alt="User picture">
+        </div>
+        <div class="user-info">
+          <span class="user-name">Leonardo<strong>Rigby</strong>
+          </span>
+          <span class="user-role">Administrator</span>
+          <span class="user-status">
+            <i class="fa fa-circle"></i>
+            <span>Online</span>
+          </span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <div class="sidebar-search">
+        <div>
+          <p class="text-warning">Change Color Theme</p>
+          <div class="input-group">
+            <li class="list-group-item">
+              <i class="fas fa-moon"></i>
+                <label class="switch">
+                  <input type="checkbox" (click)="changeColor()">
+                  <span class="slider round"></span>
+                </label>
+              <i class="fas fa-sun"></i>
+            </li>
+            <!-- <input type="text" class="form-control search-menu" placeholder="Search..."> -->
+            <!-- <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </span>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- sidebar-search  -->
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-list"></i>
+              <span>Noticias</span>
+              <!-- <span class="badge badge-pill badge-warning">New</span> -->
+            </a>
 
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-bus"></i>
+              <span>Transporte</span>
+              <!-- <span class="badge badge-pill badge-danger">3</span> -->
+            </a>
+            <!-- <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#">Products
+                  </a>
+                </li>
+                <li>
+                  <a href="#">Orders</a>
+                </li>
+                <li>
+                  <a href="#">Credit cart</a>
+                </li>
+              </ul>
+            </div> -->
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-coffee"></i>
+              <span>Comedor</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="far fa-gem"></i>
+              <span>Personal</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#">General</a>
+                </li>
+                <li>
+                  <a href="#">Panels</a>
+                </li>
+                <li>
+                  <a href="#">Tables</a>
+                </li>
+                <li>
+                  <a href="#">Icons</a>
+                </li>
+                <li>
+                  <a href="#">Forms</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-heartbeat"></i>
+              <span>Salud</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#">Pie chart</a>
+                </li>
+                <li>
+                  <a href="#">Line chart</a>
+                </li>
+                <li>
+                  <a href="#">Bar chart</a>
+                </li>
+                <li>
+                  <a href="#">Histogram</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="sidebar-dropdown">
+            <a href="#">
+              <i class="fa fa-list-alt"></i>
+              <span>Memos</span>
+            </a>
+            <div class="sidebar-submenu">
+              <ul>
+                <li>
+                  <a href="#">Google maps</a>
+                </li>
+                <li>
+                  <a href="#">Open street map</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <!-- <li class="header-menu">
+            <span>Extra</span>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-book"></i>
+              <span>Documentation</span>
+              <span class="badge badge-pill badge-primary">Beta</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-calendar"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-folder"></i>
+              <span>Examples</span>
+            </a>
+          </li> -->
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    </div>
+    <!-- sidebar-content  -->
+    <div class="sidebar-footer">
+      <a href="#">
+        <i class="fa fa-bell"></i>
+        <span class="badge badge-pill badge-warning notification">3</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-envelope"></i>
+        <span class="badge badge-pill badge-success notification">7</span>
+      </a>
+      <a href="#">
+        <i class="fa fa-cog"></i>
+        <span class="badge-sonar"></span>
+      </a>
+      <a href="#">
+        <i class="fa fa-power-off"></i>
+      </a>
+    </div>
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 center">
+          <a id="show-sidebar" class="btn btn-sm btn-dark" href="#" (click)="openSideBar()">
+            <i class="fa fa-bars"></i>
+          </a>
+          <h2><span class="text-danger">Sanmina</span> <span class="text-secondary"> | News</span></h2>
+        </div>
+      </div>
+      <hr>
+      <!-- <div class="row bodyrow">
+        <div class="form-group col-md-12">
+          <p>This is a responsive sidebar template with dropdown menu based on bootstrap 4 framework.</p>
+          <p> You can find the complete code on <a href="https://github.com/azouaoui-med/pro-sidebar-template" target="_blank">
+              Github</a>, it contains more themes and background image option</p>
+        </div>
+        <div class="form-group col-md-12">
+          <iframe src="https://ghbtns.com/github-btn.html?user=azouaoui-med&repo=pro-sidebar-template&type=star&count=true&size=large"
+            frameborder="0" scrolling="0" width="140px" height="30px"></iframe>
+          <iframe src="https://ghbtns.com/github-btn.html?user=azouaoui-med&repo=pro-sidebar-template&type=fork&count=true&size=large"
+            frameborder="0" scrolling="0" width="140px" height="30px"></iframe>
+        </div>
+      </div> -->
+      <!-- <h5>More templates</h5> -->
+      <hr>
+        <div class="row">
+        <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+          <div class="card rounded-0 p-0 shadow-sm">
+            <img src="https://user-images.githubusercontent.com/25878302/58369568-a49b2480-7efc-11e9-9ca9-2be44afacda1.png" class="card-img-top rounded-0" alt="Angular pro sidebar">
+            <div class="card-body text-center">
+                <h6 class="card-title">Angular Pro Sidebar</h6>
+                <a href="https://github.com/azouaoui-med/angular-pro-sidebar" target="_blank" class="btn btn-primary btn-sm">Github</a>
+                <a href="https://azouaoui-med.github.io/angular-pro-sidebar/demo/" target="_blank" class="btn btn-success btn-sm">Preview</a>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <div class="col-md-12">
+          <div class="cards bg-white">
+              <p class="text-info">Salud</p>
+              <!-- <canvas id="Chart"  height="300"></canvas> -->
+        </div>
+    </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <div class="col-md-12">
+          <div class="cards bg-white">
+              <p class="text-warning">Transporte</p>
+              <!-- <canvas id="Chart"  height="300"></canvas> -->
+        </div>
+    </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <div class="col-md-12">
+          <div class="cards bg-white">
+              <p class="text-danger">Comedor</p>
+              <!-- <canvas id="Chart"  height="300"></canvas> -->
+        </div>
+    </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <div class="col-md-12">
+          <div class="cards bg-white">
+              <p class="text-success">Eventos</p>
+              <!-- <canvas id="Chart"  height="300"></canvas> -->
+        </div>
+    </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <div class="col-md-12">
+          <div class="cards bg-white">
+              <p class="text-dark">Extras</p>
+              <!-- <canvas id="Chart"  height="300"></canvas> -->
+        </div>
+    </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <div class="col-md-12">
+          <div class="cards bg-white">
+              <p class="text-secondary">Ayuda</p>
+              <!-- <canvas id="Chart"  height="300"></canvas> -->
+        </div>
+    </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
 <router-outlet></router-outlet>
