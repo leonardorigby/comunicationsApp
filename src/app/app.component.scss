@@ -149,9 +149,23 @@ body {
 }
 
 @media screen and (min-width: 768px) {
+	#sidebar{
+		height: 100%;
+	}
   .page-wrapper.toggled .page-content {
-    padding-left: 260px;
+    margin-left: 260px;
   }
+	.navbar{
+		display: none;
+	}
+
+
+}
+@media screen and (max-width: 767px) {
+	#sidebar{
+		height: 90%;
+	}
+
 }
 /*----------------show sidebar button----------------*/
 #show-sidebar {
@@ -160,7 +174,7 @@ body {
   top: 7px;
   border-radius: 0 4px 4px 0px;
   width: 45px;
-  color: var(--body-text-color);
+  color: white;
   padding-top: 3px;
   padding-bottom: 3px;
   background-color: transparent;
@@ -171,15 +185,28 @@ body {
   border: 0;
 }
 .center{
+	font-family: 'Lato', sans-serif;
   position: fixed;
-  background-color: var(--sidebar-color);
+	color: gray;
+  background-color: #BF0404;
   z-index: 100;
   width: 100%;
-  padding-left: 45px;
+	text-align: center;
+  // padding-left: 45px;
   padding-top: 3px;
   padding-bottom: 3px;
-}.bodyrow{
+}
+.bodyrow{
   padding-top: 5%;
+}
+.col-xs-12{
+	padding: 1%;
+}
+.newsdiv{
+	border: 1px solid var(--footer-text-color);
+	height: 300px;
+	width: 100%;
+	border-radius: 9px;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -189,8 +216,8 @@ body {
 
 .sidebar-wrapper {
   width: 260px;
-  height: 100%;
-  max-height: 100%;
+  	// height: 100%;
+  // max-height: 100%;
   position: fixed;
   top: 0;
   left: -300px;
@@ -226,6 +253,8 @@ body {
   padding: 10px 20px;
   display: flex;
   align-items: center;
+	background-color: transparent;
+	border: 0;
 }
 
 .sidebar-wrapper .sidebar-brand > a {
@@ -425,7 +454,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  border: 2px solid #980303;
+  // border: 2px solid #980303;
   opacity: 0;
   border-radius: 50%;
   width: 100%;
@@ -506,7 +535,7 @@ body {
 .chiller-theme .sidebar-wrapper .sidebar-header,
 .chiller-theme .sidebar-wrapper .sidebar-search,
 .chiller-theme .sidebar-wrapper .sidebar-menu {
-    border-top: 1px solid #3a3f48;
+    border-top: 1px solid var(--t);
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
@@ -668,4 +697,39 @@ input:checked + .slider:before {
   &:hover {
     transform: scale(0.97);
   }
+}
+
+
+.navbar {
+	box-shadow: 1px 12px 10px 10px rgb(219, 225, 229);
+	border-top: 1px solid rgb(244, 245, 249);
+  overflow: hidden;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+	height: 10%;
+}
+.navbar a {
+  float: left;
+  display: block;
+  color: gray;
+  text-align: center;
+
+  padding: 14px 14px;
+  text-decoration: none;
+  font-size: 21px;
+
+}
+.navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+.navbar a:hover {
+	display: inline-block;
+	animation: swing ease-in-out 0.5s 1 alternate;
+	color: #BF0404;
+	text-shadow:0px 0px 10px rgba(255, 0, 0, 0.7);
+	// color: #16c7ff;
+	// text-shadow:0px 0px 10px rgba(22, 199, 255, 0.5);
 }
