@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from'../services/general.service';
+import { GeneralService } from'./services/general.service';
 import * as $ from 'jquery';
 
 
