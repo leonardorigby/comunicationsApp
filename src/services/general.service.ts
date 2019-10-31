@@ -7,16 +7,24 @@ export const darkTheme = {
   'sidebar-color': '#31353D',
   'header-text-color': 'white',
   'body-text-color': 'rgb(201, 206, 217)',
-  'footer-text-color': 'rgb(108, 117, 125)'
+  'footer-text-color': 'rgb(108, 117, 125)',
+  'icons-color': 'white',
+  'navbar-color': '#980303',
+  'headertext-color': 'white',
+  'headertext-color2': 'rgb(201, 206, 217)'
 
 };
 // ligth theme colors
 export const lightTheme = {
   'container-color': 'white',
-  'sidebar-color': 'rgb(244, 245, 249)',
+  'sidebar-color': 'white',
   'header-text-color': 'black',
   'body-text-color': 'rgb(108, 117, 125)',
-  'footer-text-color': 'rgb(201, 206, 217)'
+  'footer-text-color': 'rgb(201, 206, 217)',
+  'icons-color': '#3b4245',
+  'navbar-color': 'white',
+  'headertext-color': '#980303',
+  'headertext-color2': '#3b4245'
 
 };
 @Injectable({
