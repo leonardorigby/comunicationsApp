@@ -62,6 +62,9 @@ export class FirebaseService {
   getNews(){
     return this.db.collection('news').snapshotChanges();
   }
+  // async function getDataNews(){
+  //   const data = await this.db.collection('news').snapshotChanges();
+  // }
   //search by admin
   searchNews(searchValue){
     return this.db.collection('news',ref => ref.where('nameToSearch', '>=', searchValue)

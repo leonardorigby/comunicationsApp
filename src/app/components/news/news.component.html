@@ -4,9 +4,27 @@
         <button type="button" (click)="openCreateForm()" class="btn btn-outline-secondary" name="button"> + Create</button>
       </div>
     </div>
-    <div class="row" *ngIf="create===true">
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+    <div class="row border" *ngIf="create===false">
+      <div class=" col-lg-12 ">
         <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="row">
+                <img src="{{images}}" class="avatar" alt="Image from AngularFireStorage" >
+              </div>
+              <div class="row">
+                <label for="file">File:</label>
+                <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="title" class="text-dark">Title</label>
+                <input type="text" class="form-control inputsform" name="title">
+              </div>
+            </div>
+          </div>
+
             <input type="text" class="form-control" name="title" placeholder="enter title" ngModel>
             <input type="text" class="form-control" name="description" placeholder="enter description" ngModel>
             <input type="text" class="form-control" name="picture" placeholder="picture" ngModel>
@@ -20,13 +38,12 @@
       </div>
     </div>
   </div>
-    <div class="row" *ngIf="create===true">
+    <div class="row" *ngIf="create===false">
       <div class="row">
         <div class="container" >
-        <img src="{{images}}" alt="Image from AngularFireStorage">
+        <!-- <img src="{{images}}" alt="Image from AngularFireStorage"> -->
       </div>
-      <label for="file">File:</label>
-<input type="file" (change)="upload($event)" accept=".png,.jpg" />
+
       <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
         <form #newsImg="ngForm" name="newsImg" (submit)="saveImages(newsImg, newsImg.value,$event)">
             <input type="file" class="form-control" name="img" placeholder="enter title" ngModel>
@@ -37,7 +54,7 @@
     </div>
 
 
-      <div class="row" *ngIf="create===false">
+      <div class="row" *ngIf="create===true">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <div class="col-md-12 newsdiv">
         <img src="assets/images/image1.jpg" alt="">
