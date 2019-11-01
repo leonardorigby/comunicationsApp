@@ -1,1 +1,125 @@
-<p>news works!</p>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <button type="button" (click)="openCreateForm()" class="btn btn-outline-secondary" name="button"> + Create</button>
+      </div>
+    </div>
+    <div class="row" *ngIf="create===true">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)">
+            <input type="text" class="form-control" name="title" placeholder="enter title" ngModel>
+            <input type="text" class="form-control" name="description" placeholder="enter description" ngModel>
+            <input type="text" class="form-control" name="picture" placeholder="picture" ngModel>
+            <input type="text" class="form-control" name="admin" placeholder="enter admin name" ngModel>
+            <input type="date" class="form-control" name="creationDate" placeholder="enter date start" ngModel>
+            <input type="date" class="form-control" name="finishDate" placeholder="enter date end" ngModel>
+            <input type="number" class="form-control" name="likes" placeholder="enter likes" ngModel>
+            <input type="number" class="form-control" name="dislikes" placeholder="enter dislikes" ngModel>
+            <button type="submit" class="btn btn-outline-success" name="button">Create</button>
+          </form>
+      </div>
+    </div>
+  </div>
+    <div class="row" *ngIf="create===true">
+      <div class="row">
+        <div class="container" >
+        <img src="{{images}}" alt="Image from AngularFireStorage">
+      </div>
+      <label for="file">File:</label>
+<input type="file" (change)="upload($event)" accept=".png,.jpg" />
+      <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+        <form #newsImg="ngForm" name="newsImg" (submit)="saveImages(newsImg, newsImg.value,$event)">
+            <input type="file" class="form-control" name="img" placeholder="enter title" ngModel>
+            <button type="submit" class="btn btn-outline-success" name="button">Create</button>
+          </form>
+      </div> -->
+    </div>
+    </div>
+
+
+      <div class="row" *ngIf="create===false">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      <div class="col-md-12 newsdiv">
+        <img src="assets/images/image1.jpg" alt="">
+        <p class="text-dark">Sanmina Sports Events</p>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
+        <div class="row">
+          <div class="col-md-2">
+          <i class="fa fa-heart"></i>
+          </div>
+
+        </div>
+      </div>
+  </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      <div class="col-md-12 newsdiv">
+        <img src="assets/images/image2.jpg" alt="" >
+        <p class="text-dark">Sanmina Sports Events</p>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
+        <div class="row">
+          <div class="col-md-2">
+          <i class="fa fa-heart"></i>
+          </div>
+
+        </div>
+      </div>
+  </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      <div class="col-md-12 newsdiv">
+        <img src="assets/images/image3.jpg" alt="" >
+        <p class="text-dark">Sanmina Sports Events</p>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
+        <div class="row">
+          <div class="col-md-2">
+          <i class="fa fa-heart"></i>
+          </div>
+
+        </div>
+      </div>
+  </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      <div class="col-md-12 newsdiv">
+        <img src="assets/images/image1.jpg" alt="" >
+        <p class="text-dark">Sanmina Sports Events</p>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
+        <div class="row">
+          <div class="col-md-2">
+          <i class="fa fa-heart"></i>
+          </div>
+
+        </div>
+      </div>
+  </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      <div class="col-md-12 newsdiv">
+        <img src="assets/images/image2.jpg" alt="" >
+        <p class="text-dark">Sanmina Sports Events</p>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
+        <div class="row">
+          <div class="col-md-2">
+          <i class="fa fa-heart"></i>
+          </div>
+
+        </div>
+      </div>
+
+  </div>
+
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+      <div class="col-md-12 newsdiv">
+        <img src="../../assets/images/image3.jpg" alt="" >
+        <p class="text-dark">Sanmina Sports Events</p>
+        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
+        <div class="row">
+          <div class="col-md-2">
+          <i class="fa fa-heart"></i>
+          </div>
+
+        </div>
+      </div>
+      </div>
+    </div>

@@ -1,8 +1,8 @@
 <div class="navbar2 center">
-  <a id="show-sidebar" href="#" (click)="openSideBar()">
+  <a id="show-sidebar"  (click)="openSideBar()">
     <i class="fa fa-bars"></i>
   </a>
-  <h2><span class="colorred">Sanmina</span> <span class="colorgray"> | News</span></h2>
+  <h2><span class="colorred text-info">Urrea</span> <span class="colorgray"> | News</span></h2>
 </div>
 <div class="page-wrapper chiller-theme toggled">
   <nav id="sidebar" class="sidebar-wrapper">
@@ -40,39 +40,39 @@
           <li class="header-menu">
             <span>General</span>
           </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
+          <li class="sidebar-dropdown" >
+            <a routerLink="/news">
               <i class="fa fa-list"></i>
               <span>Noticias</span>
             </a>
           </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
+          <li class="sidebar-dropdown" >
+            <a routerLink="/transport">
               <i class="fa fa-bus"></i>
               <span>Transporte</span>
             </a>
           </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
+          <li class="sidebar-dropdown" >
+            <a routerLink="/food">
               <i class="fa fa-coffee"></i>
               <span>Comedor</span>
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a href="#">
+            <a>
               <span class="text-dark">Personal</span>
             </a>
           </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
+          <li class="sidebar-dropdown" >
+            <a routerLink="/health">
               <i class="fa fa-heartbeat"></i>
               <span>Salud</span>
             </a>
           </li>
-          <li class="sidebar-dropdown">
-            <a href="#">
-              <i class="fa fa-list-alt"></i>
-              <span>Memos</span>
+          <li class="sidebar-dropdown" >
+            <a routerLink="/users">
+              <i class="fa fa-users"></i>
+              <span>Users</span>
             </a>
           </li>
         </ul>
@@ -98,110 +98,19 @@
   </nav>
   <!-- sidebar-wrapper  -->
   <main class="page-content">
-    <div class="container-fluid">
-
-      <hr>
-      <hr>
-        <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <div class="col-md-12 newsdiv">
-          <img src="assets/images/image1.jpg" alt="">
-          <p class="text-dark">Sanmina Sports Events</p>
-          <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-          <div class="row">
-            <div class="col-md-2">
-            <i class="fa fa-heart"></i>
-            </div>
-
-          </div>
-        </div>
-    </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <div class="col-md-12 newsdiv">
-          <img src="assets/images/image2.jpg" alt="" >
-          <p class="text-dark">Sanmina Sports Events</p>
-          <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-          <div class="row">
-            <div class="col-md-2">
-            <i class="fa fa-heart"></i>
-            </div>
-
-          </div>
-        </div>
-    </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <div class="col-md-12 newsdiv">
-          <img src="assets/images/image3.jpg" alt="" >
-          <p class="text-dark">Sanmina Sports Events</p>
-          <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-          <div class="row">
-            <div class="col-md-2">
-            <i class="fa fa-heart"></i>
-            </div>
-
-          </div>
-        </div>
-    </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <div class="col-md-12 newsdiv">
-          <img src="assets/images/image1.jpg" alt="" >
-          <p class="text-dark">Sanmina Sports Events</p>
-          <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-          <div class="row">
-            <div class="col-md-2">
-            <i class="fa fa-heart"></i>
-            </div>
-
-          </div>
-        </div>
-    </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <div class="col-md-12 newsdiv">
-          <img src="assets/images/image2.jpg" alt="" >
-          <p class="text-dark">Sanmina Sports Events</p>
-          <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-          <div class="row">
-            <div class="col-md-2">
-            <i class="fa fa-heart"></i>
-            </div>
-
-          </div>
-        </div>
-
-    </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <div class="col-md-12 newsdiv">
-          <img src="assets/images/image3.jpg" alt="" >
-          <p class="text-dark">Sanmina Sports Events</p>
-          <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-          <div class="row">
-            <div class="col-md-2">
-            <i class="fa fa-heart"></i>
-            </div>
-
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-  </main>
+    <router-outlet></router-outlet>
+    </main>
   <!-- page-content" -->
 </div>
 <div class="navbar">
 
   <!-- <a href="#contact"><i ><img src="../assets/icons/home.ico" alt=""></i></a> -->
-  <a href="#news"><i class="fa fa-home"></i></a>
-  <a href="#news"><i class="fa fa-heartbeat"></i></a>
-  <a href="#news"><i class="fa fa-bus"></i></a>
-  <a href="#news"><i class="fas fa-utensils"></i></a>
+  <a routerLink="/news"><i class="fa fa-home"></i></a>
+  <a routerLink="/health"><i class="fa fa-heartbeat"></i></a>
+  <a routerLink="/transport"><i class="fa fa-bus"></i></a>
+  <a routerLink="/food"><i class="fas fa-utensils"></i></a>
   <!-- <a href="#home" ><i><img src="../assets/icons/heart.png" alt=""></i></a> -->
   <!-- <a href="#home" ><i><img src="../assets/icons/bus.ico" alt=""></i></a> -->
   <!-- <a href="#contact"><i><img src="../assets/icons/fork.png" alt=""></i></a> -->
 </div>
 <!-- page-wrapper -->
-<router-outlet></router-outlet>
