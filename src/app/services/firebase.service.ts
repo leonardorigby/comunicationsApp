@@ -76,16 +76,16 @@ export class FirebaseService {
     return this.db.collection('news',ref => ref.orderBy('date').startAt(value)).snapshotChanges();
   }
   //create news
-  createNews(value){
+  createNews(value, imgRef, extradata){
     return this.db.collection('news').add({
       title: value.title,
       description: value.description,
-      picture: value.picture,
-      admin: value.admin,
-      creationDate: value.creationDate,
+      picture: imgRef,
+      admin: extradata.admin,
+      creationDate: extradata.creationDate,
       finishDate: value.finishDate,
-      likes: value.likes,
-      dislikes: value.dislikes
+      likes: extradata.likes,
+      dislikes: extradata.dislikes
     });
   }
 

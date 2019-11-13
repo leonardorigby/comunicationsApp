@@ -17,13 +17,37 @@
 	padding: 2%;
 	// margin: 3%;
 }
+.rowformsnew{
+	padding-top: 2%;
+	padding-right: 2%;
+	padding-bottom: 2%;
+}
 .avatar{
 	height: 270px;
 	width: 300px;
 	border-radius: 9px;
 	margin: 3%;
 }
+.title{
+	font-family: 'Stoke', serif;
+}
+label{
+	color: var(--input-text-color);
+	margin: 0;
+	padding: 0;
+	font-family: 'Stoke', serif;
+
+}
 .inputsform{
+	font-family: 'Stoke', serif;
+	height: bold;
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	border-radius: 0;
+	border: 0;
+	color: var(--input-text-color);
+	border-bottom: 1px solid var(--input-text-color);
 	box-shadow: 0px 0px 0px 0px;
 }
 .inputsform:hover{
@@ -31,5 +55,20 @@
 }
 .inputsform:focus{
 	box-shadow: 0px 0px 0px 0px;
+}
+textarea{
+	background-color: transparent;
+	color: var(--input-text-color);
+	font-family: 'Noto Serif', serif;
+	max-height: 120px;
+	box-shadow: 0px 0px 16px -4px rgba(184,184,184,1);
+}
+textarea:focus{
+	background-color: transparent;
+	color: var(--input-text-color);
+	box-shadow: 0px 0px 0px 0px;
+}
+.newsimages{
+	// transform: scale(1.1);
 
 }

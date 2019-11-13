@@ -15,15 +15,15 @@ const routes: Routes = [
     },
     {
         path: 'transport',
-        component: UsersComponent
+        component: TransportComponent
     },
     {
         path: 'food',
-        component: UsersComponent
+        component: FoodComponent
     },
     {
         path: 'health',
-        component: UsersComponent
+        component: HealthComponent 
     },
     {
         path: 'users',

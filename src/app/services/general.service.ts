@@ -11,7 +11,8 @@ export const darkTheme = {
   'icons-color': 'white',
   'navbar-color': '#980303',
   'headertext-color': 'white',
-  'headertext-color2': 'rgb(201, 206, 217)'
+  'headertext-color2': 'rgb(201, 206, 217)',
+  'input-text-color': 'white'
 
 };
 // ligth theme colors
@@ -24,7 +25,8 @@ export const lightTheme = {
   'icons-color': '#3b4245',
   'navbar-color': 'white',
   'headertext-color': '#980303',
-  'headertext-color2': '#3b4245'
+  'headertext-color2': '#3b4245',
+  'input-text-color': '#3b4245'
 
 };
 @Injectable({

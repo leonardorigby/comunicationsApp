@@ -4,57 +4,88 @@
         <button type="button" (click)="openCreateForm()" class="btn btn-outline-secondary" name="button"> + Create</button>
       </div>
     </div>
-    <div class="row border" *ngIf="create===false">
-      <div class=" col-lg-12 ">
+    <div class="row rowformsnew" *ngIf="create===false">
+      <div class=" col-lg-12 border">
         <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)">
           <div class="row">
             <div class="col-lg-4">
               <div class="row">
-                <img src="{{images}}" class="avatar" alt="Image from AngularFireStorage" >
+                <div class="col-md-12">
+                  <img src="{{url}}" class="avatar" alt="news images" *ngIf="url">
+                </div>
               </div>
               <div class="row">
-                <label for="file">File:</label>
-                <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+                <div class="col-md-12">
+                  <label for="file">Image:</label>
+                  <input type="file" (change)="loadImage($event)" class="btn btn-outline-secondary" accept=".png,.jpg" />
+                </div>
               </div>
             </div>
             <div class="col-lg-6">
-              <div class="form-group">
-                <label for="title" class="text-dark">Title</label>
-                <input type="text" class="form-control inputsform" name="title">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="title" class="title">Title</label>
+                    <input type="text" name="title" ngModel class="form-control inputsform" >
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description" ngModel class="form-control" rows="9" cols="90"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="finishDate">Publication End Date</label>
+                    <input type="date" name="finishDate" ngModel class="form-control inputsform">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-outline-success" name="button">Create</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-            <input type="text" class="form-control" name="title" placeholder="enter title" ngModel>
+            <!-- <input type="text" class="form-control" name="title" placeholder="enter title" ngModel>
             <input type="text" class="form-control" name="description" placeholder="enter description" ngModel>
             <input type="text" class="form-control" name="picture" placeholder="picture" ngModel>
             <input type="text" class="form-control" name="admin" placeholder="enter admin name" ngModel>
             <input type="date" class="form-control" name="creationDate" placeholder="enter date start" ngModel>
             <input type="date" class="form-control" name="finishDate" placeholder="enter date end" ngModel>
             <input type="number" class="form-control" name="likes" placeholder="enter likes" ngModel>
-            <input type="number" class="form-control" name="dislikes" placeholder="enter dislikes" ngModel>
-            <button type="submit" class="btn btn-outline-success" name="button">Create</button>
+            <input type="number" class="form-control" name="dislikes" placeholder="enter dislikes" ngModel> -->
           </form>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="create===true">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngFor="let news of newsArray">
+        <div class="col-md-12 newsdiv">
+          <img src="{{news.picture}}" alt="" class="newsimages">
+          <p class="text-dark"><strong>{{news.title}}</strong></p>
+          <p class="text-secondary">{{news.description}}</p>
+          <div class="row">
+          <div class="col-md-2">
+            <div class="row">
+              <span>{{news.likes}} <i class="fas fa-thumbs-up"></i></span>
+              <span>{{news.dislikes}} <i class="fas fa-thumbs-down"></i></span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-    <div class="row" *ngIf="create===false">
-      <div class="row">
-        <div class="container" >
-        <!-- <img src="{{images}}" alt="Image from AngularFireStorage"> -->
-      </div>
-
-      <!-- <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <form #newsImg="ngForm" name="newsImg" (submit)="saveImages(newsImg, newsImg.value,$event)">
-            <input type="file" class="form-control" name="img" placeholder="enter title" ngModel>
-            <button type="submit" class="btn btn-outline-success" name="button">Create</button>
-          </form>
-      </div> -->
-    </div>
-    </div>
-
-
-      <div class="row" *ngIf="create===true">
+      <!-- news published -->
+      <!-- <div class="row" *ngIf="create===true">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
       <div class="col-md-12 newsdiv">
         <img src="assets/images/image1.jpg" alt="">
@@ -139,4 +170,5 @@
         </div>
       </div>
       </div>
+    </div> -->
     </div>
