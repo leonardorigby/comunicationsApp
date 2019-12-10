@@ -13,3 +13,19 @@ export class UsersComponent implements OnInit {
   }
 
 }
+
+
+// user{
+//   id,
+//   nombre, 
+//   apellido,
+//   n. empleado,
+//   departamento,
+//   correo,
+//   planta,
+//   puesto,
+//   mc address,
+//   foto,
+//   supervisor ne,
+//   phone number,
+// }

@@ -6,8 +6,20 @@ import { TransportComponent } from './components/transport/transport.component';
 import { FoodComponent } from './components/food/food.component';
 import { HealthComponent } from './components/health/health.component';
 import { UsersComponent } from './components/users/users.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    // canActivate: [AuthGuard]
+  },
     {
       path: 'news',
       component: NewsComponent,
@@ -23,7 +35,7 @@ const routes: Routes = [
     },
     {
         path: 'health',
-        component: HealthComponent 
+        component: HealthComponent
     },
     {
         path: 'users',

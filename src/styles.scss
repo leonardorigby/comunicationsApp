@@ -12,7 +12,11 @@
   --headertext-color: #BF0404;
   --headertext-color2: #3b4245;
   --input-text-color: rgb(108, 117, 125);
+  --image1: url("assets/images/sanmina1.jpg");
 }
 body{
-  background-color: var(--container-color);
+  // background-image: var(--image1);
+  background-position: center;
+	background-size: cover;
+  background-repeat: no-repeat;
 }

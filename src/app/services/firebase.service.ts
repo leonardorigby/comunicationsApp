@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFireAuth } from '@angular/fire/auth';
+
+import { auth } from 'firebase/app';
 
 // news data
 // title,
@@ -20,17 +23,33 @@ export class FirebaseService {
   file: File;
   url = '';
 
-  constructor(public db: AngularFirestore, public afStorage: AngularFireStorage) { }
+  constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, public afStorage: AngularFireStorage) { }
 
- //  handleFiles(event) {
- //   this.file = event.target.files[0];
- // }
- //method to upload file at firebase storage
+
+  //  handleFiles(event) {
+  //   this.file = event.target.files[0];
+  // }
+
+  // function to login pupop google
+  getGoogleLoginService():any{
+  console.log("entro a login pupop");
+  var provider = new auth.GoogleAuthProvider();
+  var res = this.afAuth.auth.signInWithPopup(provider);
+    console.log(res);
+}
+  googleLogin(provider){
+    // this.afAuth.auth.signInWithPopup(provider).then(result => {
+    //   return result;
+    // });
+  }
+
+
+  //method to upload file at firebase storage
   public uploadFile(evento): any {
     this.file = evento.target.files[0];;
-      const filePath = `${this.basePath}/${this.file.name}`;    //path at which image will be stored in the firebase storage
-      const snap = this.afStorage.upload(filePath, this.file);    //upload task
-      return snap;
+    const filePath = `${this.basePath}/${this.file.name}`;    //path at which image will be stored in the firebase storage
+    const snap = this.afStorage.upload(filePath, this.file);    //upload task
+    return snap;
   }
 
   //method to retrieve download url
@@ -42,41 +61,41 @@ export class FirebaseService {
   // }
 
   // get news images
-  getPicture(){
-      return this.db.collection('/users').valueChanges()
+  getPicture() {
+    return this.db.collection('/users').valueChanges()
   }
   // get news info
-  getNew(newsKey){
+  getNew(newsKey) {
     return this.db.collection('news').doc(newsKey).snapshotChanges();
   }
   // update news
-  updateNew(newsKey, value){
+  updateNew(newsKey, value) {
     value.nameToSearch = value.name.toLowerCase();
     return this.db.collection('news').doc(newsKey).set(value);
   }
   // delete news
-  deleteNew(newsKey){
+  deleteNew(newsKey) {
     return this.db.collection('news').doc(newsKey).delete();
   }
   // all news
-  getNews(){
+  getNews() {
     return this.db.collection('news').snapshotChanges();
   }
   // async function getDataNews(){
   //   const data = await this.db.collection('news').snapshotChanges();
   // }
   //search by admin
-  searchNews(searchValue){
-    return this.db.collection('news',ref => ref.where('nameToSearch', '>=', searchValue)
+  searchNews(searchValue) {
+    return this.db.collection('news', ref => ref.where('nameToSearch', '>=', searchValue)
       .where('nameToSearch', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
   }
   // seacrh by date
-  searchNewsByAge(value){
-    return this.db.collection('news',ref => ref.orderBy('date').startAt(value)).snapshotChanges();
+  searchNewsByAge(value) {
+    return this.db.collection('news', ref => ref.orderBy('date').startAt(value)).snapshotChanges();
   }
   //create news
-  createNews(value, imgRef, extradata){
+  createNews(value, imgRef, extradata) {
     return this.db.collection('news').add({
       title: value.title,
       description: value.description,
@@ -91,38 +110,38 @@ export class FirebaseService {
 
 
   // get urls users images
-  getAvatars(){
-      return this.db.collection('/avatar').valueChanges()
+  getAvatars() {
+    return this.db.collection('/avatar').valueChanges()
   }
   // get user info
-  getUser(userKey){
+  getUser(userKey) {
     return this.db.collection('users').doc(userKey).snapshotChanges();
   }
   // update users
-  updateUser(userKey, value){
+  updateUser(userKey, value) {
     value.nameToSearch = value.name.toLowerCase();
     return this.db.collection('users').doc(userKey).set(value);
   }
   // delete users
-  deleteUser(userKey){
+  deleteUser(userKey) {
     return this.db.collection('users').doc(userKey).delete();
   }
   // all users
-  getUsers(){
+  getUsers() {
     return this.db.collection('users').snapshotChanges();
   }
   //searcg by name
-  searchUsers(searchValue){
-    return this.db.collection('users',ref => ref.where('nameToSearch', '>=', searchValue)
+  searchUsers(searchValue) {
+    return this.db.collection('users', ref => ref.where('nameToSearch', '>=', searchValue)
       .where('nameToSearch', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
   }
   // seacrh by age
-  searchUsersByAge(value){
-    return this.db.collection('users',ref => ref.orderBy('age').startAt(value)).snapshotChanges();
+  searchUsersByAge(value) {
+    return this.db.collection('users', ref => ref.orderBy('age').startAt(value)).snapshotChanges();
   }
   //create users
-  createUser(value, avatar){
+  createUser(value, avatar) {
     return this.db.collection('users').add({
       name: value.name,
       nameToSearch: value.name.toLowerCase(),

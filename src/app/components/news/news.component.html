@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="background: transparent;">
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
         <button type="button" (click)="openCreateForm()" class="btn btn-outline-secondary" name="button"> + Create</button>
@@ -10,14 +10,15 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 text-center">
                   <img src="{{url}}" class="avatar" alt="news images" *ngIf="url">
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <label for="file">Image:</label>
-                  <input type="file" (change)="loadImage($event)" class="btn btn-outline-secondary" accept=".png,.jpg" />
+                <div class="col-md-12 text-center">
+                  <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg"/>
+                  <label for="file" class="btn-2">Upload Image</label>
+                  <!-- <input type="file" (change)="loadImage($event)" class="btn btn-outline-secondary" accept=".png,.jpg" /> -->
                 </div>
               </div>
             </div>
@@ -26,7 +27,9 @@
                 <div class="col-md-12">
                   <div class="form-group">
                     <label for="title" class="title">Title</label>
+                    <div class="FieldElement">
                     <input type="text" name="title" ngModel class="form-control inputsform" >
+                  </div>
                   </div>
                 </div>
               </div>
@@ -49,7 +52,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
-                    <button type="submit" class="btn btn-outline-success" name="button">Create</button>
+                    <button type="submit" class="btn createbtn" name="button">Create</button>
                   </div>
                 </div>
               </div>
@@ -76,8 +79,8 @@
           <div class="row">
           <div class="col-md-2">
             <div class="row">
-              <span>{{news.likes}} <i class="fas fa-thumbs-up"></i></span>
-              <span>{{news.dislikes}} <i class="fas fa-thumbs-down"></i></span>
+              <!-- <span>{{news.likes}} <i class="fas fa-thumbs-up"></i></span> -->
+              <!-- <span>{{news.dislikes}} <i class="fas fa-thumbs-down"></i></span> -->
             </div>
           </div>
         </div>

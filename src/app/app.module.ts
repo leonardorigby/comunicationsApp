@@ -14,6 +14,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import {firebase} from '../environments/firebase';
 import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 
 import { NewsComponent } from './components/news/news.component';
@@ -21,7 +22,11 @@ import { TransportComponent } from './components/transport/transport.component';
 import { FoodComponent } from './components/food/food.component';
 import { HealthComponent } from './components/health/health.component';
 import { UsersComponent } from './components/users/users.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
+// Nombre público del proyecto firebase AUth google
+// project-625108487289
 
 @NgModule({
   declarations: [
@@ -30,13 +35,16 @@ import { UsersComponent } from './components/users/users.component';
     TransportComponent,
     FoodComponent,
     HealthComponent,
-    UsersComponent
+    UsersComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(firebase.firebase),
     // AngularFireModule.initializeApp(environment.firebase),
  	  AngularFirestoreModule,
+    AngularFireAuthModule,
     AngularFireStorageModule,
     AppRoutingModule,
     HttpClientModule,
