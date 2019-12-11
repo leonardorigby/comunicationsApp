@@ -72,15 +72,15 @@
 
     <div class="row" *ngIf="create===true">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngFor="let news of newsArray">
-        <div class="col-md-12 newsdiv">
-          <img src="{{news.picture}}" alt="" class="newsimages">
+        <div class="col-md-12 newsdiv" >
+          <img src="{{news.image}}" alt="" class="newsimages">
           <p class="text-dark"><strong>{{news.title}}</strong></p>
           <p class="text-secondary">{{news.description}}</p>
           <div class="row">
           <div class="col-md-2">
             <div class="row">
-              <!-- <span>{{news.likes}} <i class="fas fa-thumbs-up"></i></span> -->
-              <!-- <span>{{news.dislikes}} <i class="fas fa-thumbs-down"></i></span> -->
+              <span>{{news.like}} <i class="far fa-smile"></i></span>
+              <span >{{news.notlikes}} <i class="far fa-angry"></i></span>
             </div>
           </div>
         </div>

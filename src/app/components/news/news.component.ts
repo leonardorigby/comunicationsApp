@@ -20,7 +20,7 @@ export class NewsComponent implements OnInit {
   imageRef: any;
   targetFile: any;
 
-  public newsArray: Array<{title: string, description: string, picture: any, admin: string, creationDate: string, finishDate: string, likes: number, dislikes: number}> = [];
+  public newsArray: Array<{title: string, description: string, image: any, idplant: string, idpublication: string, iddepartament: string, startDate: string, endDate: string, like: number, notlikes: number}> = [];
 
   constructor(public firebaseService: FirebaseService,public afStorage: AngularFireStorage) { }
 
@@ -38,23 +38,46 @@ export class NewsComponent implements OnInit {
   getAllNews(){
     this.firebaseService.getNews()
     .subscribe((result) => {
+      console.log(result);
       this.newsArray = [];
       result.forEach((newsData: any)=> {
+        var id= newsData.payload.doc.id;
+        console.log(id);
           var data = newsData.payload.doc.data();
           console.log(data);
-          this.afStorage.ref(data.picture).getDownloadURL().subscribe(downloadURL => {
+           this.afStorage.ref(data.image).getDownloadURL().subscribe(downloadURL => {
+            //  console.log(downloadURL);
+             if(formatDate(new Date(),'yyyy-MM-dd','en')==data.endDate){
+              var storageRef = this.afStorage.ref(data.image);
+               // Create a reference to the file to delete
+              storageRef.delete();
+              // File deleted successfully
+              this.firebaseService.deleteNew(id)
+              console.log('se elimino a ',data);
+
+
+
+            //   .subscribe(result=>{
+            // console.log(result);
+            //   });
+
+             }else{
+
             this.images = downloadURL;
             this.newsArray.push({
               title: data.title,
               description: data.description,
-              picture: this.images,
-              admin: data.admin,
-              creationDate: data.creationDate,
-              finishDate: data.finishDate,
-              likes: data.likes,
-              dislikes: data.dislikes
+              image: this.images,
+              idplant: data.idplant,
+              startDate: data.startDate,
+              endDate: data.endDate,
+              like: data.like,
+              notlikes: data.notlike,
+              iddepartament:data.iddepartament,
+              idpublication:data.publication
             });
-          });
+           }
+           });
 
         // this.newsArray.push({
         //   title:   newsData.payload.doc.id,
@@ -87,13 +110,15 @@ export class NewsComponent implements OnInit {
   createNew(newsForm, value){
     var creationDate = formatDate(new Date(),'yyyy-MM-dd','en');
     var extradata= {
-      admin: "Leonardo Rigby C",
+      admin: "Angel Reyes",
       creationDate: creationDate,
       likes: 0,
-      dislikes: 0
+      notlikes: 0,
+
     };
-    if(this.url){
-      var imgRef =  '/news/'+this.imageRef;
+    if(this.url!=null){
+      console.log(this.url);
+      var imgRef =  '/img/'+this.imageRef;
       this.afStorage.upload(imgRef, this.targetFile);
       console.log("imagen guardada?");
 
@@ -101,7 +126,7 @@ export class NewsComponent implements OnInit {
     	.then(
     	  res => {
           console.log(res);
-    	    this.getNews();
+    	     this.getNews();
     	    // this.router.navigate(['/home']);
     	  });
     }
@@ -129,6 +154,7 @@ export class NewsComponent implements OnInit {
               }
         reader.readAsDataURL(event.target.files[0]);
       }
+
   // function to upload image to firebase
   // this.afStorage.upload('/news/'+event.target.files[0].name,event.target.files[0]);
 }

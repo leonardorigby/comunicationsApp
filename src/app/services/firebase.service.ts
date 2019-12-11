@@ -62,49 +62,52 @@ export class FirebaseService {
 
   // get news images
   getPicture() {
-    return this.db.collection('/users').valueChanges()
+    return this.db.collection('/news').valueChanges()
   }
   // get news info
   getNew(newsKey) {
-    return this.db.collection('news').doc(newsKey).snapshotChanges();
+    return this.db.collection('notification').doc(newsKey).snapshotChanges();
   }
   // update news
   updateNew(newsKey, value) {
     value.nameToSearch = value.name.toLowerCase();
-    return this.db.collection('news').doc(newsKey).set(value);
+    return this.db.collection('notification').doc(newsKey).set(value);
   }
   // delete news
   deleteNew(newsKey) {
-    return this.db.collection('news').doc(newsKey).delete();
+    return this.db.collection('notification').doc(newsKey).delete();
   }
   // all news
   getNews() {
-    return this.db.collection('news').snapshotChanges();
+    return this.db.collection('notification').snapshotChanges();
   }
   // async function getDataNews(){
   //   const data = await this.db.collection('news').snapshotChanges();
   // }
   //search by admin
   searchNews(searchValue) {
-    return this.db.collection('news', ref => ref.where('nameToSearch', '>=', searchValue)
+    return this.db.collection('notification', ref => ref.where('nameToSearch', '>=', searchValue)
       .where('nameToSearch', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
   }
   // seacrh by date
   searchNewsByAge(value) {
-    return this.db.collection('news', ref => ref.orderBy('date').startAt(value)).snapshotChanges();
+    return this.db.collection('notification', ref => ref.orderBy('date').startAt(value)).snapshotChanges();
   }
   //create news
   createNews(value, imgRef, extradata) {
-    return this.db.collection('news').add({
+    return this.db.collection('notification').add({
       title: value.title,
       description: value.description,
-      picture: imgRef,
-      admin: extradata.admin,
-      creationDate: extradata.creationDate,
-      finishDate: value.finishDate,
-      likes: extradata.likes,
-      dislikes: extradata.dislikes
+      image: imgRef,
+      startDate: extradata.creationDate,
+      endDate: value.finishDate,
+      like: extradata.likes,
+      notlike: extradata.notlikes,
+      idplant: 1,
+      iddepartament: 1,
+      idpublication: 1
+
     });
   }
 
@@ -126,7 +129,7 @@ export class FirebaseService {
   deleteUser(userKey) {
     return this.db.collection('users').doc(userKey).delete();
   }
-  // all users
+    // all users
   getUsers() {
     return this.db.collection('users').snapshotChanges();
   }
