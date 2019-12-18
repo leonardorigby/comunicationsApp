@@ -1,5 +1,5 @@
 <div class="navbar2 center">
-  <a id="show-sidebar"  (click)="openSideBar()">
+  <a id="show-sidebar"  (click)="openSideBar()"  *ngIf="auth.user$ | async as user">
     <i class="fa fa-bars"></i>
   </a>
   <!-- <h2><span class="text-primary">Urrea</span> <span class="colorgray"> | News</span></h2> -->
@@ -8,7 +8,7 @@
   <button class="btn btn-outline-success loginbtn">Login</button>
 </div>
 <div class="page-wrapper chiller-theme toggled">
-  <nav id="sidebar" class="sidebar-wrapper">
+  <nav id="sidebar" class="sidebar-wrapper" >
     <div class="sidebar-content">
       <div class="sidebar-brand">
         <a href="#">User Info</a>
@@ -16,18 +16,16 @@
           <i class="fa fa-times"></i>
         </div>
       </div>
-      <div class="sidebar-header">
+      <div class="sidebar-header" *ngIf="auth.user$ | async as user">
         <div class="user-pic">
-          <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg"
-            alt="User picture">
+          <img class="img-responsive img-rounded" [src]="user.image">
         </div>
         <div class="user-info">
-          <span class="user-name">Leonardo<strong>Rigby</strong>
-          </span>
+          <span class="user-name">{{user.fullName}}</span>
           <span class="user-role">Administrator</span>
           <span class="user-status">
             <i class="fa fa-circle"></i>
-            <span>Online</span>
+            <span>{{user.email}}</span>
           </span>
         </div>
       </div>
@@ -78,6 +76,11 @@
               <span>Users</span>
             </a>
           </li>
+          <li class="sidebar-dropdown" >
+            <a (click)="auth.signOut()">
+              <span class="text-warning">Cerrar Sesion</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -100,7 +103,7 @@
     </div> -->
   </nav>
   <!-- sidebar-wrapper  -->
-  <main class="page-content">
+  <main class="page-content" >
     <router-outlet></router-outlet>
     </main>
   <!-- page-content" -->

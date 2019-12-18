@@ -1,1 +1,57 @@
-<p>register works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-4">
+
+    </div>
+    <div class="col-lg-4 text-center">
+      <h2>REGISTER WITH: </h2>
+      <hr>
+    </div>
+    <div class="col-lg-4">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4 text-center">
+      <img src="assets/icons/google.png" alt="" (click)="googleSignUp()">
+      Google |
+      <img src="assets/icons/facebook.png" alt="" (click)="auth.facebookSignin()">
+      Facebook
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+  <div class="row" *ngIf="auth.user$ | async as user">
+    <div class="col-md-4  text-center">
+      <p class="text-info">Personal Info</p>
+      <div class="sidebar-header" >
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" [src]="user.image">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{user.fullName}}</span><br>
+          <span class="user-status">
+            <span>{{user.email}}</span>
+          </span>
+        </div>
+      </div>
+      <hr>
+    </div>
+    <div class="col-md-4">
+      <p class="text-info">Additional Info</p>
+      <label for="">Employee Number</label>
+      <input type="text" class="form-control" name="employeeNumber" value="">
+      <label for="">Plant</label>
+      <input type="text" class="form-control" name="" value="">
+      <label for="">Department</label>
+      <input type="text" class="form-control" name="" value="">
+      <label for="">Birth Date</label>
+      <input type="date" class="form-control" name="" value="">
+    </div>
+    <div class="col-md-4">
+
+    </div>
+  </div>
+</div>

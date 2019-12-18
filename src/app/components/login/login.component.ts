@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FirebaseService } from '../../services/firebase.service';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,17 +8,11 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public firebaseService: FirebaseService) { }
+  constructor(public auth: AuthService) { }
 
   ngOnInit() {
-    this.googleLogin();
+    console.log(this.auth.user$);
   }
 
-  googleLogin():any{
-      this.firebaseService.getGoogleLoginService();
-      // .subscribe(result => {
-      //   console.log(result);
-      // });
-  }
 
 }

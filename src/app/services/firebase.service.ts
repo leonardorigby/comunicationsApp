@@ -25,22 +25,8 @@ export class FirebaseService {
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, public afStorage: AngularFireStorage) { }
 
+  getPlants(){
 
-  //  handleFiles(event) {
-  //   this.file = event.target.files[0];
-  // }
-
-  // function to login pupop google
-  getGoogleLoginService():any{
-  console.log("entro a login pupop");
-  var provider = new auth.GoogleAuthProvider();
-  var res = this.afAuth.auth.signInWithPopup(provider);
-    console.log(res);
-}
-  googleLogin(provider){
-    // this.afAuth.auth.signInWithPopup(provider).then(result => {
-    //   return result;
-    // });
   }
 
 

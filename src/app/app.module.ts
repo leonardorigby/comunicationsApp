@@ -11,11 +11,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 // firebase imports
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import {firebase} from '../environments/firebase';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-
+import { AuthGuard } from './auth.guard';
 
 import { NewsComponent } from './components/news/news.component';
 import { TransportComponent } from './components/transport/transport.component';
@@ -51,7 +51,7 @@ import { RegisterComponent } from './components/register/register.component';
     FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

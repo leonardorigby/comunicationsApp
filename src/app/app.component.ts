@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneralService } from'./services/general.service';
 import * as $ from 'jquery';
+import { AuthService } from './services/auth.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit{
   title = 'Comunications App';
   public changetheme: boolean = true;
 
-  constructor(private generalservice: GeneralService){
+  constructor(private generalservice: GeneralService, public auth: AuthService){
 
   }
 

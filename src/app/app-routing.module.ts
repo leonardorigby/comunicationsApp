@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { NewsComponent } from './components/news/news.component';
 import { TransportComponent } from './components/transport/transport.component';
 import { FoodComponent } from './components/food/food.component';
@@ -8,6 +7,7 @@ import { HealthComponent } from './components/health/health.component';
 import { UsersComponent } from './components/users/users.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -23,28 +23,36 @@ const routes: Routes = [
     {
       path: 'news',
       component: NewsComponent,
-      // canActivate: [AuthGuard]
+      canActivate: [AuthGuard]
     },
     {
         path: 'transport',
-        component: TransportComponent
+        component: TransportComponent,
+        canActivate: [AuthGuard]
+
     },
     {
         path: 'food',
-        component: FoodComponent
+        component: FoodComponent,
+        canActivate: [AuthGuard]
+
     },
     {
         path: 'health',
-        component: HealthComponent
+        component: HealthComponent,
+        canActivate: [AuthGuard]
+
     },
     {
         path: 'users',
-        component: UsersComponent
+        component: UsersComponent,
+        canActivate: [AuthGuard]
+
     },
     {
       path: '**',
       pathMatch: 'full',
-      redirectTo: '/'
+      redirectTo: '/login'
     }
 ];
 
