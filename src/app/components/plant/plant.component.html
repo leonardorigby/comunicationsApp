@@ -1,0 +1,93 @@
+<!-- <div class="container">
+    <button type="button" (click)="openCreateForm()" class="btn btn-outline-secondary" name="button"> + Create or Show Plants</button>
+
+    <form #plantForm="ngForm" name="plantForm" (submit)="createPlant(plantForm, plantForm.value)" *ngIf="create===false">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="name" class="name">Name</label>
+                            <div class="FieldElement">
+                                <input type="text" name="name" ngModel class="form-control inputsform">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="number">number</label>
+                            <div class="FieldElement">
+                                <input type="text" name="number" ngModel class="form-control inputsform">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="button">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <div *ngIf="create===true">
+        <h1>Plantas</h1>
+        <ul *ngFor="let plant of plantArray">
+            <li>{{plant.name}}
+                <a class="btn btn-danger text-white" (click)="deletePlanta(name)">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </li>
+            <li>{{plant.number}}</li>
+        </ul>
+    </div>
+</div> -->
+
+<div class="card mt-5">
+    <div class="card-body">
+        <form #roleForm="ngForm" (ngSubmit)="onSubmit(roleForm)">
+            <input type="hidden" name="$key" #$key=ngModel [(ngModel)]="firebaseService.selectRole.$key">
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="firebaseService.selectRole.name" placeholder="add Role">
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+          <i class="fas fa-plus-circle"></i> Add A Role
+        </button><br>
+                <button class="btn btn-secondary" type="reset" (click)="resetForm(roleForm)">
+          <i class="fas fa-sync-alt"></i> Reset
+        </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h6 class="text-center">List of Roles</h6>
+        <table class="table table-sm table-hover">
+            <tbody>
+                <tr *ngFor="let role of rolesList">
+                    <td>{{role.name}}</td>
+                    <td>
+                        <a class="btn btn-secondary text-white" (click)="onEditRole(role)">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" (click)="deleteRole(role.$key)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

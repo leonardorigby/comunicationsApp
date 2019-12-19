@@ -7,6 +7,7 @@ import { HealthComponent } from './components/health/health.component';
 import { UsersComponent } from './components/users/users.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { PlantComponent } from './components/plant/plant.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -48,6 +49,10 @@ const routes: Routes = [
         component: UsersComponent,
         canActivate: [AuthGuard]
 
+    },
+    {
+      path: 'plant',
+      component: PlantComponent
     },
     {
       path: '**',

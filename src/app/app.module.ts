@@ -9,13 +9,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 // firebase imports
-import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import {firebase} from '../environments/firebase';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AuthGuard } from './auth.guard';
+
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {AngularFireModule} from 'angularfire2';
 
 import { NewsComponent } from './components/news/news.component';
 import { TransportComponent } from './components/transport/transport.component';
@@ -24,6 +26,7 @@ import { HealthComponent } from './components/health/health.component';
 import { UsersComponent } from './components/users/users.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { PlantComponent } from './components/plant/plant.component';
 
 // Nombre público del proyecto firebase AUth google
 // project-625108487289
@@ -37,12 +40,14 @@ import { RegisterComponent } from './components/register/register.component';
     HealthComponent,
     UsersComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    PlantComponent
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(firebase.firebase),
     // AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
  	  AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,

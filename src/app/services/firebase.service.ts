@@ -4,6 +4,11 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { auth } from 'firebase/app';
+import {AngularFireDatabase,AngularFireList} from 'angularfire2/database';
+import { Plant } from '../components/models/plant';
+import { Departament } from '../components/models/departament';
+import { Role } from '../components/models/role';
+
 
 // news data
 // title,
@@ -22,12 +27,12 @@ export class FirebaseService {
   private basePath = '/news';
   file: File;
   url = '';
+  roleList: AngularFireList<any>;
+  selectRole: Role = new Role();
 
-  constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, public afStorage: AngularFireStorage) { }
+  constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, public afStorage: AngularFireStorage,private firebase: AngularFireDatabase) { }
 
-  getPlants(){
-
-  }
+  
 
 
   //method to upload file at firebase storage
@@ -139,4 +144,79 @@ export class FirebaseService {
       avatar: avatar
     });
   }
+
+  // create plant
+  createPlant(plant: Plant) {
+    return this.db.collection('plant').add({
+      name: plant.name,
+      number: plant.number
+    
+    });
+  }
+  // get plant
+  getPlant(newsKey) {
+    return this.db.collection('plant').doc(newsKey).snapshotChanges();
+  }
+  // update plant
+  updatePlant(newsKey, value) {
+    value.nameToSearch = value.name.toLowerCase();
+    return this.db.collection('plant').doc(newsKey).set(value);
+  }
+  // delete plant
+  deletePlant(newsKey) {
+    return this.db.collection('plant').doc(newsKey).delete();
+  }
+  // all plant
+  getPlants() {
+    return this.db.collection('plant').snapshotChanges();
+  }
+
+
+
+
+  // create departament
+  createDepartament(departament: Departament) {
+    return this.db.collection('departament').add({
+      name: departament.name,
+    
+    });
+  }
+  // get departament
+  getDepartament(newsKey) {
+    return this.db.collection('departament').doc(newsKey).snapshotChanges();
+  }
+  // update departament
+  updateDepartament(newsKey, value) {
+    value.nameToSearch = value.name.toLowerCase();
+    return this.db.collection('departament').doc(newsKey).set(value);
+  }
+  // delete departament
+  deleteDepartament(newsKey) {
+    return this.db.collection('departament').doc(newsKey).delete();
+  }
+  // all departament
+  getDepartaments() {
+    return this.db.collection('departament').snapshotChanges();
+  }
+
+  //Create Role
+  getRoles(){
+    return this.roleList = this.firebase.list('plant');
+  }
+  createRole(role: Role) {
+    this.roleList.push({
+      name: role.name
+    });
+    }
+    updateRole(role: Role){
+      this.roleList.update(role.$key,{
+        name: role.name
+      })
+    }
+    deleteRole($key: string){
+      this.roleList.remove($key);
+    }
+  
+
+
 }

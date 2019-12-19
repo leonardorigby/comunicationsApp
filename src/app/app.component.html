@@ -1,90 +1,96 @@
 <div class="navbar2 center">
-  <a id="show-sidebar"  (click)="openSideBar()"  *ngIf="auth.user$ | async as user">
-    <i class="fa fa-bars"></i>
-  </a>
-  <!-- <h2><span class="text-primary">Urrea</span> <span class="colorgray"> | News</span></h2> -->
+    <a id="show-sidebar" (click)="openSideBar()" *ngIf="auth.user$ | async as user">
+        <i class="fa fa-bars"></i>
+    </a>
+    <!-- <h2><span class="text-primary">Urrea</span> <span class="colorgray"> | News</span></h2> -->
 
-  <h3><span class="text-danger">Sanmina</span> <span class="colorgray"> | News</span></h3>
-  <button class="btn btn-outline-success loginbtn">Login</button>
+    <h3><span class="text-danger">Sanmina</span> <span class="colorgray"> | News</span></h3>
+    <button class="btn btn-outline-success loginbtn">Login</button>
 </div>
 <div class="page-wrapper chiller-theme toggled">
-  <nav id="sidebar" class="sidebar-wrapper" >
-    <div class="sidebar-content">
-      <div class="sidebar-brand">
-        <a href="#">User Info</a>
-        <div id="close-sidebar" (click)="closeSideBar()">
-          <i class="fa fa-times"></i>
-        </div>
-      </div>
-      <div class="sidebar-header" *ngIf="auth.user$ | async as user">
-        <div class="user-pic">
-          <img class="img-responsive img-rounded" [src]="user.image">
-        </div>
-        <div class="user-info">
-          <span class="user-name">{{user.fullName}}</span>
-          <span class="user-role">Administrator</span>
-          <span class="user-status">
+    <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+            <div class="sidebar-brand">
+                <a href="#">User Info</a>
+                <div id="close-sidebar" (click)="closeSideBar()">
+                    <i class="fa fa-times"></i>
+                </div>
+            </div>
+            <div class="sidebar-header" *ngIf="auth.user$ | async as user">
+                <div class="user-pic">
+                    <img class="img-responsive img-rounded" [src]="user.image">
+                </div>
+                <div class="user-info">
+                    <span class="user-name">{{user.fullName}}</span>
+                    <span class="user-role">Administrator</span>
+                    <span class="user-status">
             <i class="fa fa-circle"></i>
             <span>{{user.email}}</span>
-          </span>
-        </div>
-      </div>
-              <!-- <i class="fas fa-moon"></i> -->
-                <label class="switch">
+                    </span>
+                </div>
+            </div>
+            <!-- <i class="fas fa-moon"></i> -->
+            <label class="switch">
                   <input type="checkbox" (click)="changeColor()">
                   <span class="slider round"></span>
                 </label>
-              <!-- <i class="fas fa-sun"></i> -->
-      <!-- sidebar-search  -->
-      <div class="sidebar-menu">
-        <ul>
-          <li class="header-menu">
-            <span>General</span>
-          </li>
-          <li class="sidebar-dropdown" >
-            <a routerLink="/news">
-              <i class="fa fa-list"></i>
-              <span>Noticias</span>
-            </a>
-          </li>
-          <li class="sidebar-dropdown" >
-            <a routerLink="/transport">
-              <i class="fa fa-bus"></i>
-              <span>Transporte</span>
-            </a>
-          </li>
-          <li class="sidebar-dropdown" >
-            <a routerLink="/food">
-              <i class="fa fa-coffee"></i>
-              <span>Comedor</span>
-            </a>
-          </li>
-          <li class="sidebar-dropdown">
-            <a>
-              <span class="text-dark">Personal</span>
-            </a>
-          </li>
-          <li class="sidebar-dropdown" >
-            <a routerLink="/health">
-              <i class="fa fa-heartbeat"></i>
-              <span>Salud</span>
-            </a>
-          </li>
-          <li class="sidebar-dropdown" >
-            <a routerLink="/users">
-              <i class="fa fa-users"></i>
-              <span>Users</span>
-            </a>
-          </li>
-          <li class="sidebar-dropdown" >
-            <a (click)="auth.signOut()">
-              <span class="text-warning">Cerrar Sesion</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- <div class="sidebar-footer">
+            <!-- <i class="fas fa-sun"></i> -->
+            <!-- sidebar-search  -->
+            <div class="sidebar-menu">
+                <ul>
+                    <li class="header-menu">
+                        <span>General</span>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a routerLink="/news">
+                            <i class="fa fa-list"></i>
+                            <span>Noticias</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a routerLink="/transport">
+                            <i class="fa fa-bus"></i>
+                            <span>Transporte</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a routerLink="/food">
+                            <i class="fa fa-coffee"></i>
+                            <span>Comedor</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a>
+                            <span class="text-dark">Personal</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a routerLink="/health">
+                            <i class="fa fa-heartbeat"></i>
+                            <span>Salud</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a routerLink="/users">
+                            <i class="fa fa-users"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a routerLink="/plant">
+                            <i class="fas fa-globe-americas"></i>
+                            <span>Plant</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-dropdown">
+                        <a (click)="auth.signOut()">
+                            <span class="text-warning">Cerrar Sesion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- <div class="sidebar-footer">
       <a href="#">
         <i class="fa fa-bell"></i>
         <span class="badge badge-pill badge-warning notification">3</span>
@@ -101,22 +107,22 @@
         <i class="fa fa-power-off"></i>
       </a>
     </div> -->
-  </nav>
-  <!-- sidebar-wrapper  -->
-  <main class="page-content" >
-    <router-outlet></router-outlet>
+    </nav>
+    <!-- sidebar-wrapper  -->
+    <main class="page-content">
+        <router-outlet></router-outlet>
     </main>
-  <!-- page-content" -->
+    <!-- page-content" -->
 </div>
 <div class="navbar">
 
-  <!-- <a href="#contact"><i ><img src="../assets/icons/home.ico" alt=""></i></a> -->
-  <a routerLink="/news"><i class="fa fa-home"></i></a>
-  <a routerLink="/health"><i class="fa fa-heartbeat"></i></a>
-  <a routerLink="/transport"><i class="fa fa-bus"></i></a>
-  <a routerLink="/food"><i class="fas fa-utensils"></i></a>
-  <!-- <a href="#home" ><i><img src="../assets/icons/heart.png" alt=""></i></a> -->
-  <!-- <a href="#home" ><i><img src="../assets/icons/bus.ico" alt=""></i></a> -->
-  <!-- <a href="#contact"><i><img src="../assets/icons/fork.png" alt=""></i></a> -->
+    <!-- <a href="#contact"><i ><img src="../assets/icons/home.ico" alt=""></i></a> -->
+    <a routerLink="/news"><i class="fa fa-home"></i></a>
+    <a routerLink="/health"><i class="fa fa-heartbeat"></i></a>
+    <a routerLink="/transport"><i class="fa fa-bus"></i></a>
+    <a routerLink="/food"><i class="fas fa-utensils"></i></a>
+    <!-- <a href="#home" ><i><img src="../assets/icons/heart.png" alt=""></i></a> -->
+    <!-- <a href="#home" ><i><img src="../assets/icons/bus.ico" alt=""></i></a> -->
+    <!-- <a href="#contact"><i><img src="../assets/icons/fork.png" alt=""></i></a> -->
 </div>
 <!-- page-wrapper -->
