@@ -56,23 +56,32 @@ const routes: Routes = [
     },
     {
       path: 'plant',
-      component: PlantComponent
+      component: PlantComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: 'role',
-      component: RoleComponent
+      component: RoleComponent,
+      canActivate: [AuthGuard]
+
     },
     {
       path: 'departament',
-      component: DepartamentComponent
+      component: DepartamentComponent,
+      canActivate: [AuthGuard]
+
     },
     {
       path: 'publication',
-      component: PublicationComponent
+      component: PublicationComponent,
+      canActivate: [AuthGuard]
+
     },
     {
       path: 'icons',
-      component: IconsComponent
+      component: IconsComponent,
+      canActivate: [AuthGuard]
+
     },
     {
       path: '**',
