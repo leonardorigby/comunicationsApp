@@ -9,6 +9,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PlantComponent } from './components/plant/plant.component';
 import { AuthGuard } from './auth.guard';
+import { RoleComponent } from './components/role/role.component';
+import { DepartamentComponent } from './components/departament/departament.component';
+import { PublicationComponent } from './components/publication/publication.component';
+import { IconsComponent } from './components/icons/icons.component';
 
 const routes: Routes = [
   {
@@ -53,6 +57,22 @@ const routes: Routes = [
     {
       path: 'plant',
       component: PlantComponent
+    },
+    {
+      path: 'role',
+      component: RoleComponent
+    },
+    {
+      path: 'departament',
+      component: DepartamentComponent
+    },
+    {
+      path: 'publication',
+      component: PublicationComponent
+    },
+    {
+      path: 'icons',
+      component: IconsComponent
     },
     {
       path: '**',

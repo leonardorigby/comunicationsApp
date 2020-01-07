@@ -27,6 +27,10 @@ import { UsersComponent } from './components/users/users.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PlantComponent } from './components/plant/plant.component';
+import { DepartamentComponent } from './components/departament/departament.component';
+import { RoleComponent } from './components/role/role.component';
+import { PublicationComponent } from './components/publication/publication.component';
+import { IconsComponent } from './components/icons/icons.component';
 
 // Nombre público del proyecto firebase AUth google
 // project-625108487289
@@ -41,7 +45,11 @@ import { PlantComponent } from './components/plant/plant.component';
     UsersComponent,
     LoginComponent,
     RegisterComponent,
-    PlantComponent
+    PlantComponent,
+    DepartamentComponent,
+    RoleComponent,
+    PublicationComponent,
+    IconsComponent
   ],
   imports: [
     BrowserModule,

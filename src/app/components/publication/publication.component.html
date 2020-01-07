@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h1>Publications</h1>
+                    <form #publicationForm="ngForm" (ngSubmit)="onSubmit(publicationForm)">
+                        <input type="hidden" name="$key" #$key=ngModel [(ngModel)]="firebaseService.selectPublication.$key">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="firebaseService.selectPublication.name" placeholder="add Plant">
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group mb-3 ">
+                                <div class="input-group-prepend ">
+                                    <span class="input-group-text inputstyle"><i class="fas fa-map-marker-alt"></i></span>
+                                </div>
+                                <input type="text" value="{{icono.class}}" class="form-control" name="icono" #icono="ngModel" [(ngModel)]="firebaseService.selectPublication.icono" placeholder="add Plant">
+                                <select #icono class="form-control inputstyle" #icono="ngModel" name="icono" [(ngModel)]="firebaseService.selectPublication.icono">
+                                <option *ngFor="let icons of iconsList" value="{{icons.class}}">{{icons.name}}, &#xf2bb;</option >
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">
+                      <i class="fas fa-plus-circle"></i> Add A Departament
+                    </button>
+                            <button class="btn btn-secondary" type="reset" (click)="resetForm(publicationForm)">
+                      <i class="fas fa-sync-alt"></i> Reset
+                    </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <img class="sanmina-logo" src="assets/images/sanmina-logo.png" width="320" alt="">
+        <div class="card col-md-8">
+            <div class="card-body scroll">
+                <h6 class="text-center">List of Publications</h6>
+                <table class="table table-sm table-hover table-striped mb-0 ">
+                    <tbody>
+                        <tr *ngFor="let publiction of publicationList">
+                            <td>{{publiction.name}}</td>
+                            <td><i class="{{publiction.icono}}"></i></td>
+                            <td>
+                                <a class="btn btn-secondary text-white" (click)="onEditPublication(publiction)">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger text-white" (click)="deletePublication(publiction.$key)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
