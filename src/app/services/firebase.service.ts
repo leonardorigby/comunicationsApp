@@ -32,6 +32,9 @@ export class FirebaseService {
   file: File;
   url = '';
   firebaseList: AngularFireList<any>;
+  roleList: AngularFireList<any>;
+  plantList: AngularFireList<any>;
+  departmentList: AngularFireList<any>;
   selectRole: Role = new Role();
   selectDepartament: Departament = new Departament();
   selectPlant: Plant = new Plant();
@@ -121,17 +124,30 @@ export class FirebaseService {
   //   return this.db.collection('users').doc(userKey).snapshotChanges();
   // }
   // update users
-  updateUser(userKey, value) {
-    value.nameToSearch = value.name.toLowerCase();
-    return this.db.collection('users').doc(userKey).set(value);
+  updateUser(user, userKey) {
+    // value.nameToSearch = value.name.toLowerCase();
+    const value = {authorized: true};
+    return this.db.collection('users').doc(userKey).set(user);
   }
   // delete users
   deleteUser(userKey) {
     return this.db.collection('users').doc(userKey).delete();
   }
-  // all users
+    // all users
   getUsers() {
-    return this.db.collection('users').snapshotChanges();
+    return this.db.collection('/users').snapshotChanges();
+  }
+  //get plants
+  getPlantss(){
+    return this.plantList = this.firebase.list('plant');
+  }
+  //get departments
+  getDepartments(){
+    return this.departmentList = this.firebase.list('departament');
+  }
+  //get Roles
+  getRoless(){
+    return this.roleList = this.firebase.list('role');
   }
   //searcg by name
   searchUsers(searchValue) {
@@ -159,7 +175,7 @@ export class FirebaseService {
     return this.db.collection('plant').add({
       name: plant.name,
       number: plant.number
-    
+
     });
   }
   // get plant
@@ -213,7 +229,7 @@ export class FirebaseService {
     this.firebaseList.push({
       name: dep.name
     }
-      
+
     )
   }
   updateDepartament(dep: Departament) {

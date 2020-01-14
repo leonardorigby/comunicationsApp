@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../components/models/user.model'; // optional
+import { NewUser } from '../components/models/newUser.model'; // optional
 
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -15,6 +16,7 @@ import { switchMap } from 'rxjs/operators';
 export class AuthService {
 
       user$: Observable<User>;
+      newUser$: Observable<NewUser>;
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router){
     // Get the auth state, then fetch the Firestore user document or return null
@@ -29,45 +31,89 @@ export class AuthService {
           }
         })
       )
+      this.getNewUserData();
     }
 
     async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
-    console.log(credential.user);
+    return this.getUserData();
+    // console.log(credential.user);
     // return this.updateUserData(credential.user);
   }
   async facebookSignin(){
-    var provider = new auth.FacebookAuthProvider();
-    var credential = await this.afAuth.auth.signInWithPopup(provider);
-    console.log(credential.user);
-  }
-  googleSignUp(): any{
-    const provider = new auth.GoogleAuthProvider();
-    this.afAuth.auth.signInWithPopup(provider).then(result =>{
-      console.log(result);
-    });
+    // var provider = new auth.FacebookAuthProvider();
+    // var credential = await this.afAuth.auth.signInWithPopup(provider);
+    //
+    // return this.getUserData();
+    // if(credential.)
   }
 
-  private updateUserData(user) {
+  async googleSignUp(){
+    const provider = new auth.GoogleAuthProvider();
+    // var result = this.afAuth.auth.signInWithPopup(provider);
+    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    this.createNewUserData(credential.user);
+
+    return this.getNewUserData();
+
+  }
+
+  private createNewUserData(user) {
     // Sets user data to firestore on login
-    console.log(user);
-    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+    const userRef: AngularFirestoreDocument<NewUser> = this.afs.doc(`newUsers/${user.uid}`);
 
     const data = {
       id: user.uid,
       fullName: user.displayName,
       email: user.email,
-      birthDate: '23/02/1993',
-      employeeNumber: '207002790',
-      idDepartment: '1',
-      idPlant: '2',
-      idRole: '1',
       image: user.photoURL,
-      authorized: true
-    }
-    this.router.navigate(['/news']);
-    // return userRef.set(data, { merge: true })
+    };
+    // this.router.navigate(['/news']);
+    return userRef.set(data, { merge: true })
+  }
+
+  getNewUserData(){
+    this.newUser$ = this.afAuth.authState.pipe(
+      switchMap(newuser => {
+          // Logged in
+        if (newuser) {
+          return this.afs.doc<NewUser>(`newUsers/${newuser.uid}`).valueChanges();
+        } else {
+          // Logged out
+          return of(null);
+        }
+      })
+    )
+    return this.newUser$;
+  }
+  getUserData(){
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap(user => {
+          // Logged in
+        if (user) {
+          return this.afs.doc<NewUser>(`users/${user.uid}`).valueChanges();
+        } else {
+          // Logged out
+          return of(null);
+        }
+      })
+    )
+    console.log(this.user$);
+    return this.user$;
+  }
+
+  registerNewUser(user){
+    console.log(user);
+    // console.log(user);
+    // // Sets user data to firestore on login
+    // return this.afs.collection('users').add(user);
+    // Sets user data to firestore on login
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.id}`);
+
+    // this.router.navigate(['/news']);
+    return userRef.set(user, { merge: true })
+
   }
 
   async signOut() {

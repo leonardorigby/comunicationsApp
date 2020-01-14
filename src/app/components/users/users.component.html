@@ -1,1 +1,46 @@
-<p>users works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <br>
+      <h1 class="text-dark">USERS | ADMIN</h1>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <table class="table">
+        <thead>
+          <tr>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let info of users">
+            <td data-label="Image"><img src="{{info.image}}" class="imguser" alt=""></td>
+            <td data-label="Employee Number"><p class="text-dark">{{info.employeeNumber}}</p></td>
+            <td data-label="Name"><p class="text-dark">{{info.fullName}}</p></td>
+            <td data-label="E-mail"><p class="text-dark">{{info.email}}</p></td>
+            <td data-label="Plant"><p class="text-dark">{{info.idPlant}}</p></td>
+            <td data-label="Department"><p class="text-dark">{{info.idDepartment}}</p></td>
+            <td data-label="Role"><p class="text-dark">{{info.idRole}}</p></td>
+            <td data-label="Authorized" (click)="autorizedUser(info, info.id)">
+              <!-- <p class="text-dark">{{info.authorized}}</p> -->
+              <img src="../../assets/icons/passed.png" alt="" *ngIf="info.authorized==true">
+              <img src="../../assets/icons/block.png" alt="" *ngIf="info.authorized==false">
+            </td>
+            <td data-label="Delete"><p><i class="fas fa-trash text-danger" (click)="deleteUser(info.id)"></i></p></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-1 text-center">
+
+    </div>
+  </div>
+</div>

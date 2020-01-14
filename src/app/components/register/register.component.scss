@@ -21,3 +21,24 @@ h2{
   height: 72px;
   width: 72px;
 }
+.informs{
+  border: 0;
+  border-bottom: 1px solid black;
+  border-radius: 0;
+  padding: 0;
+  margin: 7px;
+}
+.informs:hover{
+  -webkit-box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75);
+  box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75);
+}
+.informs:focus{
+  -webkit-box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75);
+  box-shadow: 0px 2px 5px -1px rgba(0,0,0,0.75);
+}
+label{
+  padding-left: 5px;
+  margin: 0;
+}
