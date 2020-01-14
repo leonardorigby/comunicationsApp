@@ -1,6 +1,7 @@
 <div class="navbar2 center">
     <a id="show-sidebar" (click)="openSideBar()" *ngIf="auth.user$ | async as user">
-        <i class="fa fa-bars"></i>
+        <!-- <i class="fa fa-bars"></i> -->
+        <img src="assets/icons/cog.ico" alt="">
     </a>
     <!-- <h2><span class="text-primary">Urrea</span> <span class="colorgray"> | News</span></h2> -->
 
@@ -100,6 +101,7 @@
                             <span>Icons</span>
                         </a>
                     </li>
+
                     <li class="sidebar-dropdown">
                         <a (click)="auth.signOut()" (click)="closeSideBar()">
                             <span class="text-warning">Cerrar Sesion</span>
@@ -135,12 +137,16 @@
 <div class="navbar">
 
     <!-- <a href="#contact"><i ><img src="../assets/icons/home.ico" alt=""></i></a> -->
-    <a routerLink="/news"><i class="fa fa-home"></i></a>
+    <!-- <a routerLink="/news"><i class="fa fa-home"></i></a>
     <a routerLink="/health"><i class="fa fa-heartbeat"></i></a>
     <a routerLink="/transport"><i class="fa fa-bus"></i></a>
-    <a routerLink="/food"><i class="fas fa-utensils"></i></a>
+    <a routerLink="/food"><i class="fas fa-utensils"></i></a> -->
     <!-- <a href="#home" ><i><img src="../assets/icons/heart.png" alt=""></i></a> -->
     <!-- <a href="#home" ><i><img src="../assets/icons/bus.ico" alt=""></i></a> -->
     <!-- <a href="#contact"><i><img src="../assets/icons/fork.png" alt=""></i></a> -->
+    <a routerLink="/news" ><i ><img src="../assets/icons/home.ico" alt=""></i></a>
+    <a routerLink="/health" ><i><img src="assets/icons/heart.ico" alt=""></i></a>
+    <a routerLink="/transport" ><i><img src="assets/icons/bus.ico" alt=""></i></a>
+    <a routerLink="/food" ><i><img src="assets/icons/food.ico" alt=""></i></a>
 </div>
 <!-- page-wrapper -->
