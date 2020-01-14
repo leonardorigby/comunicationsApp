@@ -5,7 +5,7 @@
     <!-- <h2><span class="text-primary">Urrea</span> <span class="colorgray"> | News</span></h2> -->
 
     <h3><span class="text-danger">Sanmina</span> <span class="colorgray"> | News</span></h3>
-    <button class="btn btn-outline-success loginbtn">Login</button>
+    <button class="btn btn-outline-success loginbtn" routerLink="/login">Login</button>
 </div>
 <div class="page-wrapper chiller-theme toggled">
     <nav id="sidebar" class="sidebar-wrapper">
@@ -31,7 +31,7 @@
             </div>
             <!-- <i class="fas fa-moon"></i> -->
             <label class="switch">
-                  <input type="checkbox" (click)="changeColor()">
+                  <input type="checkbox" >
                   <span class="slider round"></span>
                 </label>
             <!-- <i class="fas fa-sun"></i> -->
@@ -42,19 +42,19 @@
                         <span>General</span>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/news">
+                        <a routerLink="/news" >
                             <i class="fa fa-list"></i>
                             <span>Noticias</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/transport">
+                        <a routerLink="/transport" >
                             <i class="fa fa-bus"></i>
                             <span>Transporte</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/food">
+                        <a routerLink="/food" >
                             <i class="fa fa-coffee"></i>
                             <span>Comedor</span>
                         </a>
@@ -65,43 +65,43 @@
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/health">
+                        <a routerLink="/health" >
                             <i class="fa fa-heartbeat"></i>
                             <span>Salud</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/users">
+                        <a routerLink="/users" >
                             <i class="fa fa-users"></i>
                             <span>Users</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/plant">
+                        <a routerLink="/plant" >
                             <i class="fas fa-globe-americas"></i>
                             <span>Plants</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/departament">
+                        <a routerLink="/departament" >
                             <i class="fas fa-address-book"></i>
                             <span>Departaments</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/publication">
+                        <a routerLink="/publication" >
                             <i class="fas fa-bell"></i>
                             <span>Publications</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a routerLink="/icons">
+                        <a routerLink="/icons" >
                             <i class="fas fa-arrow-alt-circle-down"></i>
                             <span>Icons</span>
                         </a>
                     </li>
                     <li class="sidebar-dropdown">
-                        <a (click)="auth.signOut()">
+                        <a (click)="auth.signOut()" (click)="closeSideBar()">
                             <span class="text-warning">Cerrar Sesion</span>
                         </a>
                     </li>

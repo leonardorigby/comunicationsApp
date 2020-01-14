@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -50,7 +51,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerNewUser(form, data){
-
+    // console.log(data.role);
     var newuser = {
       id: this.newUser.id,
       fullName: this.newUser.fullName,
@@ -59,7 +60,7 @@ export class RegisterComponent implements OnInit {
       employeeNumber: data.employeeNumber,
       idDepartment: data.department,
       idPlant: data.plant,
-      idRole: data.role,
+      idRole: "user",
       image: this.newUser.image,
       authorized: false
 
@@ -67,6 +68,7 @@ export class RegisterComponent implements OnInit {
     console.log(newuser);
     this.auth.registerNewUser(newuser).then(result=>{
       console.log(result);
+      this.router.navigate(['/login']);
     })
   }
   getDepartments(){
