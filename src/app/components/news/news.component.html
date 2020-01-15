@@ -71,22 +71,23 @@
     </div>
 
     <div class="row" *ngIf="create===true">
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngFor="let news of newsArray">
-        <div class="col-md-12 newsdiv" >
-          <img src="{{news.image}}" alt="" class="newsimages">
-          <p class="text-dark"><strong>{{news.title}}</strong></p>
-          <p class="text-secondary">{{news.description}}</p>
-          <div class="row">
-          <div class="col-md-2">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngFor="let news of newsArray">
+          <div class="col-md-12 newsdiv" >
+            <span style="font-size: .7em;">La publucacion desaparecera en {{news.time}} dias</span>
+            <img src="{{news.image}}" alt="" class="newsimages">
+            <p class="text-dark"><strong>{{news.title}}</strong></p>
+            <p class="text-secondary">{{news.description}}</p>
             <div class="row">
-              <span>{{news.like}} <i class="far fa-smile"></i></span>
-              <span >{{news.notlikes}} <i class="far fa-angry"></i></span>
+            <div class="col-md-2">
+              <div class="row">
+                <span (click)="getLikes(news.iduser,news.idpublication,'like')">{{news.likes}}<i class="far fa-smile"></i></span>
+                <span (click)="getLikes(news.iduser,news.idpublication,'dislike')">{{news.dislike}}<i class="far fa-angry"></i> </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
       <!-- news published -->
       <!-- <div class="row" *ngIf="create===true">
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">

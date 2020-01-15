@@ -9,8 +9,10 @@ import { Plant } from '../components/models/plant';
 import { Departament } from '../components/models/departament';
 import { Role } from '../components/models/role';
 import { Publication } from '../components/models/publication';
+import { Likes } from '../components/models/Likes';
 import { User } from '../components/models/user.model';
 import { Icons } from '../components/models/icons';
+
 
 
 
@@ -53,6 +55,34 @@ export class FirebaseService {
     const filePath = `${this.basePath}/${this.file.name}`;    //path at which image will be stored in the firebase storage
     const snap = this.afStorage.upload(filePath, this.file);    //upload task
     return snap;
+  }
+  getNewLikes(like: Likes) {
+    return this.db.collection('likes').add(like);
+  }
+  // update likes
+  updateLikes(newsKey, value) {
+    console.log(value);
+    // this.deleteLike(newsKey);
+    // return this.db.doc('likes/' + newsKey).update(value);
+    // value.nameToSearch = value.name.toLowerCase();
+    return this.db.collection('likes').doc(newsKey).set({
+      idpublication: value.idpublication,
+      dislike: value.dislike,
+      like: value.like,
+      iduser: value.iduser
+    });
+  }
+  //delet like
+  deleteLike(Key) {
+    return this.db.collection('likes').doc(Key).delete();
+  }
+  // get likes
+  getLikes() {
+    return this.db.collection('likes').snapshotChanges();
+  }
+  // get likeinfo
+  getLikeById(likeKey) {
+    return this.db.collection('likes').doc(likeKey).snapshotChanges();
   }
 
   //method to retrieve download url
