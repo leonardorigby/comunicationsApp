@@ -1,4 +1,5 @@
 export class Notification {
+  admin:string;
   key: string;
   description: string;
   endDate: string;

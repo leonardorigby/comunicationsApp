@@ -80,7 +80,7 @@ export class NewsComponent implements OnInit {
         this.idpublication = id;
         var aux = Data.payload.doc.data();
         aux.imgaux = aux.image;
-        if (formatDate(new Date(), 'yyyy-MM-dd', 'en') == aux.endDate) {
+        if (formatDate(new Date(), 'yyyy-MM-dd', 'en') == aux.endDate && formatDate(new Date(), 'hh:mm:ss', 'en')=='23:59:59') {
           var storageRef = this.afStorage.ref(aux.image);//  bloque de eliminacion de imagen del storage
           storageRef.delete();// fin del bloque de eliminacion
           this.firebaseService.deleteNew(id);// Eliminacion de un elemento del la tabla con solo el id
@@ -99,7 +99,7 @@ export class NewsComponent implements OnInit {
 
   getContador(idus, idpu, reaccion) {
   }
-  getLikes(description, dislike, endDate, key, like, startDate, title, reaccion, img) {
+  getLikes(admin,description, dislike, endDate, key, like, startDate, title, reaccion, img) {
     // console.log(description, dislike, endDate, key, like, startDate, title, reaccion, img);
     // console.log(reaccion);
 
@@ -111,6 +111,7 @@ export class NewsComponent implements OnInit {
         if (like.includes(th.uid) == true) {
           like = like.filter(function (i) { return i !== th.uid });
           let notif = <any>{
+            admin:admin,
             key: key,
             description: description,
             dislike: dislike,
@@ -125,6 +126,7 @@ export class NewsComponent implements OnInit {
           if (dislike.includes(th.uid) == false) {
             like.push(th.uid);
             let notif = <any>{
+              admin:admin,
               key: key,
               description: description,
               dislike: dislike,
@@ -139,6 +141,7 @@ export class NewsComponent implements OnInit {
             dislike = dislike.filter(function (i) { return i !== th.uid });
             like.push(th.uid);
             let notif = <any>{
+              admin:admin,
               key: key,
               description: description,
               dislike: dislike,
@@ -158,6 +161,7 @@ export class NewsComponent implements OnInit {
         if (dislike.includes(th.uid) == false) {
           like.push(th.uid);
           let notif = <any>{
+            admin:admin,
             key: key,
             description: description,
             dislike: dislike,
@@ -173,6 +177,7 @@ export class NewsComponent implements OnInit {
           dislike = dislike.filter(function (i) { return i !== th.uid });
           like.push(th.uid);
           let notif = <any>{
+            admin:admin,
             key: key,
             description: description,
             dislike: dislike,
@@ -192,6 +197,7 @@ export class NewsComponent implements OnInit {
         if (dislike.includes(th.uid) == true) {
           dislike = dislike.filter(function (i) { return i !== th.uid });
           let notif = <any>{
+            admin:admin,
             key: key,
             description: description,
             dislike: dislike,
@@ -207,6 +213,7 @@ export class NewsComponent implements OnInit {
           if (like.includes(th.uid) == false) {
             dislike.push(th.uid);
             let notif = <any>{
+              admin:admin,
               key: key,
               description: description,
               dislike: dislike,
@@ -224,6 +231,7 @@ export class NewsComponent implements OnInit {
             like = like.filter(function (i) { return i !== th.uid });
             dislike.push(this.uid);
             let notif = <any>{
+              admin:admin,
               key: key,
               description: description,
               dislike: dislike,
@@ -246,6 +254,7 @@ export class NewsComponent implements OnInit {
       if (like.includes(th.uid) == false) {
         dislike.push(th.uid);
         let notif = <any>{
+          admin:admin,
           key: key,
           description: description,
           dislike: dislike,
@@ -261,6 +270,7 @@ export class NewsComponent implements OnInit {
         like = like.filter(function (i) { return i !== th.uid });
         dislike.push(th.uid);
         let notif = <any>{
+          admin:admin,
           key: key,
           description: description,
           dislike: dislike,
@@ -294,12 +304,11 @@ createNew(newsForm, value) {
   console.log(value);
   var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
   var extradata = {
-    admin: "Angel R.",
+    admin: this.uid,
     creationDate: creationDate
-
   };
   if (this.url != null) {
-    console.log(this.url);
+    // console.log(this.url);
     var imgRef = '/img/' + this.imageRef;
     this.afStorage.upload(imgRef, this.targetFile);
     this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
@@ -308,7 +317,7 @@ createNew(newsForm, value) {
           res => {
             console.log(res);
           });
-      console.log(downloadURL);
+      // console.log(downloadURL);
     });
     console.log("imagen guardada?");
 

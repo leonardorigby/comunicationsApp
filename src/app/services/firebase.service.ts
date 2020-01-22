@@ -102,8 +102,9 @@ export class FirebaseService {
   }
   //create news
   createNews(value, imgRef, extradata) {
-    console.log(value,extradata);
+    console.log(value, extradata);
     return this.db.collection('notification').add({
+      admin: extradata.admin,
       title: value.title,
       description: value.description,
       image: imgRef,

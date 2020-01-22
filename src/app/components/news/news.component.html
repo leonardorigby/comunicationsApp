@@ -75,6 +75,7 @@
           <div class="col-md-12 newsdiv" >
             <span style="font-size: .7em;" *ngIf="news.time!=0" >La publicacion expirara en {{news.time}} dia(s)</span>
             <span style="font-size: .7em;" *ngIf="news.time===0" >La publicacion expirara en 1 dia</span>
+            <span style="margin-left: 25%;"><i class="fas fa-ellipsis-h fa-lg"></i></span>
             <img src="{{news.image}}" alt="" class="newsimages">
             <p class="text-dark"><strong>{{news.title}}</strong></p>
             <p class="text-secondary">{{news.description}}</p>
@@ -82,10 +83,10 @@
             <div class="col-md-2">
               <div class="row"  >
 
-                <span *ngIf="news.like.includes(uid)==false"     (click)="getLikes(news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)">{{news.like.length}}      <i class="far fa-heart fa-lg text-danger"        style="font-size: 27px;" ></i></span>
-                <span *ngIf="news.like.includes(uid)==true"      (click)="getLikes(news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)">{{news.like.length}}      <i class="fas fa-heart fa-lg text-danger"        style="font-size: 27px;" ></i></span>
-                <span *ngIf="news.dislike.includes(uid)==false"  (click)="getLikes(news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)">{{news.dislike.length}} <i class="far fa-thumbs-down fa-lg text-primary"style="font-size: 27px;" ></i></span>
-                <span *ngIf="news.dislike.includes(uid)==true"   (click)="getLikes(news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)">{{news.dislike.length}} <i class="fas fa-thumbs-down fa-lg text-primary"style="font-size: 27px;" ></i></span>
+                <span *ngIf="news.like.includes(uid)==false"     (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)">{{news.like.length}}      <i class="far fa-heart fa-lg text-danger"        style="font-size: 27px;" ></i></span>
+                <span *ngIf="news.like.includes(uid)==true"      (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)">{{news.like.length}}      <i class="fas fa-heart fa-lg text-danger"        style="font-size: 27px;" ></i></span>
+                <span *ngIf="news.dislike.includes(uid)==false"  (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)">{{news.dislike.length}} <i class="far fa-thumbs-down fa-lg text-primary"style="font-size: 27px;" ></i></span>
+                <span *ngIf="news.dislike.includes(uid)==true"   (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)">{{news.dislike.length}} <i class="fas fa-thumbs-down fa-lg text-primary"style="font-size: 27px;" ></i></span>
               </div>
               <!-- <div class="row" *ngIf="likesArray.length==0" >
                 <span (click)="getLikes(news.iduser,news.idpublication,'like')">{{news.likes}}<i class="far fa-smile" ></i></span>
