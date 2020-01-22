@@ -310,16 +310,19 @@ createNew(newsForm, value) {
   if (this.url != null) {
     // console.log(this.url);
     var imgRef = '/img/' + this.imageRef;
-    this.afStorage.upload(imgRef, this.targetFile);
-    this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
-      this.firebaseService.createNews(value, downloadURL, extradata)
-        .then(
-          res => {
-            console.log(res);
-          });
-      // console.log(downloadURL);
+    this.afStorage.upload(imgRef, this.targetFile).then(r=>{
+      this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
+        this.firebaseService.createNews(value, downloadURL, extradata)
+          .then(
+            res => {
+              console.log(res);
+            });
+        // console.log(downloadURL);
+      });
+      console.log("imagen guardada?");
     });
-    console.log("imagen guardada?");
+
+
 
 
   }
