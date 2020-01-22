@@ -1,4 +1,5 @@
 export class Notification {
+  key: string;
   description: string;
   endDate: string;
   startDate: string;
@@ -8,7 +9,7 @@ export class Notification {
   image: string;
   title: string;
   time: number;
-  likes: number;
-  dislike: number;
+  like: [];
+  dislike: [];
   iduser: string;
 }

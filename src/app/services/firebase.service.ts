@@ -56,35 +56,6 @@ export class FirebaseService {
     const snap = this.afStorage.upload(filePath, this.file);    //upload task
     return snap;
   }
-  getNewLikes(like: Likes) {
-    return this.db.collection('likes').add(like);
-  }
-  // update likes
-  updateLikes(newsKey, value) {
-    console.log(value);
-    // this.deleteLike(newsKey);
-    // return this.db.doc('likes/' + newsKey).update(value);
-    // value.nameToSearch = value.name.toLowerCase();
-    return this.db.collection('likes').doc(newsKey).set({
-      idpublication: value.idpublication,
-      dislike: value.dislike,
-      like: value.like,
-      iduser: value.iduser
-    });
-  }
-  //delet like
-  deleteLike(Key) {
-    return this.db.collection('likes').doc(Key).delete();
-  }
-  // get likes
-  getLikes() {
-    return this.db.collection('likes').snapshotChanges();
-  }
-  // get likeinfo
-  getLikeById(likeKey) {
-    return this.db.collection('likes').doc(likeKey).snapshotChanges();
-  }
-
   //method to retrieve download url
   //   private getUrl(snap: firebase.storage.UploadTaskSnapshot) {
   //   const url = await snap.ref.getDownloadURL();
@@ -103,8 +74,10 @@ export class FirebaseService {
   }
   // update news
   updateNew(newsKey, value) {
-    value.nameToSearch = value.name.toLowerCase();
+    // value.nameToSearch = value.name.toLowerCase();
+    // return this.db.collection('notification').doc(newsKey).set(value);
     return this.db.collection('notification').doc(newsKey).set(value);
+
   }
   // delete news
   deleteNew(newsKey) {
@@ -129,18 +102,15 @@ export class FirebaseService {
   }
   //create news
   createNews(value, imgRef, extradata) {
+    console.log(value,extradata);
     return this.db.collection('notification').add({
       title: value.title,
       description: value.description,
       image: imgRef,
       startDate: extradata.creationDate,
       endDate: value.finishDate,
-      like: extradata.likes,
-      notlike: extradata.notlikes,
-      idplant: 1,
-      iddepartament: 1,
-      idpublication: 1
-
+      like: new Array(),
+      dislike: new Array(),
     });
   }
 
@@ -156,27 +126,27 @@ export class FirebaseService {
   // update users
   updateUser(user, userKey) {
     // value.nameToSearch = value.name.toLowerCase();
-    const value = {authorized: true};
+    const value = { authorized: true };
     return this.db.collection('users').doc(userKey).set(user);
   }
   // delete users
   deleteUser(userKey) {
     return this.db.collection('users').doc(userKey).delete();
   }
-    // all users
+  // all users
   getUsers() {
     return this.db.collection('/users').snapshotChanges();
   }
   //get plants
-  getPlantss(){
+  getPlantss() {
     return this.plantList = this.firebase.list('plant');
   }
   //get departments
-  getDepartments(){
+  getDepartments() {
     return this.departmentList = this.firebase.list('departament');
   }
   //get Roles
-  getRoless(){
+  getRoless() {
     return this.roleList = this.firebase.list('role');
   }
   //searcg by name
@@ -289,41 +259,41 @@ export class FirebaseService {
     this.firebaseList.remove($key);
   }
   // create Publication
-  getPublication(){
+  getPublication() {
     return this.firebaseList = this.firebase.list('publication');
   }
-  createPublication(publication: Publication){
+  createPublication(publication: Publication) {
     this.firebaseList.push({
       name: publication.name,
       icono: publication.icono
     });
   }
-  updatePublication(publication:Publication){
-    this.firebaseList.update(publication.$key,{
+  updatePublication(publication: Publication) {
+    this.firebaseList.update(publication.$key, {
       name: publication.name,
       icono: publication.icono
     })
   }
-  deletePublication($key:string){
+  deletePublication($key: string) {
     this.firebaseList.remove($key);
   }
 
-  getAllIcons(){
+  getAllIcons() {
     return this.firebaseList = this.firebase.list('icons');
   }
-  createIcons(icons: Icons){
+  createIcons(icons: Icons) {
     this.firebaseList.push({
       name: icons.name,
       class: icons.class
     })
   }
-  updateIcons(icons: Icons){
-    this.firebaseList.update(icons.$key,{
+  updateIcons(icons: Icons) {
+    this.firebaseList.update(icons.$key, {
       name: icons.name,
       class: icons.class
     })
   }
-  deleteIcons($key:string){
+  deleteIcons($key: string) {
     this.firebaseList.remove($key);
   }
 }
