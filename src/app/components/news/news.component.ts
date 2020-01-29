@@ -79,6 +79,7 @@ export class NewsComponent implements OnInit {
         var id = Data.payload.doc.id;
         this.idpublication = id;
         var aux = Data.payload.doc.data();
+        console.log(aux);
         aux.imgaux = aux.image;
         if (formatDate(new Date(), 'yyyy-MM-dd', 'en') == aux.endDate && formatDate(new Date(), 'hh:mm:ss', 'en')=='23:59:59') {
           var storageRef = this.afStorage.ref(aux.image);//  bloque de eliminacion de imagen del storage
@@ -89,8 +90,8 @@ export class NewsComponent implements OnInit {
           aux.key = id;
           aux.time = (moment(aux.endDate)).diff(moment(new Date()), 'days');
           this.newsArray.push(aux);
-          var arraux = this.newsArray.sort((unaMascota, otraMascota) => unaMascota.title.localeCompare(otraMascota.title));
-          this.newsArray = arraux;
+          var arraux = this.newsArray.sort((unaMascota, otraMascota) => unaMascota.startDate.localeCompare(otraMascota.startDate));
+          this.newsArray = arraux.reverse();
         }
       });
     });

@@ -1,187 +1,141 @@
-<div class="container-fluid" style="background: transparent;">
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-        <button type="button" (click)="openCreateForm()" class="btn btn-outline-secondary" name="button"> + Create</button>
-      </div>
-    </div>
-    <div class="row rowformsnew" *ngIf="create===false">
-      <div class=" col-lg-12 border">
-        <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)">
-          <div class="row">
-            <div class="col-lg-4">
+<!-- <img (click)="openCreateForm()" *ngIf="create==true" src="../../../assets/icons/newnewx48.ico" alt="" class="newnewsicon cursor">
+<img (click)="openCreateForm()" *ngIf="create==false" src="../../../assets/icons/returnx48.ico" alt="" class="newnewsicon cursor">
+
+<div class="container-fluid" *ngIf="create===true" style="background: transparent;">
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-8 masternewscol"> -->
+      <div class="row newsrow" *ngIf="create===true">
+          <div class="col-lg-12" >
+            <div class="newsdiv" *ngFor="let news of newsArray">
               <div class="row">
-                <div class="col-md-12 text-center">
-                  <img src="{{url}}" class="avatar" alt="news images" *ngIf="url">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 text-center">
-                  <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg"/>
-                  <label for="file" class="btn-2">Upload Image</label>
-                  <!-- <input type="file" (change)="loadImage($event)" class="btn btn-outline-secondary" accept=".png,.jpg" /> -->
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="title" class="title">Title</label>
-                    <div class="FieldElement">
-                    <input type="text" name="title" ngModel class="form-control inputsform" >
-                  </div>
-                  </div>
+                <div class="col-lg-12">
+                  <span style="font-size: .7em;" *ngIf="news.time!=0" >La publicacion expirara en {{news.time}} dia(s)</span>
+                  <span style="font-size: .7em;" *ngIf="news.time===0" >La publicacion expirara en 1 dia</span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-lg-12">
-                  <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea name="description" ngModel class="form-control" rows="9" cols="90"></textarea>
-                  </div>
+                  <section>
+                    <img src="{{news.image}}" alt="" class="newsimages">
+                  </section>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label for="finishDate">Publication End Date</label>
-                    <input type="date" name="finishDate" ngModel class="form-control inputsform">
+                <div class="col-lg-12">
+                  <div class="navlikes">
+                    	<p *ngIf="news.like.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)"><i class="far fa-heart text-dark likeicons"></i></p>
+                    	<p *ngIf="news.like.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)"><i class="fas fa-heart text-danger likeicons"></i></p>
+                    	<p *ngIf="news.dislike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)"><i class="fas fa-heart-broken text-dark likeicons"></i></p>
+                      <p *ngIf="news.dislike.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)"><i class="fas fa-heart-broken text-danger likeicons"></i></p>
                   </div>
+              </div>
+              <div class="row">
+                <nav class="countlikes">
+                  <ul>
+                    <p>{{news.like.length}} likes</p>
+                    <p>{{news.dislike.length}} dislikes</p>
+                  </ul>
+                </nav>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12">
+                    <p class="descriptionp"><strong class=" titlep" >{{news.title}}. </strong>{{news.description}}</p>
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <button type="submit" class="btn createbtn" name="button">Create</button>
-                  </div>
+              <div class="col-md-2">
+                <div class="row"  >
                 </div>
               </div>
             </div>
           </div>
-            <!-- <input type="text" class="form-control" name="title" placeholder="enter title" ngModel>
-            <input type="text" class="form-control" name="description" placeholder="enter description" ngModel>
-            <input type="text" class="form-control" name="picture" placeholder="picture" ngModel>
-            <input type="text" class="form-control" name="admin" placeholder="enter admin name" ngModel>
-            <input type="date" class="form-control" name="creationDate" placeholder="enter date start" ngModel>
-            <input type="date" class="form-control" name="finishDate" placeholder="enter date end" ngModel>
-            <input type="number" class="form-control" name="likes" placeholder="enter likes" ngModel>
-            <input type="number" class="form-control" name="dislikes" placeholder="enter dislikes" ngModel> -->
-          </form>
-      </div>
-    </div>
+        </div>
+        <!-- <div class="col-lg-4">
+          <div class="row">
+            <div class="col-lg-12">
 
-    <div class="row" *ngIf="create===true">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" *ngFor="let news of newsArray">
-          <div class="col-md-12 newsdiv" >
-            <span style="font-size: .7em;" *ngIf="news.time!=0" >La publicacion expirara en {{news.time}} dia(s)</span>
-            <span style="font-size: .7em;" *ngIf="news.time===0" >La publicacion expirara en 1 dia</span>
-            <span style="margin-left: 25%;"><i class="fas fa-ellipsis-h fa-lg"></i></span>
-            <img src="{{news.image}}" alt="" class="newsimages">
-            <p class="text-dark"><strong>{{news.title}}</strong></p>
-            <p class="text-secondary">{{news.description}}</p>
+              <div class="tbl-content">
+                <p>Noticias</p>
+                <hr>
+                <div class="countlikes">
+                    <p>likes</p>
+                    <p>dislikes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    <!-- </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="create===false" style="background: transparent;">
+  <div class="row">
+    <div class="col-lg-3"></div>
+    <div class="col-lg-8 masterformcol">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        </div>
+      </div>
+      <div class="row rowformsnew" >
+        <div class=" col-lg-12 border">
+          <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)">
             <div class="row">
-            <div class="col-md-2">
-              <div class="row"  >
-
-                <span *ngIf="news.like.includes(uid)==false"     (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)">{{news.like.length}}      <i class="far fa-heart fa-lg text-danger"        style="font-size: 27px;" ></i></span>
-                <span *ngIf="news.like.includes(uid)==true"      (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)">{{news.like.length}}      <i class="fas fa-heart fa-lg text-danger"        style="font-size: 27px;" ></i></span>
-                <span *ngIf="news.dislike.includes(uid)==false"  (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)">{{news.dislike.length}} <i class="far fa-thumbs-down fa-lg text-primary"style="font-size: 27px;" ></i></span>
-                <span *ngIf="news.dislike.includes(uid)==true"   (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)">{{news.dislike.length}} <i class="fas fa-thumbs-down fa-lg text-primary"style="font-size: 27px;" ></i></span>
+              <div class="col-lg-4">
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <img src="{{url}}" class="avatar" alt="news images" *ngIf="url">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg"/>
+                    <label for="file" class="btn-2">Upload Image</label>
+                  </div>
+                </div>
               </div>
-              <!-- <div class="row" *ngIf="likesArray.length==0" >
-                <span (click)="getLikes(news.iduser,news.idpublication,'like')">{{news.likes}}<i class="far fa-smile" ></i></span>
-                <span (click)="getLikes(news.iduser,news.idpublication,'dislike')">{{news.dislike}} <i class="far fa-angry"></i>{{news.idpublication}} </span>
-              </div> -->
+              <div class="col-lg-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="title" class="title">Title</label>
+                      <div class="FieldElement">
+                      <input type="text" name="title" ngModel class="form-control inputsform" >
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group">
+                      <label for="description">Description</label>
+                      <textarea name="description" ngModel class="form-control" rows="9" cols="90"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="finishDate">Publication End Date</label>
+                      <input type="date" name="finishDate" ngModel class="form-control inputsform">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <button type="submit" class="btn createbtn" name="button">Create</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+            </form>
         </div>
       </div>
     </div>
-      <!-- news published -->
-      <!-- <div class="row" *ngIf="create===true">
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <div class="col-md-12 newsdiv">
-        <img src="assets/images/image1.jpg" alt="">
-        <p class="text-dark">Sanmina Sports Events</p>
-        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-        <div class="row">
-          <div class="col-md-2">
-          <i class="fa fa-heart"></i>
-          </div>
-
-        </div>
-      </div>
   </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <div class="col-md-12 newsdiv">
-        <img src="assets/images/image2.jpg" alt="" >
-        <p class="text-dark">Sanmina Sports Events</p>
-        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-        <div class="row">
-          <div class="col-md-2">
-          <i class="fa fa-heart"></i>
-          </div>
-
-        </div>
-      </div>
-  </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <div class="col-md-12 newsdiv">
-        <img src="assets/images/image3.jpg" alt="" >
-        <p class="text-dark">Sanmina Sports Events</p>
-        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-        <div class="row">
-          <div class="col-md-2">
-          <i class="fa fa-heart"></i>
-          </div>
-
-        </div>
-      </div>
-  </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <div class="col-md-12 newsdiv">
-        <img src="assets/images/image1.jpg" alt="" >
-        <p class="text-dark">Sanmina Sports Events</p>
-        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-        <div class="row">
-          <div class="col-md-2">
-          <i class="fa fa-heart"></i>
-          </div>
-
-        </div>
-      </div>
-  </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <div class="col-md-12 newsdiv">
-        <img src="assets/images/image2.jpg" alt="" >
-        <p class="text-dark">Sanmina Sports Events</p>
-        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-        <div class="row">
-          <div class="col-md-2">
-          <i class="fa fa-heart"></i>
-          </div>
-
-        </div>
-      </div>
-
-  </div>
-
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
-      <div class="col-md-12 newsdiv">
-        <img src="../../assets/images/image3.jpg" alt="" >
-        <p class="text-dark">Sanmina Sports Events</p>
-        <p class="text-secondary">Lorem ipsum dolor sit amet, consectetuolore magnammodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in cul</p>
-        <div class="row">
-          <div class="col-md-2">
-          <i class="fa fa-heart"></i>
-          </div>
-
-        </div>
-      </div>
-      </div>
-    </div> -->
-    </div>
+</div> -->

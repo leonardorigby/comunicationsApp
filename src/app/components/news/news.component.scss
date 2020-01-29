@@ -1,16 +1,3 @@
-.newsdiv{
-	// height: 450px;
-	width: 100%;
-	border-radius: 9px;
-	padding: 3%;
-	box-shadow: 0px 0px 16px -4px rgba(184,184,184,1);
-}
-.newsdiv img{
-	height: 360px;
-	width: 100%;
-	border-radius: 9px;
-
-}
 
 .row span{
   color:black;
@@ -93,10 +80,100 @@ textarea:focus{
 	color: var(--input-text-color);
 	box-shadow: 0px 0px 0px 0px;
 }
+.masternewscol{
+	margin-top: 72px;
+}
+.newsrow{
+	padding: 2px;
+}
+.newscol{
+	padding: 0;
+}
+.newsdiv{
+  background-color: rgb(255,255,255);
+	padding: 0;
+	// height: 450px;
+	width: 100%;
+	max-width: 720px;
+	border-radius: 3px;
+	// padding: 3%;
+	border: 1px solid #DBDBDB;
+	margin-bottom: 72px;
+	// box-shadow: 0px 0px 16px -4px rgba(184,184,184,1);
+}
 .newsimages{
-	// transform: scale(1.1);
+	height: auto;
+	width: 100%;
+	max-width: 720px;
+}
+.titlep{
+	font-family: 'Playfair Display', serif;
+	color: black;
+	font-weight: bold;
+}
+.descriptionp{
+	font-family: 'Yantramanav', sans-serif;
+	font-weight: lighter;
+	color: black;
+}
+.likeicons{
+	font-size: 27px;
+}
+.navlikes{
+	border: 1px solid gray;
+	padding: 0;
+	text-align: left;
 
 }
+.navlikes p {
+	border: 1px solid red;
+    display:inline-block;
+    text-align: left;
+    line-height: 1.22;
+    float:left;
+    vertical-align:bottom;
+		margin-right: 27px;
+		padding: 0;
+}
+.countlikes p {
+    display:inline-block;
+    text-align: right;
+    line-height: 1.22;
+    float:left;
+    vertical-align:bottom;
+		margin-right: 9px;
+}
+.countlikes{
+  padding: 0;
+  margin: 0;
+}
+.newnewsicon{
+	position: fixed;
+	top: 72px;
+	right: 36px;
+	transition: .5s;
+
+}
+.newnewsicon:hover{
+	transform: scale(1.1);
+	transition: .5s;
+}
+.cursor{
+	cursor: pointer;
+}
+
+.masterformcol{
+	margin-top: 72px;
+}
+.infocol{
+	position: fixed;
+
+}
+// .newsimages:hover{
+// 	transform: scale(1.1);
+// 	transition: 1s;
+// 	margin: 2px;
+// }
 // start input file style
 [type="file"] {
   height: 0;
@@ -160,4 +237,18 @@ textarea:focus{
 		color: white;
 		border-radius: 18px;
 		width: 30%;
+}
+.tbl-header{
+  padding-left: 1%;
+  padding-right: 1%;
+  border-bottom: .1em solid  rgb(103, 105, 106);
+ }
+.tbl-content{
+  position: fixed;
+  border: 1px solid red;
+  height: 500px;
+  overflow-x:auto;
+  margin-top: 0px;
+  padding-left: 1%;
+  padding-right: 1%;
 }
