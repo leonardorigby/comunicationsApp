@@ -15,6 +15,7 @@ import { Likes } from '../models/Likes';
   styleUrls: ['./news.component.scss']
 })
 export class NewsComponent implements OnInit {
+  // url: string;
 
   create: boolean = true;
   public news = [];
@@ -65,6 +66,8 @@ export class NewsComponent implements OnInit {
   constructor(private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
 
   ngOnInit() {
+    // this.url = "https://www.youtube.com/embed/tgbNymZ7vqY";
+
     // this.newsArray = new Array();
     this.getAllNews();
     this.auth.getUserData().subscribe(s => {

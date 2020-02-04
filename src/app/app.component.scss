@@ -845,16 +845,18 @@ input:checked+.slider:before {
 .tbl-content{
   position: fixed;
   height: 300px;
-  overflow-x:auto;
+  border-radius: 5px;
   margin-top: 0px;
+  width: 360px;
   padding-left: 1%;
   padding-right: 1%;
   padding-top: 9px;
-  background-color: rgb(255,255,255);
-  border: 1px solid #DBDBDB;
+
 }
 .divinfouser{
+  text-align: left;
   height: 63px;
+  position: fixed;
 }
 .divinfouser p {
     display:inline-block;
@@ -864,11 +866,28 @@ input:checked+.slider:before {
 		margin-right: 9px;
 }
 .optionsdiv{
-
+  border: 1px solid #DBDBDB;
+  border-radius: 3px;
+  overflow-x:auto;
+  margin-top: 72px;
+  // padding: 3px;
   // margin-top: 30px;
 }
+.optionsdiv p{
+  display:inline-block;
+  text-align: right;
+  line-height: 1.22;
+}
 .options{
-  padding-top: 9px;
+  // padding-top: 9px;
+}
+.spanimg{
+
+}
+.colnews{
+  height: auto;
+	width: 100%;
+	max-width: 720px;
 }
 .optionsdiv img {
     float: left;
@@ -878,6 +897,9 @@ input:checked+.slider:before {
     padding: 3px 3px;
     text-decoration: none;
     font-size: 21px;
+}
+.paddingtoptext{
+  padding-top: 9px;
 }
 
 .optionsdiv img.active {
@@ -895,7 +917,7 @@ input:checked+.slider:before {
 // }
 
 .mainrow{
-  margin-top: 72px;
+  margin-top: 54px;
 
 }
 .userimg{
@@ -908,6 +930,7 @@ input:checked+.slider:before {
   margin-top: 21px;
 }
 .spanrole{
+  text-align: left;
   font-weight: lighter;
   font-size: .9em;
   color: rgb(163, 163, 163);
@@ -919,4 +942,14 @@ input:checked+.slider:before {
 .footer.content > span {
     display: inline-block;
     margin-top: 21px;
+}
+.divinfo{
+  border: 1px solid #DBDBDB;
+  border-radius: 5px;
+  padding: 18px;
+  background-color: rgb(255,255,255);
+  margin-top: 72px;
+}
+.infoimg{
+  margin: 5px;
 }

@@ -4,7 +4,7 @@
         <i class="fas fa-bars"></i>
     </a>
     <h3><span class="text-danger">Sanmina</span> <span class="colorgray"> | News</span></h3>
-    <button class="btn btn-outline-info loginbtn" routerLink="/login" *ngIf="auth.user$ | async as user">Logout</button>
+    <button class="btn btn-outline-warning loginbtn" (click)="auth.signOut()" (click)="closeSideBar()" *ngIf="auth.user$ | async as user">Cerrar Sesion</button>
 </div>
 <div class="page-wrapper chiller-theme toggled">
     <nav id="sidebar" class="sidebar-wrapper">
@@ -109,41 +109,64 @@
     <!-- sidebar-wrapper  -->
     <main class="page-content">
       <div class="row mainrow" >
-        <div class="col-lg-2">
+        <div class="col-md-2 col-lg-2 col-xl-3">
         </div>
-        <div class="col-lg-6">
-          <router-outlet></router-outlet>
-        </div>
-        <div class="col-lg-4">
-          <!-- <div class="sidebar-header" *ngIf="auth.user$ | async as user">
-              <div class="user-pic">
-                  <img class="img-responsive img-rounded" [src]="user.image">
-              </div>
-              <div class="user-info">
-                  <span class="user-name">{{user.fullName}}</span>
-                  <span class="user-role">Administrator</span>
-                  <span class="user-status">
-          <i class="fa fa-circle"></i>
-          <span>{{user.email}}</span>
-                  </span>
-              </div>
-          </div> -->
+        <div class="col-lg-8" >
           <div class="row">
-            <div class="col-lg-12" *ngIf="auth.user$ | async as user" >
-              <div class="tbl-content">
-                <div class="divinfouser" >
-                    <p><span><img class="userimg" [src]="user.image"></span></p>
-                    <p class="paddingtoptext">{{user.fullName}} <br><span class="spanrole">{{user.idRole}}</span> </p>
-                </div>
-                <div class="optionsdiv">
-                  <p routerLink="/news" class="options"><img src="assets/icons/home.ico" width="42" height="42">Todas</p>
-                  <p routerLink="/health" class="options"><img src="assets/icons/heart.ico"width="42" height="42">Salud</p>
-                  <p routerLink="/transport" class="options"><img src="assets/icons/bus.ico" width="42" height="42">Transporte</p>
-                  <p routerLink="/food" class="options"><img src="assets/icons/food.ico" width="42" height="42">Comedor</p>
+            <div class="col-lg-8 colnews">
+              <router-outlet></router-outlet>
+            </div>
+            <div class="col-lg-4">
+              <div class="row">
+                <div class="col-lg-12" *ngIf="auth.user$ | async as user" >
+                  <div class="tbl-content">
+                    <div class="divinfouser" >
+                        <p><span><img class="userimg" [src]="user.image"></span></p>
+                        <p class="paddingtoptext">{{user.fullName}} <br><span class="spanrole">{{user.idRole}}</span> </p>
+                    </div>
+                    <div class="divinfo">
+                      <p><strong>Noticias</strong></p>
+                      <div  routerLink="/news" style="white-space:nowrap">
+                        <div  style="display:inline;" >
+                            <img class="infoimg" src="../assets/icons/home.ico"/>
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                            <strong> Todas </strong>
+                            </div>
+                        </div>
+                        <div  routerLink="/health" style="white-space:nowrap">
+                          <div  style="display:inline;">
+                              <img class="infoimg" src="../assets/icons/heart.ico"/>
+                          </div>
+                          <div style="display:inline; white-space:nowrap;">
+                              <strong> Salud </strong>
+                              </div>
+                          </div>
+                          <div  routerLink="/transport" style="white-space:nowrap">
+                            <div  style="display:inline;">
+                                <img class="infoimg" src="../assets/icons/bus.ico"/>
+                            </div>
+                            <div style="display:inline; white-space:nowrap;">
+                                <strong> Transporte </strong>
+                                </div>
+                            </div>
+                            <div  routerLink="/food" style="white-space:nowrap">
+                              <div  style="display:inline;">
+                                  <img class="infoimg" src="../assets/icons/food.ico"/>
+                              </div>
+                              <div style="display:inline; white-space:nowrap;">
+                                  <strong> Comedor </strong>
+                                  </div>
+                              </div>
+                              <hr>
+                        </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="col-lg-2">
         </div>
 
       </div>

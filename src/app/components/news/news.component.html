@@ -16,14 +16,17 @@
               </div>
               <div class="row">
                 <div class="col-lg-12">
-                  <section>
+
+                    <!-- <iframe width="700" height="345" src="{{url}}"></iframe> -->
+
                     <img src="{{news.image}}" alt="" class="newsimages">
-                  </section>
                 </div>
+
               </div>
               <div class="row">
                 <div class="col-lg-12">
                   <div class="navlikes">
+                    <p>{{url}}</p>
                     	<p *ngIf="news.like.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)"><i class="far fa-heart text-dark likeicons"></i></p>
                     	<p *ngIf="news.like.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux)"><i class="fas fa-heart text-danger likeicons"></i></p>
                     	<p *ngIf="news.dislike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux)"><i class="fas fa-heart-broken text-dark likeicons"></i></p>

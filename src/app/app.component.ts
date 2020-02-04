@@ -13,6 +13,7 @@ export class AppComponent implements OnInit{
 
   title = 'Comunications App';
   public changetheme: boolean = true;
+  // url: string;
 
   constructor(private generalservice: GeneralService, public auth: AuthService){
 
