@@ -8,6 +8,17 @@ import { formatDate } from '@angular/common';
 import { Notification } from '../models/Notification';
 import * as moment from 'moment';
 import { Likes } from '../models/Likes';
+import { Auxuser } from '../models/AuxUser';
+import { Metrico } from '../models/Metrico';
+import { element } from 'protractor';
+import { DomSanitizer } from '@angular/platform-browser';
+// import YouTubePlayer from 'youtube-player';
+import { User } from './../models/user.model';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserModule } from '@angular/platform-browser';
+
+
+
 
 @Component({
   selector: 'app-news',
@@ -15,7 +26,6 @@ import { Likes } from '../models/Likes';
   styleUrls: ['./news.component.scss']
 })
 export class NewsComponent implements OnInit {
-  // url: string;
 
   create: boolean = true;
   public news = [];
@@ -30,20 +40,6 @@ export class NewsComponent implements OnInit {
   uid: any;
   idpublication: any;
   likesArray = new Array();
-  // newArray: Observable<Array<{
-  //     likes: number,
-  //     dislike: number,
-  //     iduser: string,
-  //     time: number,
-  //     title: string,
-  //     description: string,
-  //     image: any,
-  //     idplant: string,
-  //     idpublication: string,
-  //     iddepartament: string,
-  //     startDate: string,
-  //     endDate: string
-  //   }>>;
   public newArray: Array<{
     likes: number,
     dislike: number,
@@ -60,21 +56,191 @@ export class NewsComponent implements OnInit {
   }> = [];
   newsArray = new Array();
   notificacion = new Notification;
+  event = '';
+  uname: any;
+  unumber: any;
+  uimg: any;
+  uss:any;
+  arrayMetricos = new Array<Metrico>();
+  arrayMetricosaux = new Array<any>();
+  m: any;
+  todas:boolean;
+  like:boolean;
+  dislike:boolean;
+  user:Auxuser;
+  view: any[] = [650, 450];
+  showXAxis = true;
+  showYAxis = true;
+  gradient = true;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Reacciones';
+  showYAxisLabel = true;
+  yAxisLabel = 'Personas';
 
-  // public newsArray: Array<{ title: string, description: string, image: any, idplant: string, idpublication: string, iddepartament: string, startDate: string, endDate: string, like: number, notlikes: number }> = [];
+  colorScheme = {
+    domain: ['#A10A28',  '#AAAAAA']
+  };
+ 
+single=new Array<{
+  name:'',
+  value:0
+}>();
+  btn1:any;
+  btn2:any;
+  video:any;
+  player: YT.Player;
+  an:any;
+  done:boolean;
 
-  constructor(private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
+  constructor(public sanitizer: DomSanitizer,private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
 
   ngOnInit() {
-    // this.url = "https://www.youtube.com/embed/tgbNymZ7vqY";
-
-    // this.newsArray = new Array();
+    
+    this.video="https://www.youtube.com/embed/5Z2C0wy4bmg";
+    this.arrayMetricos = new Array<Metrico>();
+    this.arrayMetricosaux = new Array<any>();
+    this.todas=true;
+    this.like=false;
+    this.dislike=false;
     this.getAllNews();
     this.auth.getUserData().subscribe(s => {
       this.uid = s.id;
-      console.log(this.uid);
+      this.uname = s.fullName;
+      this.unumber = s.employeeNumber;
+      this.uimg = s.image;
+      this.uss = {
+        id : s.id,
+        name : s.fullName,
+        number : s.employeeNumber,
+        img : s.image,
+      }
     });
+  if (screen.width < 1024) {
+  this.view = [350, 350];
+  }else if (screen.width < 1280) {
+  this.view =  [650, 450];
+}else {
+  this.view =  [650, 450];
+    
   }
+}
+// public get currentTime(): number
+// public play(): void
+// public pause(): void
+// public cueVideoById(videoId: string, startSeconds?: number): void
+// public loadVideoById(videoId: string, startSeconds?: number): void
+  savePlayer(player) {
+    this.player = player;
+    console.log('player instance', player.getCurrentTime());
+  }
+  onStateChange(event) {
+   
+      console.log(this.player.getVideoUrl());
+      // this.player.set
+      // setTimeout(, 600);
+      // this.done = true;
+    
+   
+  }
+  stopVideo() {
+    this.player.stopVideo();
+  }
+  pReacciones(value){
+    if(value=='todas'){
+    this.todas=true;
+    this.like=false;
+    this.dislike=false;
+  }else if(value=='like'){
+    this.todas=false;
+    this.like=true;
+    this.dislike=false;
+  }else if(value=='dislike'){
+    this.todas=false;
+    this.like=false;
+    this.dislike=true;
+  }
+  }
+  onSelect(data): void {
+    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  }
+
+  onActivate(data): void {
+    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  }
+
+  onDeactivate(data): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  }
+  getMetricos() {
+    this.firebaseService.getNews().subscribe(response => {
+      for (var x = 0; x < response.length; x++) { this.arrayMetricosaux.push(response[x].payload.doc.data()); }
+
+      this.arrayMetricosaux.forEach(not => {
+        var u: any;
+
+        this.firebaseService.getUsers().subscribe(result => {
+          result.forEach(r => {
+            var user: any;
+            user = r.payload.doc.data();
+            
+            if (user.id == not.admin) {
+              this.m = new Metrico;
+              this.m.adminImg = user.image;
+              this.m.adminName = user.fullName;
+              this.m.endDate = not.endDate;
+              this.m.startDate = not.startDate;
+              this.m.title = not.title;
+              if (not.dislike==undefined) {
+                this.m.dislike = [];
+                this.m.like = not.like;
+              } else if (not.like==undefined) {
+                this.m.dislike = not.dislike;
+                this.m.like = [];
+              } else {
+                this.m.dislike = not.dislike;
+                this.m.like = not.like;
+              }
+              let tmplike=new Array();
+              let tmpdislike=new Array<Auxuser>();
+              this.m.todas=new Array();
+              for(var x=0;x<this.m.like.length;x++){
+                this.user=new Auxuser;
+                  this.user.date=this.m.like[x].date;
+                  this.user.id=this.m.like[x].id;
+                  this.user.img=this.m.like[x].img;
+                  this.user.name=this.m.like[x].name;
+                  this.user.number=this.m.like[x].number
+                  this.user.like=true;
+                  this.m.todas.push(this.user);
+              }
+              for(var x=0;x<this.m.dislike.length;x++){
+                this.user=new Auxuser;
+                  this.user.date=this.m.dislike[x].date;
+                  this.user.id=this.m.dislike[x].id;
+                  this.user.img=this.m.dislike[x].img;
+                  this.user.name=this.m.dislike[x].name;
+                  this.user.number=this.m.dislike[x].number
+                  this.user.like=false;
+                  this.m.todas.push(this.user);
+              }
+              this.arrayMetricos.push(this.m);
+             
+            }
+          });
+        });
+
+      });
+
+
+      console.log(this.arrayMetricos);
+ 
+    });
+    
+   
+     
+  }
+
   getAllNews() {
     this.firebaseService.getNews().subscribe((result) => {
       this.newsArray = [];
@@ -82,40 +248,97 @@ export class NewsComponent implements OnInit {
         var id = Data.payload.doc.id;
         this.idpublication = id;
         var aux = Data.payload.doc.data();
-        console.log(aux);
+        
+     if(aux.encuesta=='true'){
+
+    //   console.log(aux);
+      aux.single = [
+        {
+          "name": "Si",
+          "value": aux.like.length
+        },
+        {
+          "name": "No",
+          "value": aux.dislike.length
+        },
+    
+      ];
+    //   console.log(this.single);
+     }
         aux.imgaux = aux.image;
-        if (formatDate(new Date(), 'yyyy-MM-dd', 'en') == aux.endDate && formatDate(new Date(), 'hh:mm:ss', 'en')=='23:59:59') {
+        if (formatDate(new Date(), 'yyyy-MM-dd', 'en') == aux.endDate && formatDate(new Date(), 'hh:mm:ss', 'en') == '23:59:59') {
+          this.firebaseService.createMetricos(aux);
           var storageRef = this.afStorage.ref(aux.image);//  bloque de eliminacion de imagen del storage
           storageRef.delete();// fin del bloque de eliminacion
           this.firebaseService.deleteNew(id);// Eliminacion de un elemento del la tabla con solo el id
           console.log('se elimino a ', aux);
         } else {
           aux.key = id;
+          // 
+          let tmplike=new Array();
+          let tmpdislike= new Array();
+          if(aux.like==undefined){
+            aux.like=new Array();
+          }else{
+            for(var x=0;x<aux.like.length;x++){
+              tmplike.push(aux.like[x].id);
+            }
+          }
+          if(aux.dislike==undefined){
+            aux.dislike=new Array();
+          }else{
+            for(var x=0;x<aux.dislike.length;x++){
+              tmpdislike.push(aux.dislike[x].id);
+            }
+         
+          }
+          // 
+          aux.auxlike=tmplike;
+          aux.auxdislike=tmpdislike;
+          aux.todas=new Array();
+              for(var x=0;x<aux.like.length;x++){
+                this.user=new Auxuser;
+                  this.user.date=  aux.like[x].date;
+                  this.user.id=    aux.like[x].id;
+                  this.user.img=   aux.like[x].img;
+                  this.user.name=  aux.like[x].name;
+                  this.user.number=aux.like[x].number
+                  this.user.like=true;
+                  aux.todas.push(this.user);
+              }
+              for(var x=0;x<aux.dislike.length;x++){
+                this.user=new Auxuser;
+                  this.user.date=  aux.dislike[x].date;
+                  this.user.id=    aux.dislike[x].id;
+                  this.user.img=   aux.dislike[x].img;
+                  this.user.name=  aux.dislike[x].name;
+                  this.user.number=aux.dislike[x].number
+                  this.user.like=false;
+                  aux.todas.push(this.user);
+              }
           aux.time = (moment(aux.endDate)).diff(moment(new Date()), 'days');
           this.newsArray.push(aux);
-          var arraux = this.newsArray.sort((unaMascota, otraMascota) => unaMascota.startDate.localeCompare(otraMascota.startDate));
-          this.newsArray = arraux.reverse();
+          var arraux = this.newsArray.sort((unaMascota, otraMascota) => unaMascota.title.localeCompare(otraMascota.title));
+          this.newsArray = arraux;
+          
+        
         }
+     
       });
+      
     });
-
   }
 
   getContador(idus, idpu, reaccion) {
   }
-  getLikes(admin,description, dislike, endDate, key, like, startDate, title, reaccion, img) {
-    // console.log(description, dislike, endDate, key, like, startDate, title, reaccion, img);
-    // console.log(reaccion);
-
+  getLikes(admin, description, dislike, endDate, key, like, startDate, title, reaccion, img,encuesta,video,event) {
     if (reaccion == 'like') {
       if (like.length >= 1) {
-        let th=this;
-        // for (var x = 0; x <= like.length - 1; x++) {
-        // console.log(like[x], ' - ', this.uid);
-        if (like.includes(th.uid) == true) {
-          like = like.filter(function (i) { return i !== th.uid });
+        let th = this;
+        if (like.some(person => person.id === this.uid) == true) {
+          like = like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
           let notif = <any>{
-            admin:admin,
+            admin: admin,
             key: key,
             description: description,
             dislike: dislike,
@@ -124,13 +347,22 @@ export class NewsComponent implements OnInit {
             image: img,
             startDate: startDate,
             title: title,
+            encuesta:encuesta,
+            video:video,
           };
           th.firebaseService.updateNew(key, notif);
+
         } else {
-          if (dislike.includes(th.uid) == false) {
-            like.push(th.uid);
+          if (dislike.some(person => person.id === this.uid) == false) {
+            like.push({
+              id: this.uid,
+              name: this.uname,
+              number: this.unumber,
+              img: this.uimg,
+              date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
+            });
             let notif = <any>{
-              admin:admin,
+              admin: admin,
               key: key,
               description: description,
               dislike: dislike,
@@ -139,13 +371,21 @@ export class NewsComponent implements OnInit {
               image: img,
               startDate: startDate,
               title: title,
+              encuesta:encuesta,
+              video:video,
             };
             th.firebaseService.updateNew(key, notif);
-          } else if (dislike.includes(th.uid) == true) {
-            dislike = dislike.filter(function (i) { return i !== th.uid });
-            like.push(th.uid);
+          } else if (dislike.some(person => person.id === this.uid) == true) {
+            dislike = dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+            like.push({
+              id: this.uid,
+              name: this.uname,
+              number: this.unumber,
+              img: this.uimg,
+              date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
+            });
             let notif = <any>{
-              admin:admin,
+              admin: admin,
               key: key,
               description: description,
               dislike: dislike,
@@ -154,18 +394,26 @@ export class NewsComponent implements OnInit {
               image: img,
               startDate: startDate,
               title: title,
+              encuesta:encuesta,
+              video:video,
             };
             th.firebaseService.updateNew(key, notif);
           }
         }
         // }
       } else {
-        let th=this;
+        let th = this;
         console.log('nuevo porque no hay nada');
-        if (dislike.includes(th.uid) == false) {
-          like.push(th.uid);
+        if (dislike.some(person => person.id === this.uid) == false) {
+          like.push({
+            id: this.uid,
+            name: this.uname,
+            number: this.unumber,
+            img: this.uimg,
+            date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
+          });
           let notif = <any>{
-            admin:admin,
+            admin: admin,
             key: key,
             description: description,
             dislike: dislike,
@@ -174,14 +422,21 @@ export class NewsComponent implements OnInit {
             image: img,
             startDate: startDate,
             title: title,
+            encuesta:encuesta,
+            video:video,
           };
           th.firebaseService.updateNew(key, notif);
-        } else if (dislike.includes(th.uid) == true) {
-
-          dislike = dislike.filter(function (i) { return i !== th.uid });
-          like.push(th.uid);
+        } else if (dislike.some(person => person.id === this.uid) == true) {
+          dislike = dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+          like.push({
+            id: this.uid,
+            name: this.uname,
+            number: this.unumber,
+            img: this.uimg,
+            date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
+          });
           let notif = <any>{
-            admin:admin,
+            admin: admin,
             key: key,
             description: description,
             dislike: dislike,
@@ -190,18 +445,20 @@ export class NewsComponent implements OnInit {
             image: img,
             startDate: startDate,
             title: title,
+            encuesta:encuesta,
+            video:video,
           };
           th.firebaseService.updateNew(key, notif);
         }
       }
     } else if (reaccion == 'dislike') {
- let th=this;
+      let th = this;
       if (dislike.length >= 1) {
 
-        if (dislike.includes(th.uid) == true) {
-          dislike = dislike.filter(function (i) { return i !== th.uid });
+        if (dislike.some(person => person.id === this.uid) == true) {
+          dislike = dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
           let notif = <any>{
-            admin:admin,
+            admin: admin,
             key: key,
             description: description,
             dislike: dislike,
@@ -210,14 +467,22 @@ export class NewsComponent implements OnInit {
             image: img,
             startDate: startDate,
             title: title,
+            encuesta:encuesta,
+            video:video,
           };
           th.firebaseService.updateNew(key, notif);
           ////break;
         } else {
-          if (like.includes(th.uid) == false) {
-            dislike.push(th.uid);
+          if (like.some(person => person.id === this.uid) == false) {
+            dislike.push({
+              id: this.uid,
+              name: this.uname,
+              number: this.unumber,
+              img: this.uimg,
+              date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
+            });
             let notif = <any>{
-              admin:admin,
+              admin: admin,
               key: key,
               description: description,
               dislike: dislike,
@@ -226,16 +491,24 @@ export class NewsComponent implements OnInit {
               image: img,
               startDate: startDate,
               title: title,
+              encuesta:encuesta,
+              video:video,
             };
             th.firebaseService.updateNew(key, notif);
             //////break;
-          } else if (like.includes(this.uid) == true) {
+          } else if (like.some(person => person.id === this.uid) == true) {
             let th = this;
+            like = like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
 
-            like = like.filter(function (i) { return i !== th.uid });
-            dislike.push(this.uid);
+            dislike.push({
+              id: this.uid,
+              name: this.uname,
+              number: this.unumber,
+              img: this.uimg,
+              date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
+            });
             let notif = <any>{
-              admin:admin,
+              admin: admin,
               key: key,
               description: description,
               dislike: dislike,
@@ -244,6 +517,8 @@ export class NewsComponent implements OnInit {
               image: img,
               startDate: startDate,
               title: title,
+              encuesta:encuesta,
+              video:video,
             };
             th.firebaseService.updateNew(key, notif);
             //////break;
@@ -252,110 +527,142 @@ export class NewsComponent implements OnInit {
         }
         // x++;
 
-    } else {
-      let th=this;
-      console.log('nuevo porque no hay nada');
-      if (like.includes(th.uid) == false) {
-        dislike.push(th.uid);
-        let notif = <any>{
-          admin:admin,
-          key: key,
-          description: description,
-          dislike: dislike,
-          like: like,
-          endDate: endDate,
-          image: img,
-          startDate: startDate,
-          title: title,
-        };
-        th.firebaseService.updateNew(key, notif);
-      } else if (like.includes(th.uid) == true) {
-        console.log(th.uid);
-        like = like.filter(function (i) { return i !== th.uid });
-        dislike.push(th.uid);
-        let notif = <any>{
-          admin:admin,
-          key: key,
-          description: description,
-          dislike: dislike,
-          like: like,
-          endDate: endDate,
-          image: img,
-          startDate: startDate,
-          title: title,
-        };
-        th.firebaseService.updateNew(key, notif);
+      } else {
+        let th = this;
+        console.log('nuevo porque no hay nada');
+        if (like.some(person => person.id === this.uid) == false) {
+          dislike.push({
+            id: this.uid,
+            name: this.uname,
+            number: this.unumber,
+            img: this.uimg,
+            date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
+          });
+          let notif = <any>{
+            admin: admin,
+            key: key,
+            description: description,
+            dislike: dislike,
+            like: like,
+            endDate: endDate,
+            image: img,
+            startDate: startDate,
+            title: title,
+            encuesta:encuesta,
+            video:video,
+          };
+          th.firebaseService.updateNew(key, notif);
+        } else if (like.some(person => person.id === this.uid) == true) {
+          console.log(th.uid);
+          like = like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+
+          dislike.push({
+            id: this.uid,
+            name: this.uname,
+            number: this.unumber,
+            img: this.uimg,
+            date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
+          });
+          let notif = <any>{
+            admin: admin,
+            key: key,
+            description: description,
+            dislike: dislike,
+            like: like,
+            endDate: endDate,
+            image: img,
+            startDate: startDate,
+            title: title,
+            encuesta:encuesta,
+            video:video,
+          };
+          th.firebaseService.updateNew(key, notif);
+        }
       }
     }
-  }
-  }
-
-recordNews(records) {
-  console.log(records);
-}
-
-openCreateForm() {
-  if (this.create == true) {
-    this.create = false;
-
-  } else {
-    this.create = true;
+    localStorage.setItem("video", ''+this.player.getCurrentTime());
+    console.log(this.player.getCurrentTime()," lleva");
 
   }
-}
 
-createNew(newsForm, value) {
-  console.log(value);
-  var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
-  var extradata = {
-    admin: this.uid,
-    creationDate: creationDate
-  };
-  if (this.url != null) {
-    // console.log(this.url);
-    var imgRef = '/img/' + this.imageRef;
-    this.afStorage.upload(imgRef, this.targetFile).then(r=>{
-      this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
-        this.firebaseService.createNews(value, downloadURL, extradata)
-          .then(
-            res => {
-              console.log(res);
-            });
-        // console.log(downloadURL);
-      });
-      console.log("imagen guardada?");
-    });
-
-
-
-
+  recordNews(records) {
+    console.log(records);
   }
-  newsForm.reset();
-  this.newsArray = new Array;
-  this.router.navigate(['/home']);
 
-}
+  openCreateForm() {
+    if (this.create == true) {
+      this.create = false;
 
-getNews() {
-  this.firebaseService.getNews()
-    .subscribe(result => {
-      console.log(result);
-    });
-}
+    } else {
+      this.create = true;
 
-loadImage(event) {
-  // console.log(event);
-  // console.log(event.target.files[0]);
-  if (event.target.files && event.target.files[0]) {
-    this.targetFile = event.target.files[0];
-    this.imageRef = event.target.files[0].name;
-    var reader = new FileReader();
-    reader.onload = (event: any) => {
-      this.url = event.target.result;
     }
-    reader.readAsDataURL(event.target.files[0]);
   }
 
-}
+  createNew(newsForm, value) {
+    console.log(value);
+    var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
+    var extradata = {
+      admin:{
+        id:this.uid,
+        image:this.uimg,
+        name:this.uname,
+        number:this.unumber
+      },
+      creationDate: creationDate
+    };
+    
+    if (this.url != null ) {
+     
+      var imgRef = '/img/' + this.imageRef;
+      this.afStorage.upload(imgRef, this.targetFile).then(r => {
+        this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
+          this.firebaseService.createNews(value, downloadURL, extradata)
+            .then(
+              res => {
+                console.log(res);
+              });
+          
+        });
+        console.log("imagen guardada?");
+      });
+
+
+
+
+    }else{
+      this.firebaseService.createNews(value, "", extradata)
+            .then(
+              res => {
+                console.log(res);
+              });
+    }
+    newsForm.reset();
+    this.newsArray = new Array;
+    this.router.navigate(['/home']);
+
+  }
+
+  getNews() {
+    this.firebaseService.getNews()
+      .subscribe(result => {
+        console.log(result);
+      });
+  }
+
+  loadImage(event) {
+    // console.log(event);
+    // console.log(event.target.files[0]);
+    if (event.target.files && event.target.files[0]) {
+      this.targetFile = event.target.files[0];
+      this.imageRef = event.target.files[0].name;
+      var reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+  }
 
 }

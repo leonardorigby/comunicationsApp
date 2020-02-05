@@ -31,7 +31,9 @@ import { DepartamentComponent } from './components/departament/departament.compo
 import { RoleComponent } from './components/role/role.component';
 import { PublicationComponent } from './components/publication/publication.component';
 import { IconsComponent } from './components/icons/icons.component';
-
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 // Nombre público del proyecto firebase AUth google
 // project-625108487289
 
@@ -53,6 +55,7 @@ import { IconsComponent } from './components/icons/icons.component';
   ],
   imports: [
     BrowserModule,
+    NgxYoutubePlayerModule.forRoot(),
     AngularFireModule.initializeApp(firebase.firebase),
     // AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
@@ -62,6 +65,8 @@ import { IconsComponent } from './components/icons/icons.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [AuthGuard],

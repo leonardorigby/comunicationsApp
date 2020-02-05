@@ -114,6 +114,15 @@ export class FirebaseService {
       dislike: new Array(),
     });
   }
+  createMetricos(value){
+    return this.db.collection('metricos').add(value);
+  }
+  getMetricos() {
+    return this.db.collection('metricos').snapshotChanges();
+  }
+  searchUsersById(value) {
+    return this.db.collection('users', ref => ref.where('id', '==', value)).snapshotChanges();
+  }
 
 
   // get urls users images
