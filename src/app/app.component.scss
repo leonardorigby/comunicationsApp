@@ -185,6 +185,9 @@ body {
     .newsinfocol{
       display: none;
     }
+    .admincol{
+      display: none;
+    }
 }
 @media screen and (width: 700px) {
     // .colnews{
@@ -274,11 +277,11 @@ body {
     box-shadow: 0px 0px 16px -4px rgba(184, 184, 184, 1);
 }
 
-.newsdiv img {
-    height: 360px;
-    width: 100%;
-    border-radius: 9px;
-}
+// .newsdiv img {
+//     height: 360px;
+//     width: 100%;
+//     border-radius: 9px;
+// }
 
 .page-wrapper.toggled #show-sidebar {
     left: -40px;
@@ -874,7 +877,7 @@ input:checked+.slider:before {
   // height: 270px;
   border-radius: 5px;
   margin-top: 0px;
-  width: 360px;
+  width: 300px;
   // padding-left: 27px;
   // padding-right: 1%;
   // padding-top: 9px;
@@ -1040,6 +1043,16 @@ input:checked+.slider:before {
   -webkit-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
   -moz-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
   box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+}
+
+
+.alink:hover .barinfoimg{
+  animation: swing ease-in-out 0.5s 1 alternate;
+
+}
+.alink:focus .barinfoimg{
+  animation: swing ease-in-out 0.5s 1 alternate;
+
 }
 .infoicon{
   margin: 3px;

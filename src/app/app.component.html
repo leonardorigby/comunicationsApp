@@ -36,66 +36,80 @@
       </label>
       <div class="sidebar-menu">
         <ul>
-          <li class="header-menu">
-            <span>General</span>
-          </li>
           <li class="sidebar-dropdown">
-            <a routerLink="/news">
-              <i class="fa fa-list"></i>
-              <span>Noticias</span>
+            <a>
+              <span class="text-secondary"><strong>General</strong></span>
             </a>
           </li>
-          <li class="sidebar-dropdown">
-            <a routerLink="/transport">
+          <li class="sidebar-dropdown" >
+            <a class="alink" routerLink="/news" class="alink">
+              <img class="barinfoimg" src="assets/icons/home.ico" />
+              <!-- <i class="fa fa-list"></i> -->
+              <span class="text-dark"><strong> Home </strong></span>
+            </a>
+          </li>
+          <!-- <li class="sidebar-dropdown">
+            <a class="alink" routerLink="/transport">
               <i class="fa fa-bus"></i>
               <span>Transporte</span>
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a routerLink="/food">
+            <a class="alink" routerLink="/food">
               <i class="fa fa-coffee"></i>
               <span>Comedor</span>
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a>
-              <span class="text-dark">Personal</span>
-            </a>
-          </li>
-          <li class="sidebar-dropdown">
-            <a routerLink="/health">
-              <i class="fa fa-heartbeat"></i>
+            <a class="alink" routerLink="/health">
+               <i class="fa fa-heartbeat"></i>
               <span>Salud</span>
             </a>
-          </li>
+          </li>-->
           <li class="sidebar-dropdown">
-            <a routerLink="/users">
-              <i class="fa fa-users"></i>
-              <span>Users</span>
+            <a>
+              <span class="text-secondary"><strong>Administracion</strong></span>
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a routerLink="/plant">
-              <i class="fas fa-globe-americas"></i>
-              <span>Plantas</span>
+            <a class="alink" routerLink="/create">
+              <img class="barinfoimg" src="assets/icons/addnews.png" />
+              <!-- <i class="fa fa-users"></i> -->
+              <span class="text-dark"><strong> Crear Noticia </strong></span>
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a routerLink="/departament">
-              <i class="fas fa-address-book"></i>
-              <span>Departamentos</span>
+            <a class="alink" routerLink="/users">
+              <img class="barinfoimg" src="assets/icons/users.png" />
+              <!-- <i class="fa fa-users"></i> -->
+              <span class="text-dark"><strong> Usuarios </strong></span>
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a routerLink="/publication">
+            <a class="alink" routerLink="/plant">
+              <img class="barinfoimg" src="assets/icons/plants.png"/>
+              <!-- <i class="fas fa-globe-americas"></i> -->
+              <span class="text-dark"><strong> Plantas </strong></span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a class="alink" routerLink="/departament">
+              <img class="barinfoimg" src="assets/icons/department.png"/>
+              <!-- <i class="fas fa-address-book"></i> -->
+              <span class="text-dark"><strong> Departamentos </strong></span>
+            </a>
+          </li>
+          <!-- <li class="sidebar-dropdown">
+            <a class="alink" routerLink="/publication">
               <i class="fas fa-bell"></i>
               <span>Publications</span>
             </a>
-          </li>
+          </li> -->
           <li class="sidebar-dropdown">
-            <a routerLink="/icons">
-              <i class="fas fa-arrow-alt-circle-down"></i>
-              <span>Iconos</span>
+            <a class="alink" routerLink="/icons">
+              <img class="barinfoimg" src="assets/icons/icons.png"/>
+              <!-- <i class="fas fa-arrow-alt-circle-down"></i> -->
+              <span class="text-dark"><strong> Iconos </strong></span>
             </a>
           </li>
 
@@ -131,7 +145,7 @@
                     <div class="divcontent">
                       <div class="pointer" routerLink="/news" style="white-space:nowrap">
                         <div style="display:inline;">
-                          <img class="infoimg" src="../assets/icons/home.ico" />
+                          <img class="infoimg" src="assets/icons/home.ico" />
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Home </strong>
@@ -139,7 +153,7 @@
                       </div>
                       <div class="pointer" routerLink="/health" style="white-space:nowrap">
                         <div style="display:inline;">
-                          <img class="infoimg" src="../assets/icons/heart.ico" />
+                          <img class="infoimg" src="assets/icons/heart.ico" />
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Salud </strong>
@@ -147,7 +161,7 @@
                       </div>
                       <div class="pointer" routerLink="/transport" style="white-space:nowrap">
                         <div style="display:inline;">
-                          <img class="infoimg" src="../assets/icons/bus.ico" />
+                          <img class="infoimg" src="assets/icons/bus.ico" />
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Transporte </strong>
@@ -155,7 +169,7 @@
                       </div>
                       <div class="pointer" routerLink="/food" style="white-space:nowrap">
                         <div style="display:inline;">
-                          <img class="infoimg" src="../assets/icons/food.ico" />
+                          <img class="infoimg" src="assets/icons/food.ico" />
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Comedor </strong>
@@ -182,7 +196,7 @@
                       <div class="pointer" routerLink="/users" style="white-space:nowrap">
                         <div style="display:inline;">
                           <!-- <i class="fas fa-users infoicon"></i> -->
-                          <img class="infoimg" src="../assets/icons/users.png" />
+                          <img class="infoimg" src="assets/icons/users.png" />
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Usuarios </strong>
@@ -191,7 +205,7 @@
                       <div class="pointer" routerLink="/plant" style="white-space:nowrap">
                         <div style="display:inline;">
                           <!-- <i class="fas fa-globe-americas infoicon"></i> -->
-                          <img class="infoimg" src="../assets/icons/plants.png"/>
+                          <img class="infoimg" src="assets/icons/plants.png"/>
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Plantas </strong>
@@ -200,7 +214,7 @@
                       <div class="pointer" routerLink="/departament" style="white-space:nowrap">
                         <div style="display:inline;">
                           <!-- <i class="fas fa-address-book infoicon"></i> -->
-                          <img class="infoimg" src="../assets/icons/department.png"/>
+                          <img class="infoimg" src="assets/icons/department.png"/>
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Departamentos </strong>
@@ -209,7 +223,7 @@
                       <div class="pointer" routerLink="/icons" style="white-space:nowrap">
                         <div style="display:inline;">
                           <!-- <i class="fas fa-arrow-alt-circle-down infoicon"></i> -->
-                          <img class="infoimg" src="../assets/icons/icons.png"/>
+                          <img class="infoimg" src="assets/icons/icons.png"/>
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Iconos </strong>
@@ -230,7 +244,7 @@
   <!-- page-content" -->
 </div>
 <div class="navbar">
-  <a routerLink="/news"><i><img src="../assets/icons/home.ico" alt=""></i></a>
+  <a routerLink="/news"><i><img src="assets/icons/home.ico" alt=""></i></a>
   <a routerLink="/health"><i><img src="assets/icons/heart.ico" alt=""></i></a>
   <a routerLink="/transport"><i><img src="assets/icons/bus.ico" alt=""></i></a>
   <a routerLink="/food"><i><img src="assets/icons/food.ico" alt=""></i></a>
