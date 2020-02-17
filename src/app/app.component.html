@@ -1,182 +1,238 @@
 <div class="navbar2 center">
-    <a id="show-sidebar" (click)="openSideBar()" *ngIf="auth.user$ | async as user">
-        <!-- <img src="assets/icons/cog.ico" alt=""> -->
-        <i class="fas fa-bars"></i>
-    </a>
-    <h3><span class="text-danger">Sanmina</span> <span class="colorgray"> | News</span></h3>
-    <button class="btn btn-outline-warning loginbtn" (click)="auth.signOut()" (click)="closeSideBar()" *ngIf="auth.user$ | async as user">Cerrar Sesion</button>
+  <a id="show-sidebar" (click)="openSideBar()" *ngIf="auth.user$ | async as user">
+    <!-- <img src="assets/icons/cog.ico" alt=""> -->
+    <i class="fas fa-bars"></i>
+
+  </a>
+  <img src="assets/images/sanminalogo.png" class="logoimg" alt="" width="48" height="32">
+  <h3><span class="text-danger">Sanmina</span> <span class="colorgray"> | News</span></h3>
+  <button class="btn btn-outline-warning loginbtn" (click)="auth.signOut()" (click)="closeSideBar()" *ngIf="auth.user$ | async as user">Cerrar Sesion</button>
 </div>
 <div class="page-wrapper chiller-theme toggled">
-    <nav id="sidebar" class="sidebar-wrapper">
-        <div class="sidebar-content">
-            <div class="sidebar-brand">
-                <a href="#">User Info</a>
-                <div id="close-sidebar" (click)="closeSideBar()">
-                    <i class="fa fa-times"></i>
-                </div>
-            </div>
-            <div class="sidebar-header" *ngIf="auth.user$ | async as user">
-                <div class="user-pic">
-                    <img class="img-responsive img-rounded" [src]="user.image">
-                </div>
-                <div class="user-info">
-                    <span class="user-name">{{user.fullName}}</span>
-                    <span class="user-role">Administrator</span>
-                    <span class="user-status">
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-brand">
+        <a href="#">User Info</a>
+        <div id="close-sidebar" (click)="closeSideBar()">
+          <i class="fa fa-times"></i>
+        </div>
+      </div>
+      <div class="sidebar-header" *ngIf="auth.user$ | async as user">
+        <div class="user-pic">
+          <img class="img-responsive img-rounded" [src]="user.image">
+        </div>
+        <div class="user-info">
+          <span class="user-name">{{user.fullName}}</span>
+          <span class="user-role">Administrator</span>
+          <span class="user-status">
             <i class="fa fa-circle"></i>
             <span>{{user.email}}</span>
-                    </span>
-                </div>
-            </div>
-            <label class="switch">
-                  <input type="checkbox" >
-                  <span class="slider round"></span>
-                </label>
-            <div class="sidebar-menu">
-                <ul>
-                    <li class="header-menu">
-                        <span>General</span>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/news" >
-                            <i class="fa fa-list"></i>
-                            <span>Noticias</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/transport" >
-                            <i class="fa fa-bus"></i>
-                            <span>Transporte</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/food" >
-                            <i class="fa fa-coffee"></i>
-                            <span>Comedor</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a>
-                            <span class="text-dark">Personal</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/health" >
-                            <i class="fa fa-heartbeat"></i>
-                            <span>Salud</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/users" >
-                            <i class="fa fa-users"></i>
-                            <span>Users</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/plant" >
-                            <i class="fas fa-globe-americas"></i>
-                            <span>Plants</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/departament" >
-                            <i class="fas fa-address-book"></i>
-                            <span>Departaments</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/publication" >
-                            <i class="fas fa-bell"></i>
-                            <span>Publications</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a routerLink="/icons" >
-                            <i class="fas fa-arrow-alt-circle-down"></i>
-                            <span>Icons</span>
-                        </a>
-                    </li>
+          </span>
+        </div>
+      </div>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+      <div class="sidebar-menu">
+        <ul>
+          <li class="header-menu">
+            <span>General</span>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/news">
+              <i class="fa fa-list"></i>
+              <span>Noticias</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/transport">
+              <i class="fa fa-bus"></i>
+              <span>Transporte</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/food">
+              <i class="fa fa-coffee"></i>
+              <span>Comedor</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a>
+              <span class="text-dark">Personal</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/health">
+              <i class="fa fa-heartbeat"></i>
+              <span>Salud</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/users">
+              <i class="fa fa-users"></i>
+              <span>Users</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/plant">
+              <i class="fas fa-globe-americas"></i>
+              <span>Plantas</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/departament">
+              <i class="fas fa-address-book"></i>
+              <span>Departamentos</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/publication">
+              <i class="fas fa-bell"></i>
+              <span>Publications</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown">
+            <a routerLink="/icons">
+              <i class="fas fa-arrow-alt-circle-down"></i>
+              <span>Iconos</span>
+            </a>
+          </li>
 
-                    <li class="sidebar-dropdown">
-                        <a (click)="auth.signOut()" (click)="closeSideBar()">
-                            <span class="text-warning">Cerrar Sesion</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- sidebar-wrapper  -->
-    <main class="page-content">
-      <div class="row mainrow" >
-        <div class="col-md-2 col-lg-2 col-xl-3">
-        </div>
-        <div class="col-lg-8" >
-          <div class="row">
-            <div class="col-lg-8 colnews">
-              <router-outlet></router-outlet>
-            </div>
-            <div class="col-lg-4">
-              <div class="row">
-                <div class="col-lg-12" *ngIf="auth.user$ | async as user" >
-                  <div class="tbl-content">
-                    <div class="divinfouser" >
-                        <p><span><img class="userimg" [src]="user.image"></span></p>
-                        <p class="paddingtoptext">{{user.fullName}} <br><span class="spanrole">{{user.idRole}}</span> </p>
-                    </div>
-                    <div class="divinfo">
-                      <p><strong>Noticias</strong></p>
-                      <div  routerLink="/news" style="white-space:nowrap">
-                        <div  style="display:inline;" >
-                            <img class="infoimg" src="../assets/icons/home.ico"/>
+          <li class="sidebar-dropdown">
+            <a (click)="auth.signOut()" (click)="closeSideBar()">
+              <span class="text-warning">Cerrar Sesion</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <div class="row mainrow">
+      <div class="col-md-2 col-lg-2 col-xl-3">
+      </div>
+      <div class="col-lg-9">
+        <div class="row">
+          <div class="col-lg-8 colnews">
+            <router-outlet></router-outlet>
+          </div>
+          <div class="col-lg-4">
+            <div class="row">
+              <div class="col-lg-12 newsinfocol" *ngIf="auth.user$ | async as user">
+                <div class="tbl-content">
+                  <div class="divinfouser">
+                    <p><span><img class="userimg" [src]="user.image"></span></p>
+                    <p class="paddingtoptext"><strong>{{user.fullName}} </strong> <br><span class="spanrole">{{user.idRole}}</span> </p>
+                  </div>
+                  <div class="divinfo">
+                    <strong class="text-secondary">Noticias</strong>
+                    <div class="divcontent">
+                      <div class="pointer" routerLink="/news" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <img class="infoimg" src="../assets/icons/home.ico" />
                         </div>
                         <div style="display:inline; white-space:nowrap;">
-                            <strong> Todas </strong>
-                            </div>
+                          <strong> Home </strong>
                         </div>
-                        <div  routerLink="/health" style="white-space:nowrap">
-                          <div  style="display:inline;">
-                              <img class="infoimg" src="../assets/icons/heart.ico"/>
-                          </div>
-                          <div style="display:inline; white-space:nowrap;">
-                              <strong> Salud </strong>
-                              </div>
-                          </div>
-                          <div  routerLink="/transport" style="white-space:nowrap">
-                            <div  style="display:inline;">
-                                <img class="infoimg" src="../assets/icons/bus.ico"/>
-                            </div>
-                            <div style="display:inline; white-space:nowrap;">
-                                <strong> Transporte </strong>
-                                </div>
-                            </div>
-                            <div  routerLink="/food" style="white-space:nowrap">
-                              <div  style="display:inline;">
-                                  <img class="infoimg" src="../assets/icons/food.ico"/>
-                              </div>
-                              <div style="display:inline; white-space:nowrap;">
-                                  <strong> Comedor </strong>
-                                  </div>
-                              </div>
-                              <hr>
+                      </div>
+                      <div class="pointer" routerLink="/health" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <img class="infoimg" src="../assets/icons/heart.ico" />
                         </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Salud </strong>
+                        </div>
+                      </div>
+                      <div class="pointer" routerLink="/transport" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <img class="infoimg" src="../assets/icons/bus.ico" />
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Transporte </strong>
+                        </div>
+                      </div>
+                      <div class="pointer" routerLink="/food" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <img class="infoimg" src="../assets/icons/food.ico" />
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Comedor </strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 admincol" *ngIf="auth.user$ | async as user">
+                <div class="tbl-content" *ngIf="user.idRole=='admin'||user.idRole=='superUser'">
+                  <div class="divadmin">
+                    <strong class="text-secondary">Administracion</strong>
+                    <div class="divcontentadmin">
+                      <div class="pointer" routerLink="/create" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <!-- <i class="fas fa-users infoicon"></i> -->
+                          <img class="infoimg" src="assets/icons/addnews.png" />
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Crear Noticia </strong>
+                        </div>
+                      </div>
+                      <div class="pointer" routerLink="/users" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <!-- <i class="fas fa-users infoicon"></i> -->
+                          <img class="infoimg" src="../assets/icons/users.png" />
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Usuarios </strong>
+                        </div>
+                      </div>
+                      <div class="pointer" routerLink="/plant" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <!-- <i class="fas fa-globe-americas infoicon"></i> -->
+                          <img class="infoimg" src="../assets/icons/plants.png"/>
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Plantas </strong>
+                        </div>
+                      </div>
+                      <div class="pointer" routerLink="/departament" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <!-- <i class="fas fa-address-book infoicon"></i> -->
+                          <img class="infoimg" src="../assets/icons/department.png"/>
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Departamentos </strong>
+                        </div>
+                      </div>
+                      <div class="pointer" routerLink="/icons" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <!-- <i class="fas fa-arrow-alt-circle-down infoicon"></i> -->
+                          <img class="infoimg" src="../assets/icons/icons.png"/>
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Iconos </strong>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-2">
-        </div>
-
       </div>
-    </main>
-    <!-- page-content" -->
+      <div class="col-lg-1">
+      </div>
+    </div>
+  </main>
+  <!-- page-content" -->
 </div>
 <div class="navbar">
-    <a routerLink="/news" ><i ><img src="../assets/icons/home.ico" alt=""></i></a>
-    <a routerLink="/health" ><i><img src="assets/icons/heart.ico" alt=""></i></a>
-    <a routerLink="/transport" ><i><img src="assets/icons/bus.ico" alt=""></i></a>
-    <a routerLink="/food" ><i><img src="assets/icons/food.ico" alt=""></i></a>
+  <a routerLink="/news"><i><img src="../assets/icons/home.ico" alt=""></i></a>
+  <a routerLink="/health"><i><img src="assets/icons/heart.ico" alt=""></i></a>
+  <a routerLink="/transport"><i><img src="assets/icons/bus.ico" alt=""></i></a>
+  <a routerLink="/food"><i><img src="assets/icons/food.ico" alt=""></i></a>
 </div>
 <!-- page-wrapper -->

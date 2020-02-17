@@ -1,25 +1,40 @@
 <div class="container-fluid">
   <div class="row">
-
     <div class="col-lg-12 text-center">
-      <p>Inicio de sesion</p>
+      <h3>Inicio de sesion</h3>
       <hr>
     </div>
-
   </div>
-
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12 text-center">
         <div class="divbtn" (click)="auth.googleSignin()">
           <img src="assets/icons/google.png" alt="" >
           Google
         </div>
-        <!-- <img src="assets/icons/facebook.png" alt="" (click)="auth.facebookSignin()">
-        Facebook -->
+        <img src="assets/icons/facebook.png" alt="" (click)="auth.facebookSignin()">
+        Facebook
         <br>
         <a href="" routerLink="/register">Registrar Nueva Cuenta</a>
       </div>
-
+    </div> -->
+    <div class="row">
+      <div class="col-md-6 text-center margintop">
+        <div class="divbtn" (click)="auth.googleSignin()">
+          <img src="assets/icons/google.png" alt="" >
+          Google
+        </div>
+      </div>
+      <div class="col-md-6 text-center margintop">
+        <!-- <div class="divbtn" (click)="auth.facebookSignin()">
+          <img src="assets/icons/facebooklogo.png" alt="" >
+          Facebook
+        </div> -->
+      </div>
     </div>
-
+    <div class="row">
+      <div class="col-lg-12 text-center margintop">
+        <span><a href="" routerLink="/register">Registrar Nueva Cuenta</a>
+  </span>
+      </div>
+    </div>
   </div>

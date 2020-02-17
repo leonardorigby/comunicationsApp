@@ -34,9 +34,9 @@ export class AuthService {
       this.getNewUserData();
     }
 
-    async googleSignin() {
+    googleSignin() {
     const provider = new auth.GoogleAuthProvider();
-    const credential = await this.afAuth.auth.signInWithPopup(provider);
+    const credential = this.afAuth.auth.signInWithRedirect(provider);
     return this.getUserData();
     // console.log(credential.user);
     // return this.updateUserData(credential.user);
@@ -78,7 +78,9 @@ export class AuthService {
       switchMap(newuser => {
           // Logged in
         if (newuser) {
+        this.router.navigate(['/news']);
           return this.afs.doc<NewUser>(`newUsers/${newuser.uid}`).valueChanges();
+
         } else {
           // Logged out
           return of(null);

@@ -176,6 +176,21 @@ body {
     .routesdiv{
       display: none;
     }
+    .loginbtn{
+      display: none;
+    }
+    .logoimg{
+      display: none;
+    }
+    .newsinfocol{
+      display: none;
+    }
+}
+@media screen and (width: 700px) {
+    // .colnews{
+    //   // max-width: 1200px;
+    //   background-color: red;
+    // }
 }
 
 #sidebar {
@@ -202,7 +217,16 @@ body {
     text-align: center;
     border: 0;
 }
-
+.logoimg{
+  position: fixed;
+  left: 32px;
+  top: 7px;
+  transition-delay: 0.3s;
+  z-index: 100;
+  text-align: center;
+  border: 0;
+  border-radius: 5px;
+}
 .loginbtn {
     position: fixed;
     right: 0;
@@ -842,17 +866,22 @@ input:checked+.slider:before {
 }
 .routesdiv{
 }
+.newsinfocol{
+  height: 360px;
+}
 .tbl-content{
   position: fixed;
-  height: 300px;
+  // height: 270px;
   border-radius: 5px;
   margin-top: 0px;
   width: 360px;
-  padding-left: 1%;
-  padding-right: 1%;
-  padding-top: 9px;
+  // padding-left: 27px;
+  // padding-right: 1%;
+  // padding-top: 9px;
+  // background-color: white;
 
 }
+
 .divinfouser{
   text-align: left;
   height: 63px;
@@ -886,8 +915,16 @@ input:checked+.slider:before {
 }
 .colnews{
   height: auto;
-	width: 100%;
-	max-width: 720px;
+	// width: 100%;
+	max-width: 630px;
+
+  @media screen and (min-width: 1500px){
+    max-width: 720px;
+  }
+  // @media screen and (max-width: 1300px){
+  //   background-color: blue;
+  // }
+
 }
 .optionsdiv img {
     float: left;
@@ -943,13 +980,91 @@ input:checked+.slider:before {
     display: inline-block;
     margin-top: 21px;
 }
+.divtitle{
+  position: fixed;
+  // padding-left: 9px;
+  height: 30px;
+  border-radius: 5px;
+
+  width: 100%;
+  // min-width: 351px;
+  border: 1px solid red;
+  background-color: white;
+}
+.divcontent{
+  margin-top: 9px;
+  overflow-y: auto;
+  height: 234px;
+
+}
+.divcontentadmin{
+  margin-top: 18px;
+  overflow-y: auto;
+  height: 210px;
+  @media screen and (min-height: 900px){
+    height: 360px;
+  }
+}
+.pointer{
+  cursor: pointer;
+
+}
+// .pointer:hover{
+//   border: 1px solid #DBDBDB;
+//   border-radius: 9px;
+// }
+// .pointer:focus{
+//   border-radius: 9px;
+//   box-shadow: 0;
+// }
+
 .divinfo{
   border: 1px solid #DBDBDB;
   border-radius: 5px;
-  padding: 18px;
+  padding-top: 12px;
+  padding-left: 9px;
   background-color: rgb(255,255,255);
   margin-top: 72px;
 }
+.divadmin{
+  border: 1px solid #DBDBDB;
+  border-radius: 5px;
+  padding-top: 12px;
+  padding-left: 9px;
+  background-color: rgb(255,255,255);
+}
 .infoimg{
-  margin: 5px;
+  margin: 3px;
+  padding: 9px;
+  border-radius: 100%;
+  -webkit-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  -moz-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+}
+.infoicon{
+  margin: 3px;
+  padding: 9px;
+  font-size: 21px;
+  border-radius: 100%;
+  -webkit-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  -moz-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+}
+.adminimg{
+  margin: 3px;
+  padding: 9px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  -moz-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+}
+.logoimgmobile{
+  position: fixed;
+  left: 32px;
+  top: 7px;
+  transition-delay: 0.3s;
+  z-index: 100;
+  text-align: center;
+  border: 0;
+  border-radius: 5px;
 }

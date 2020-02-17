@@ -112,6 +112,8 @@ export class FirebaseService {
       endDate: value.finishDate,
       like: new Array(),
       dislike: new Array(),
+      video: value.video,
+      encuesta: value.encuesta
     });
   }
   createMetricos(value){

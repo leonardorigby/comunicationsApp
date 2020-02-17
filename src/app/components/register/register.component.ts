@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -28,7 +29,8 @@ export class RegisterComponent implements OnInit {
   public newUser: NewUser;
   userinfo$: Observable<User>;
 
-  constructor(private router: Router, private injector: Injector, public auth: AuthService, public db: FirebaseService) { }
+  constructor(private router: Router, private injector: Injector, public auth: AuthService, public db: FirebaseService) {
+  }
 
   ngOnInit() {
     this.getNewUserData();

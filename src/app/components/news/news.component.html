@@ -1,137 +1,128 @@
 <!-- <img (click)="openCreateForm()" *ngIf="create==true" src="assets/icons/newnewx48.ico" alt="" class="newnewsicon cursor">
-<img (click)="openCreateForm()" *ngIf="create==false" src="assets/icons/returnx48.ico" alt="" class="newnewsicon cursor">
-
-<div class="container-fluid" *ngIf="create===true" style="background: transparent;">
-  <div class="row">
-    <div class="col-lg-3"></div>
-    <div class="col-lg-8 masternewscol"> -->
-      <img (click)="openCreateForm()" *ngIf="create==true" src="assets/icons/newnewx48.ico" alt="" class="newnewsicon cursor">
-      <img (click)="openCreateForm()" *ngIf="create==false" src="assets/icons/returnx48.ico" alt="" class="newnewsicon cursor">
-      <div class="row newsrow" *ngIf="create===true">
-          <div class="col-lg-12" >
-            <div class="newsdiv" *ngFor="let news of newsArray;let i=index">
-              <div class="row">
-                  <div class="col-xs-4 mod" >                    
-                      <p  class="user"><img class="userr"src="{{news.admin.image}}" alt="" > {{news.admin.name}}</p>                    
-                    </div>                    
-                    <div class="col-xs-3  exp" >                     
-                        <span class="expiracion" *ngIf="news.time!=0" >Expira en {{news.time}} dia(s)</span >
-                        <span class="expiracion"  *ngIf="news.time===0" >Expirara hoy</span>   
-                                        
-                    </div>
-                </div>
-                <div class="row descriptiondiv" *ngIf="news.encuesta.includes('true')">
-                  <div class="col-lg-12 ">
-                      <p style="font-size: 2em; text-align: center;"><strong class="titlep" >{{news.title}}. </strong> <br> {{news.description}}</p>
-                  </div>
-                </div>
-                <div class="row" *ngIf="news.encuesta.includes('true')">
-                  <div class="col-8" style="text-align: center;">
-                    <ngx-charts-bar-vertical
-                    [view]="view"
-                    [scheme]="colorScheme"
-                    [results]="news.single"
-                    [gradient]="gradient"
-                    [xAxis]="showXAxis"
-                    [yAxis]="showYAxis"
-                    [legend]="showLegend"
-                    [showXAxisLabel]="showXAxisLabel"
-                    [showYAxisLabel]="showYAxisLabel"
-                    [xAxisLabel]="xAxisLabel"
-                    [yAxisLabel]="yAxisLabel"
-                    [yScaleMax]="news.like.length+news.dislike.length"
-                    [animations]="false"
-                    (select)="onSelect($event)">
-                  </ngx-charts-bar-vertical>
-                  </div>
-                </div>
-              <div class="row" *ngIf="news.encuesta.includes('false')">
-                <div class="col-lg-12">
-                  <section style="text-align: center;">
-                    <img   *ngIf="news.image.includes('.mp4')==false || news.image.includes('.avi')==false && news.video==undefined" src="{{news.image}}" alt="" class="newsimages">
-                    <video *ngIf="news.image.includes('.mp4')==true || news.image.includes('.avi')==true && news.video==undefined" src="{{news.image}}"  controls class="newsimages">
-                      Lo sentimos. Este vídeo no puede ser reproducido en tu navegador.</video>
-                        <youtube-player class="newsimagess" id="video" *ngIf="news.video!=undefined && news.image.length==0"
-                        [videoId]="news.video"
-                        (ready)="savePlayer($event)"
-                        (change)="onStateChange($event)"
-                       
-                      ></youtube-player>
-                      
-                    </section>
-                </div>
-              </div>
-              <div class="row" *ngIf="news.encuesta.includes('false')">
-                <div class="col-lg-12">
-                  <div class="navlikes">
-                    	<p *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux,news.encuesta,news.video,$event)"><i class="far fa-heart text-dark likeicons"></i></p>
-                    	<p *ngIf="news.auxlike.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux,news.encuesta,news.video,$event)"><i class="fas fa-heart text-danger likeicons"></i></p>
-                    	<p *ngIf="news.auxdislike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux,news.encuesta,news.video,$event)"><i class="fas fa-heart-broken text-dark likeicons"></i></p>
-                      <p *ngIf="news.auxdislike.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux,news.encuesta,news.video,$event)"><i class="fas fa-heart-broken text-danger likeicons"></i></p>
-                  </div>
-              </div>
-              <div class="row" >
-                <nav class="countlikes">
-                  <ul>
-                    <p>{{news.like.length}} likes.</p>
-                    <p>{{news.dislike.length}} dislikes.</p>
-                  </ul>
-                </nav>
-              </div>
-              </div>
-              <!--  -->
-              <div class="row" *ngIf="news.encuesta.includes('true')">
-                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sino">
-                  <div class="navlikess">
-                    	<p  *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux,news.encuesta,news.video,$event)"><i class="far fa-heart text-dark likeicons"></i>Si</p>
-                    	<p style="background-color: palevioletred; padding-left: 5%;" *ngIf="news.auxlike.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux,news.encuesta,news.video,$event)"><i class="fas fa-heart text-white likeicons"></i>Si</p>
-                  </div>
-              </div>
-              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sino">
-                <div class="navlikess">
-                <p  *ngIf="news.auxdislike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux,news.encuesta,news.video,$event)"><i class="fas fa-heart-broken text-dark likeicons"></i>No</p>
-                <p style="background-color: palevioletred;padding-right: 5%;padding-left: 0%; " *ngIf="news.auxdislike.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux,news.encuesta,news.video,$event)"><i class="fas fa-heart-broken text-white likeicons"></i>No</p>
-              </div>
-            </div>
-              <div class="row" >
-                <nav class="countlikes">
-                  <ul>
-                    <p>{{news.like.length}} Si.</p>
-                    <p>{{news.dislike.length}} No.</p>
-                  </ul>
-                  <ul>
-                   <p> {{news.todas.length}} Persona(s) ha(n) votado.</p>
-                  </ul>
-                </nav>
-              </div>
-              </div>
-              <!--  -->
-              <div class="row descriptiondiv" *ngIf="news.encuesta.includes('false')">
-                <div class="col-lg-12 ">
-                    <p class="descriptionp"><strong class="titlep" >{{news.title}}. </strong>{{news.description}}</p>
-                </div>
-              </div>
-              <div class="row">
-              <div class="col-md-2">
-                <div class="row"  >
-                </div>
-              </div>
-            </div>
+<img (click)="openCreateForm()" *ngIf="create==false" src="assets/icons/returnx48.ico" alt="" class="newnewsicon cursor"> -->
+<div class="row newsrow" >
+  <div class="col-lg-12">
+    <div class="newsdiv" *ngFor="let news of newsArray;let i=index">
+      <div class="row">
+        <div class="col-xs-4 mod">
+          <p class="user"><img class="userr" src="{{news.admin.image}}" alt=""> {{news.admin.name}}</p>
+        </div>
+        <div class="col-xs-3  exp">
+          <span class="expiracion" *ngIf="news.time!=0">Expira en {{news.time}} dia(s)</span>
+          <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span>
+        </div>
+      </div>
+      <div class="row descriptiondiv" *ngIf="news.encuesta.includes('true')">
+        <div class="col-lg-12 ">
+          <p style="font-size: 2em; text-align: center;"><strong class="titlep">{{news.title}}. </strong> <br> {{news.description}}</p>
+        </div>
+      </div>
+      <div class="row" *ngIf="news.encuesta.includes('true')">
+        <div class="col-8" style="text-align: center;">
+          <ngx-charts-bar-vertical
+            [view]="view"
+            [scheme]="colorScheme"
+            [results]="news.single"
+            [gradient]="gradient"
+            [xAxis]="showXAxis"
+            [yAxis]="showYAxis"
+            [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [yScaleMax]="news.like.length+news.dislike.length"
+            [animations]="false" (select)="onSelect($event)">
+          </ngx-charts-bar-vertical>
+        </div>
+      </div>
+      <div class="row" *ngIf="news.encuesta.includes('false')">
+        <div class="col-lg-12">
+          <section style="text-align: center;">
+            <img *ngIf="news.image.includes('.mp4')==false || news.image.includes('.avi')==false && news.video==undefined" src="{{news.image}}" alt="" class="newsimages">
+            <video *ngIf="news.image.includes('.mp4')==true || news.image.includes('.avi')==true && news.video==undefined" src="{{news.image}}" controls class="newsimages">
+              Lo sentimos. Este vídeo no puede ser reproducido en tu navegador.</video>
+            <youtube-player class="newsimagess" id="video" *ngIf="news.video!=undefined && news.image.length==0" [videoId]="news.video" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+          </section>
+        </div>
+      </div>
+      <div class="row" *ngIf="news.encuesta.includes('false')">
+        <div class="col-lg-12">
+          <div class="navlikes">
+            <p *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux,news.encuesta,news.video,$event)"><i
+                class="far fa-heart text-dark likeicons"></i></p>
+            <p *ngIf="news.auxlike.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux,news.encuesta,news.video,$event)"><i
+                class="fas fa-heart text-danger likeicons"></i></p>
+            <p *ngIf="news.auxdislike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux,news.encuesta,news.video,$event)"><i
+                class="fas fa-heart-broken text-dark likeicons"></i></p>
+            <p *ngIf="news.auxdislike.includes(uid)==true" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux,news.encuesta,news.video,$event)"><i
+                class="fas fa-heart-broken text-danger likeicons"></i></p>
+          </div>
+        </div>
+        <div class="row">
+          <nav class="countlikes">
+            <ul>
+              <p>{{news.like.length}} likes.</p>
+              <p>{{news.dislike.length}} dislikes.</p>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="row" *ngIf="news.encuesta.includes('true')">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sino">
+          <div class="navlikess">
+            <p *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux,news.encuesta,news.video,$event)"><i
+                class="far fa-heart text-dark likeicons"></i>Si</p>
+            <p style="background-color: palevioletred; padding-left: 5%;" *ngIf="news.auxlike.includes(uid)==true"
+              (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'like',news.imgaux,news.encuesta,news.video,$event)"><i class="fas fa-heart text-white likeicons"></i>Si</p>
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sino">
+          <div class="navlikess">
+            <p *ngIf="news.auxdislike.includes(uid)==false" (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux,news.encuesta,news.video,$event)"><i
+                class="fas fa-heart-broken text-dark likeicons"></i>No</p>
+            <p style="background-color: palevioletred;padding-right: 5%;padding-left: 0%; " *ngIf="news.auxdislike.includes(uid)==true"
+              (click)="getLikes(news.admin,news.description,news.dislike,news.endDate,news.key,news.like,news.startDate,news.title,'dislike',news.imgaux,news.encuesta,news.video,$event)"><i class="fas fa-heart-broken text-white likeicons"></i>No</p>
+          </div>
+        </div>
+        <div class="row">
+          <nav class="countlikes">
+            <ul>
+              <p>{{news.like.length}} Si.</p>
+              <p>{{news.dislike.length}} No.</p>
+            </ul>
+            <ul>
+              <p> {{news.todas.length}} Persona(s) ha(n) votado.</p>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="row descriptiondiv" *ngIf="news.encuesta.includes('false')">
+        <div class="col-lg-12 ">
+          <p class="descriptionp"><strong class="titlep">{{news.title}}. </strong>{{news.description}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="row">
           </div>
         </div>
       </div>
-   
-  
+    </div>
+  </div>
+</div>
 
-<div class="container-fluid" *ngIf="create===false" style="background: transparent;">
+
+
+<!-- <div class="container-fluid" *ngIf="create===false" style="background: transparent;">
   <div class="row">
-    <!-- <div class="col-lg-3"></div> -->
     <div class="col-lg-12 masterformcol">
+
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         </div>
       </div>
-      <div class="row rowformsnew" >
+      <div class="row rowformsnew">
         <div class=" col-lg-12 border">
           <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)">
             <div class="row">
@@ -143,7 +134,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12 text-center">
-                    <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg,.avi,.mp4,.mkv"/>
+                    <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg,.avi,.mp4,.mkv" />
                     <label for="file" class="btn-2">Upload Image</label>
                   </div>
                 </div>
@@ -154,8 +145,8 @@
                     <div class="form-group">
                       <label for="title" class="title">Title</label>
                       <div class="FieldElement">
-                      <input type="text" name="title" ngModel class="form-control inputsform" >
-                    </div>
+                        <input type="text" name="title" ngModel class="form-control inputsform">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -164,8 +155,8 @@
                     <div class="form-group">
                       <label for="title" class="viedo">URL de tu video de youtube</label>
                       <div class="FieldElement">
-                      <input type="text" name="video" ngModel class="form-control inputsform" >
-                    </div>
+                        <input type="text" name="video" ngModel class="form-control inputsform">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -174,12 +165,11 @@
                     <div class="form-group">
                       <label for="title" class="title">¿Es una encuesta?</label>
                       <div class="FieldElement">
-                      <!-- <input type="text" name="title" ngModel class="form-control inputsform" > -->
-                      <select name="encuesta" ngModel id="" class="form-control inputsform">
-                        <option ngModel value="true">Si</option>
-                        <option ngModel   value="false" selected>No</option>
-                      </select>
-                    </div>
+                        <select name="encuesta" ngModel id="" class="form-control inputsform">
+                          <option ngModel value="true">Si</option>
+                          <option ngModel value="false" selected>No</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -208,9 +198,9 @@
                 </div>
               </div>
             </div>
-            </form>
+          </form>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div> -->

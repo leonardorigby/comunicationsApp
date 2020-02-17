@@ -1,5 +1,73 @@
-<div class="container-fluid">
-  <div class="row">
+<div class="row newsrow">
+  <div class="col-lg-12">
+    <div class="newsdiv">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1 class="text-dark">USUARIOS</h1>
+          <br>
+          <hr>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row rowusers"  *ngFor="let info of users" style="white-space:nowrap">
+            <div class="col-lg-2 padding-left"><img class="infoimg" src="{{info.image}}"/></div>
+            <div class="col-lg-4 padding-left">
+              <strong>{{info.employeeNumber}}</strong>
+              <p>{{info.fullName}}</p>
+              <strong>{{info.idRole}}</strong>
+              <p>{{info.email}}</p>
+            </div>
+            <!-- <div class="col-lg-2" style="border: 1px solid green;"></div> -->
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
+              <div class="divauth" (click)="autorizedUser(info, info.id)">
+                <img class="pointer" src="../../assets/icons/passed.png" alt="" *ngIf="info.authorized==true">
+                <img class="pointer" src="../../assets/icons/block.png" alt="" *ngIf="info.authorized==false">
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <div ><p><i class="fas fa-trash text-danger" (click)="deleteUser(info.id)"></i></p></div>
+            </div>
+            <!-- <div style="display:inline;">
+              <img class="infoimg" src="{{info.image}}"/>
+            </div>
+            <div style="display:inline; white-space:nowrap;">
+              <p><strong>{{info.employeeNumber}} </strong><span> {{info.fullName}}</span></p> -->
+              <!-- <img src="assets/icons/cog.ico" alt="" data-toggle="modal" data-target="#exampleModalCenter"> -->
+              <!-- <strong> {{info.employeeNumber}} </strong> -->
+              <!-- <p class="text-dark">{{info.fullName}}</p> -->
+              <!-- Button trigger modal -->
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                Launch demo modal
+              </button> -->
+
+              <!-- Modal -->
+              <!-- <div class="modal fade"   id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+
+                      <img class="modalimg" src="{{info.image}}"/>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            <!-- </div> -->
+          <!-- </div> -->
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- <div class="row">
     <div class="col-lg-12 text-center">
       <br>
       <h1 class="text-dark">USERS | ADMIN</h1>
@@ -30,7 +98,7 @@
             <td data-label="Department"><p class="text-dark">{{info.idDepartment}}</p></td>
             <td data-label="Role"><p class="text-dark">{{info.idRole}}</p></td>
             <td data-label="Authorized" (click)="autorizedUser(info, info.id)">
-              <!-- <p class="text-dark">{{info.authorized}}</p> -->
+              <p class="text-dark">{{info.authorized}}</p>
               <img src="../../assets/icons/passed.png" alt="" *ngIf="info.authorized==true">
               <img src="../../assets/icons/block.png" alt="" *ngIf="info.authorized==false">
             </td>
@@ -40,7 +108,5 @@
       </table>
     </div>
     <div class="col-sm-1 text-center">
-
     </div>
-  </div>
-</div>
+  </div> -->

@@ -34,6 +34,8 @@ getUsers(){
   });
 }
 autorizedUser(info, key){
+  // var employeesAPI = 'http://gdl1amwebw02.am.sanm.corp:8080/YildDefect/EmployeeInfo?employeeNumber=207002790';
+
   var user = {
     id: info.id,
     fullName: info.fullName,

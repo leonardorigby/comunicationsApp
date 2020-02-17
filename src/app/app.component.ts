@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralService } from'./services/general.service';
 import * as $ from 'jquery';
 import { AuthService } from './services/auth.service';
+import { Router } from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -15,7 +17,8 @@ export class AppComponent implements OnInit{
   public changetheme: boolean = true;
   // url: string;
 
-  constructor(private generalservice: GeneralService, public auth: AuthService){
+  constructor(route: ActivatedRoute, private router: Router, private generalservice: GeneralService, public auth: AuthService){
+    // console.log(this.route);
 
   }
 

@@ -13,12 +13,18 @@ import { RoleComponent } from './components/role/role.component';
 import { DepartamentComponent } from './components/departament/departament.component';
 import { PublicationComponent } from './components/publication/publication.component';
 import { IconsComponent } from './components/icons/icons.component';
+import { CreateComponent } from './components/create/create.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
     // canActivate: [AuthGuard]
+  },
+  {
+    path: 'create',
+    component: CreateComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',
