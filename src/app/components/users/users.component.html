@@ -1,4 +1,4 @@
-<div class="row newsrow">
+<div class="row newsrow" *ngIf="auth.user$ | async as user">
   <div class="col-lg-12">
     <div class="newsdiv">
       <div class="row">
@@ -12,23 +12,59 @@
         <div class="col-lg-12">
           <div class="row rowusers"  *ngFor="let info of users" style="white-space:nowrap">
             <div class="col-lg-2 padding-left"><img class="infoimg" src="{{info.image}}"/></div>
-            <div class="col-lg-4 padding-left">
+            <div class="col-lg-6 padding-left">
               <strong>{{info.employeeNumber}}</strong>
               <p>{{info.fullName}}</p>
               <strong>{{info.idRole}}</strong>
               <p>{{info.email}}</p>
             </div>
             <!-- <div class="col-lg-2" style="border: 1px solid green;"></div> -->
-            <div class="col-lg-2"></div>
-            <div class="col-lg-2">
-              <div class="divauth" (click)="autorizedUser(info, info.id)">
-                <img class="pointer" src="../../assets/icons/passed.png" alt="" *ngIf="info.authorized==true">
-                <img class="pointer" src="../../assets/icons/block.png" alt="" *ngIf="info.authorized==false">
+
+              <!-- <div class="divauth" (click)="autorizedUser(info, info.id)">
+                <img class="pointer" src="assets/icons/passed.png" alt="" *ngIf="info.authorized==true">
+                <img class="pointer" src="assets/icons/block.png" alt="" *ngIf="info.authorized==false">
+              </div> -->
+            <div class="col-lg-2 text-center">
+              <div class="row">
+                <div class="col-6 col-lg-12">
+                  <div class="divauth" (click)="autorizedUser(info, info.id)">
+                    <img class="pointer roundimg" src="assets/icons/passed.png" alt="" *ngIf="info.authorized==true">
+                    <img class="pointer roundimg" src="assets/icons/block.png" alt="" *ngIf="info.authorized==false">
+                  </div>
+                </div>
+                <div class="col-6 col-lg-12 padbottom">
+                  <div ><p><i class="fas fa-trash text-danger pointer roundicon" (click)="deleteUser(info.id, info.fullName)"></i></p></div>
+                </div>
               </div>
             </div>
-            <div class="col-lg-2 text-center" >
-              <div ><p><i class="fas fa-trash text-danger" (click)="deleteUser(info.id)"></i></p></div>
+            <div class="col-lg-2">
+              <select class="form-control" name="rol" (change)="changeRol(info, $event.target.value)">
+                <option disabled value="" >Rol</option>
+                <option *ngFor="let rol of roles" [value]=rol.name>{{rol.name}}</option>
+              </select>
             </div>
+            <!-- The Modal -->
+            <!-- <div class="modal fade" id="myModal">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                  <div class="modal-header">
+                    <h4 class="modal-title">Roles de usuario</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+
+                  <div class="modal-body">
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+                  </div>
+
+                </div>
+              </div>
+            </div> -->
+
             <!-- <div style="display:inline;">
               <img class="infoimg" src="{{info.image}}"/>
             </div>
@@ -67,46 +103,3 @@
     </div>
   </div>
 </div>
-  <!-- <div class="row">
-    <div class="col-lg-12 text-center">
-      <br>
-      <h1 class="text-dark">USERS | ADMIN</h1>
-      <br>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-10">
-      <table class="table">
-        <thead>
-          <tr>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-          <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let info of users">
-            <td data-label="Image"><img src="{{info.image}}" class="imguser" alt=""></td>
-            <td data-label="Employee Number"><p class="text-dark">{{info.employeeNumber}}</p></td>
-            <td data-label="Name"><p class="text-dark">{{info.fullName}}</p></td>
-            <td data-label="E-mail"><p class="text-dark">{{info.email}}</p></td>
-            <td data-label="Plant"><p class="text-dark">{{info.idPlant}}</p></td>
-            <td data-label="Department"><p class="text-dark">{{info.idDepartment}}</p></td>
-            <td data-label="Role"><p class="text-dark">{{info.idRole}}</p></td>
-            <td data-label="Authorized" (click)="autorizedUser(info, info.id)">
-              <p class="text-dark">{{info.authorized}}</p>
-              <img src="../../assets/icons/passed.png" alt="" *ngIf="info.authorized==true">
-              <img src="../../assets/icons/block.png" alt="" *ngIf="info.authorized==false">
-            </td>
-            <td data-label="Delete"><p><i class="fas fa-trash text-danger" (click)="deleteUser(info.id)"></i></p></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-sm-1 text-center">
-    </div>
-  </div> -->

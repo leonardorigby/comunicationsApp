@@ -27,6 +27,7 @@ export class AuthService {
             return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
           } else {
             // Logged out
+            this.router.navigate(['/login']);
             return of(null);
           }
         })
@@ -78,7 +79,7 @@ export class AuthService {
       switchMap(newuser => {
           // Logged in
         if (newuser) {
-        this.router.navigate(['/news']);
+        // this.router.navigate(['/news']);
           return this.afs.doc<NewUser>(`newUsers/${newuser.uid}`).valueChanges();
 
         } else {
@@ -94,6 +95,7 @@ export class AuthService {
       switchMap(user => {
           // Logged in
         if (user) {
+        // this.router.navigate(['/newns']);
           return this.afs.doc<NewUser>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
@@ -101,7 +103,7 @@ export class AuthService {
         }
       })
     )
-    console.log(this.user$);
+    // console.log(this.user$);
     return this.user$;
   }
 

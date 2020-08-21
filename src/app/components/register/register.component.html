@@ -1,13 +1,9 @@
-<div class="container-fluid">
-  <div class="row">
-
+  <div class="row contentrow">
     <div class="col-lg-12 text-center">
       <h3>Registrar cuenta</h3>
       <hr>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 text-center margintop ">
+      <div class="col-md-6 text-center margintop ">
       <div class="divbtn bg-info" (click)="googleSignUp()">
         <span class="text-white"><img src="assets/icons/google.png" alt="" >
         Google</span>
@@ -19,15 +15,11 @@
       Facebook
     </div> -->
     </div>
-  </div>
-  <div class="row">
     <div class="col-lg-12 text-center margintop">
       <span><i class="fas fa-long-arrow-alt-left text-primary" ></i><a routerLink="/login" href="" > Iniciar Sesion</a>
 </span>
     </div>
-  </div>
-  <div class="row" *ngIf="auth.newUser$ | async as user">
-    <div class="col-md-12  text-center">
+    <div class="col-md-12  text-center" *ngIf="auth.newUser$ | async as user">
       <p class="text-info">Informacion Personal</p>
       <div class="sidebar-header">
         <div class="user-pic">
@@ -42,40 +34,46 @@
       </div>
       <hr>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="newUser">
       <p class="text-info">Informacion Adicional</p>
-      <form #registerForm="ngForm" name="registerForm" (submit)="registerNewUser(registerForm, registerForm.value)">
+      <!-- #registerForm="ngForm" -->
+      <form  [formGroup]="registerForm"  name="registerForm" novalidate (submit)="registerNewUser(registerForm, registerForm.value)">
         <div class="form-group">
-          <label for="">Employee Number</label>
-          <input type="number" class="form-control informs" name="employeeNumber" ngModel>
+            <label >Numero de empleado</label>
+            <input type="number" class="form-control informs" formControlName="employeeNumber" [ngClass]="{ 'is-invalid': submitted && f.employeeNumber.errors }" >
+          <div *ngIf="submitted && f.employeeNumber.errors" class="invalid-feedback">
+            <div *ngIf="f.employeeNumber.errors.required"> Numero de empleado es requerido!</div>
+          </div>
         </div>
       <div class="form-group">
-        <label for="">Department</label>
-        <select class="form-control informs" name="department" ngModel>
-          <option *ngFor="let department of departments" value="{{department.name}}">{{department.name}}</option>
+        <label for="">Departamento</label>
+        <select class="form-control informs" formControlName="department"  ngModel [ngClass]="{ 'is-invalid': submitted && f.department.errors }">
+          <option *ngFor="let department of departments" value="{{department.name}}" >{{department.name}}</option>
         </select>
+        <div *ngIf="submitted && f.department.errors" class="invalid-feedback">
+          <div *ngIf="f.department.errors.required"> Departamento es requerido!</div>
+        </div>
       </div>
       <div class="form-group">
-        <label for="">Plant</label>
-        <select class="form-control informs" name="plant" ngModel>
+        <label for="">Planta</label>
+        <select class="form-control informs" formControlName="plant"  ngModel [ngClass]="{ 'is-invalid': submitted && f.plant.errors }">
           <option *ngFor="let plant of plants" value="{{plant.name}}">{{plant.name}}</option>
         </select>
+        <div *ngIf="submitted && f.plant.errors" class="invalid-feedback">
+          <div *ngIf="f.plant.errors.required"> Planta es requerida!</div>
+        </div>
       </div>
-      <!-- <div class="form-group">
-        <label for="">Role</label>
-        <select class="form-control informs" name="role" ngModel>
-          <option *ngFor="let role of roles" value="{{role.name}}">{{role.name}}</option>
-        </select>
-      </div> -->
       <div class="form-group">
-        <label for="">Birth Date</label>
-        <input type="date" class="form-control informs" name="birthdate" ngModel>
+        <label for="">Fecha de nacimiento</label>
+        <input type="date" class="form-control informs" formControlName="birthdate"  ngModel [ngClass]="{ 'is-invalid': submitted && f.birthdate.errors }">
       </div>
-      <button type="submit" class="btn registerbtn" name="button">Registrarse</button>
+      <div *ngIf="submitted && f.birthdate.errors" class="invalid-feedback">
+        <div *ngIf="f.birthdate.errors.required"> Fecha de nacimiento es requerida!</div>
+      </div>
+      <br>
+      <div class="form-group text-center">
+        <button type="submit" class="btn registerbtn" name="button">Registrarse</button>
+      </div>
       </form>
     </div>
-    <div class="col-md-4">
-
-    </div>
   </div>
-</div>

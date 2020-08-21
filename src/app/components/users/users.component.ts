@@ -7,6 +7,7 @@ import { Role } from '../models/role'; // optional
 import { Plant } from '../models/plant';
 import { Departament } from '../models/departament';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -17,11 +18,14 @@ import { Router } from '@angular/router';
 export class UsersComponent implements OnInit {
 
   users: any;
+  public roles: Role[];
 
   constructor(private router: Router, public auth: AuthService, public db: FirebaseService) { }
 
   ngOnInit() {
     this.getUsers();
+    this.getRoles();
+
   }
 
 getUsers(){
@@ -53,24 +57,45 @@ autorizedUser(info, key){
     });
   }
 
-  deleteUser(key){
-    this.db.deleteUser(key).then(rsult=>{
-      this.getUsers();
+  deleteUser(key, name){
+    Swal.fire({
+  title: '¿Estas seguro de eliminar al usuario: '+name+"?",
+  text: "Se eliminara permenente!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, eliminar'
+}).then((result) => {
+  if (result.value) {
+    this.db.deleteUser(key).then(result=>{
+      Swal.fire(
+        'Se elimino al usuario: '+ name,
+        'Eliminado exitosamente!',
+        'success'
+      )
+      // this.getUsers();
     });
   }
-}
+})
 
-// user{
-//   id,
-//   nombre,
-//   apellido,
-//   n. empleado,
-//   departamento,
-//   correo,
-//   planta,
-//   puesto,
-//   mc address,
-//   foto,
-//   supervisor ne,
-//   phone number,
-// }
+}
+changeRol(user, rol){
+  this.db.updateUserRole(user, rol).then((response) => {
+    this.getUsers();
+  });
+
+}
+getRoles(){
+  this.db.getRoless().snapshotChanges().subscribe((response) => {
+    this.roles = [];
+    response.forEach( element => {
+      // this.id = element.payload.key;
+      // console.log(this.id);
+      let data = element.payload.toJSON();
+      data['$key'] = element.key;
+      this.roles.push(data as Role);
+    })
+  });
+}
+}

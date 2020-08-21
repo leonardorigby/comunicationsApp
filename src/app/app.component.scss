@@ -870,18 +870,13 @@ input:checked+.slider:before {
 .routesdiv{
 }
 .newsinfocol{
-  height: 360px;
+  height: 330px;
 }
 .tbl-content{
   position: fixed;
-  // height: 270px;
   border-radius: 5px;
   margin-top: 0px;
   width: 300px;
-  // padding-left: 27px;
-  // padding-right: 1%;
-  // padding-top: 9px;
-  // background-color: white;
 
 }
 
@@ -985,23 +980,19 @@ input:checked+.slider:before {
 }
 .divtitle{
   position: fixed;
-  // padding-left: 9px;
   height: 30px;
   border-radius: 5px;
-
   width: 100%;
-  // min-width: 351px;
   border: 1px solid red;
   background-color: white;
 }
 .divcontent{
   margin-top: 9px;
   overflow-y: auto;
-  height: 234px;
-
+  height: 201px;
 }
 .divcontentadmin{
-  margin-top: 18px;
+  margin-top: 3px;
   overflow-y: auto;
   height: 210px;
   @media screen and (min-height: 900px){
@@ -1011,6 +1002,12 @@ input:checked+.slider:before {
 .pointer{
   cursor: pointer;
 
+}
+.alogout:hover{
+  border-radius: 18px;
+  -webkit-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  -moz-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
 }
 // .pointer:hover{
 //   border: 1px solid #DBDBDB;
@@ -1025,6 +1022,7 @@ input:checked+.slider:before {
   border: 1px solid #DBDBDB;
   border-radius: 5px;
   padding-top: 12px;
+  padding-bottom: 2px;
   padding-left: 9px;
   background-color: rgb(255,255,255);
   margin-top: 72px;
@@ -1032,13 +1030,13 @@ input:checked+.slider:before {
 .divadmin{
   border: 1px solid #DBDBDB;
   border-radius: 5px;
-  padding-top: 12px;
+  padding-top: 5px;
   padding-left: 9px;
   background-color: rgb(255,255,255);
 }
 .infoimg{
-  margin: 3px;
-  padding: 9px;
+  margin: 2px;
+  padding: 7px;
   border-radius: 100%;
   -webkit-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
   -moz-box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);

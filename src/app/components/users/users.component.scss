@@ -53,6 +53,7 @@ h1{
 
 }
 .modal{
+
 }
 .modal-dialog{
   width: 300px;
@@ -75,4 +76,24 @@ h1{
 }
 .pointer{
   cursor: pointer;
+}
+.padbottom{
+  padding-top: 18px;
+}
+.roundimg{
+  padding: 7px;
+  box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  border-radius: 50%;
+}
+.roundicon{
+  font-size: 21px;
+  padding: 13px;
+  box-shadow: 0px 2px 2px 1px  rgba(161, 161, 161, 0.38);
+  border-radius: 50%;
+}
+.roundimg:hover{
+  background-color: rgb(191, 191, 191);
+}
+.roundicon:hover{
+  background-color: rgb(191, 191, 191);
 }

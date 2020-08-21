@@ -81,7 +81,7 @@ export class NewsComponent implements OnInit {
   colorScheme = {
     domain: ['#A10A28',  '#AAAAAA']
   };
- 
+
 single=new Array<{
   name:'',
   value:0
@@ -96,7 +96,10 @@ single=new Array<{
   constructor(public sanitizer: DomSanitizer,private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
 
   ngOnInit() {
-    
+    const num = 18000;
+    var output = (num/100).toFixed(2);
+    console.log(output);
+
     this.video="https://www.youtube.com/embed/5Z2C0wy4bmg";
     this.arrayMetricos = new Array<Metrico>();
     this.arrayMetricosaux = new Array<any>();
@@ -122,7 +125,7 @@ single=new Array<{
   this.view =  [650, 450];
 }else {
   this.view =  [650, 450];
-    
+
   }
 }
 // public get currentTime(): number
@@ -135,13 +138,13 @@ single=new Array<{
     console.log('player instance', player.getCurrentTime());
   }
   onStateChange(event) {
-   
+
       console.log(this.player.getVideoUrl());
       // this.player.set
       // setTimeout(, 600);
       // this.done = true;
-    
-   
+
+
   }
   stopVideo() {
     this.player.stopVideo();
@@ -183,7 +186,7 @@ single=new Array<{
           result.forEach(r => {
             var user: any;
             user = r.payload.doc.data();
-            
+
             if (user.id == not.admin) {
               this.m = new Metrico;
               this.m.adminImg = user.image;
@@ -225,7 +228,7 @@ single=new Array<{
                   this.m.todas.push(this.user);
               }
               this.arrayMetricos.push(this.m);
-             
+
             }
           });
         });
@@ -234,11 +237,11 @@ single=new Array<{
 
 
       console.log(this.arrayMetricos);
- 
+
     });
-    
-   
-     
+
+
+
   }
 
   getAllNews() {
@@ -248,7 +251,7 @@ single=new Array<{
         var id = Data.payload.doc.id;
         this.idpublication = id;
         var aux = Data.payload.doc.data();
-        
+
      if(aux.encuesta=='true'){
 
     //   console.log(aux);
@@ -261,7 +264,7 @@ single=new Array<{
           "name": "No",
           "value": aux.dislike.length
         },
-    
+
       ];
     //   console.log(this.single);
      }
@@ -274,7 +277,7 @@ single=new Array<{
           console.log('se elimino a ', aux);
         } else {
           aux.key = id;
-          // 
+          //
           let tmplike=new Array();
           let tmpdislike= new Array();
           if(aux.like==undefined){
@@ -290,9 +293,9 @@ single=new Array<{
             for(var x=0;x<aux.dislike.length;x++){
               tmpdislike.push(aux.dislike[x].id);
             }
-         
+
           }
-          // 
+          //
           aux.auxlike=tmplike;
           aux.auxdislike=tmpdislike;
           aux.todas=new Array();
@@ -320,12 +323,12 @@ single=new Array<{
           this.newsArray.push(aux);
           var arraux = this.newsArray.sort((unaMascota, otraMascota) => unaMascota.title.localeCompare(otraMascota.title));
           this.newsArray = arraux;
-          
-        
+
+
         }
-     
+
       });
-      
+
     });
   }
 
@@ -611,9 +614,9 @@ single=new Array<{
       },
       creationDate: creationDate
     };
-    
+
     if (this.url != null ) {
-     
+
       var imgRef = '/img/' + this.imageRef;
       this.afStorage.upload(imgRef, this.targetFile).then(r => {
         this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
@@ -622,7 +625,7 @@ single=new Array<{
               res => {
                 console.log(res);
               });
-          
+
         });
         console.log("imagen guardada?");
       });
