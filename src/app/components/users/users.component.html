@@ -37,7 +37,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-2" *ngIf="user.idRole=='superUser'">
               <select class="form-control" name="rol" (change)="changeRol(info, $event.target.value)">
                 <option disabled value="" >Rol</option>
                 <option *ngFor="let rol of roles" [value]=rol.name>{{rol.name}}</option>
