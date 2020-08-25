@@ -102,11 +102,13 @@ export class FirebaseService {
   }
   //create news
   createNews(value, imgRef, extradata) {
+
     return this.db.collection('notification').add({
       admin: extradata.admin,
       title: value.title,
       description: value.description,
       image: imgRef,
+      urlimg: value.urlimg.slice(32, -17),
       startDate: extradata.creationDate,
       endDate: value.finishDate,
       like: new Array(),
@@ -115,6 +117,7 @@ export class FirebaseService {
       encuesta: value.encuesta
     });
   }
+
   createMetricos(value){
     return this.db.collection('metricos').add(value);
   }

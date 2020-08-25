@@ -37,6 +37,7 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CreateComponent } from './components/create/create.component';
+import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 // Nombre público del proyecto firebase AUth google
 // project-625108487289
 
@@ -55,7 +56,8 @@ import { CreateComponent } from './components/create/create.component';
     RoleComponent,
     PublicationComponent,
     IconsComponent,
-    CreateComponent
+    CreateComponent,
+    TerminosCondicionesComponent
   ],
   imports: [
     BrowserModule,

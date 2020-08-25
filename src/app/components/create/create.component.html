@@ -1,70 +1,78 @@
-    <div class="row newsrow" *ngIf="auth.user$ | async as user">
-        <div class="col-lg-12 newsdiv" >
-          <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)" >
-            <div class="row" >
-              <div class="col-lg-12">
-                <div class="row">
-                  <div class="col-md-12">
-                    <img src="{{url}}" class="newsimage" alt="news images" *ngIf="url">
-                  </div>
-                </div>
-                  <div class="col-md-12 text-center">
-                    <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg,.avi,.mp4,.mkv" />
-                    <label for="file" class="btn-2">Seleccionar imagen</label>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Titulo</strong>
-                      <div class="FieldElement">
-                        <input type="text" name="title" ngModel class="form-control inputsform">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Video URL de youtube</strong>
-                      <div class="FieldElement">
-                        <input type="text" name="video" ngModel class="form-control inputsform">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">¿Encuesta?</strong>
-                      <div class="FieldElement">
-                        <select name="encuesta" ngModel id="" class="form-control inputsform">
-                          <option ngModel value="true">Si</option>
-                          <option ngModel value="false" selected>No</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Descripcion</strong>
-                      <textarea name="description" ngModel class="form-control" rows="9" cols="90"></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Fecha de expiracion</strong>
-                      <input type="date" name="finishDate" ngModel class="form-control inputsform">
-                    </div>
-                  </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group text-center">
-                      <button type="submit" class="btn createbtn" name="button">Crear Publicacion</button>
-                    </div>
-                  </div>
-                  <!-- <div class="col-md-6">
-                    <div class="form-group text-center">
-                      <button type="submit" class="btn createbtn bg-warning" name="button">Crear Encuesta</button>
-                    </div>
-                  </div> -->
+<div class="row newsrow" >
+      <div class="col-lg-12 newsdiv" >
+        <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)" >
+          <div class="row" >
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <img src="{{url}}" class="newsimage" alt="news images" *ngIf="url">
                 </div>
               </div>
+                <div class="col-md-12 text-center">
+                  <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg,.avi,.mp4,.mkv" />
+                  <label for="file" class="btn-2">Seleccionar imagen</label>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <strong class="text-secondary">Titulo</strong>
+                    <div class="FieldElement">
+                      <input type="text" name="title" ngModel class="form-control inputsform">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <strong class="text-secondary">Video URL de youtube</strong>
+                    <div class="FieldElement">
+                      <input type="text" name="video" ngModel class="form-control inputsform">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <strong class="text-secondary">URL de Imagen</strong>
+                    <div class="FieldElement">
+                      <input type="text" name="urlimg" ngModel class="form-control inputsform">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <strong class="text-secondary">¿Encuesta?</strong>
+                    <div class="FieldElement">
+                      <select name="encuesta" ngModel id="" class="form-control inputsform">
+                        <option ngModel value="true">Si</option>
+                        <option ngModel value="false" selected>No</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <strong class="text-secondary">Descripcion</strong>
+                    <textarea name="description" ngModel class="form-control" rows="9" cols="90"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <strong class="text-secondary">Fecha de expiracion</strong>
+                    <input type="date" name="finishDate" ngModel class="form-control inputsform">
+                  </div>
+                </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group text-center">
+                    <button type="submit" class="btn createbtn" name="button">Crear Publicacion</button>
+                  </div>
+                </div>
+                <!-- <div class="col-md-6">
+                  <div class="form-group text-center">
+                    <button type="submit" class="btn createbtn bg-warning" name="button">Crear Encuesta</button>
+                  </div>
+                </div> -->
+              </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
+    </div>

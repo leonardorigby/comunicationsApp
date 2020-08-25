@@ -1,11 +1,11 @@
   <div class="row contentrow">
     <div class="col-lg-12 text-center">
-      <h3>Registrar cuenta</h3>
+      <h3>Registrar Nueva Cuenta</h3>
       <hr>
     </div>
-      <div class="col-md-6 text-center margintop ">
-      <div class="divbtn bg-info" (click)="googleSignUp()">
-        <span class="text-white"><img src="assets/icons/google.png" alt="" >
+      <div class="col-md-12 text-center margintop ">
+      <div class="divbtn text-center col-12" (click)="googleSignUp()">
+        <span class="text-success"><img src="assets/icons/google.png" alt="" >
         Google</span>
       </div>
     </div>
@@ -16,7 +16,7 @@
     </div> -->
     </div>
     <div class="col-lg-12 text-center margintop">
-      <span><i class="fas fa-long-arrow-alt-left text-primary" ></i><a routerLink="/login" href="" > Iniciar Sesion</a>
+      <span><i class="fas fa-chevron-left text-primary" ></i><a routerLink="/login" href="" > Iniciar Sesion</a>
 </span>
     </div>
     <div class="col-md-12  text-center" *ngIf="auth.newUser$ | async as user">
@@ -71,8 +71,13 @@
         <div *ngIf="f.birthdate.errors.required"> Fecha de nacimiento es requerida!</div>
       </div>
       <br>
+      <div class="col-12">
+        <div class="form-group">
+          <span><input class="mr-1"type="checkbox" formControlName="terminosCondiciones" ngModel name="terminosCondiciones" value="true" ><a routerLink="/terminos-condiciones">Terminos y Condiciones</a></span>
+        </div>
+      </div>
       <div class="form-group text-center">
-        <button type="submit" class="btn registerbtn" name="button">Registrarse</button>
+        <button type="submit"  class="btn registerbtn" name="button">Registrarse</button>
       </div>
       </form>
     </div>

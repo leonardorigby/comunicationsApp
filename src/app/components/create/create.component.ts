@@ -42,6 +42,7 @@ export class CreateComponent implements OnInit {
   uname: any;
   unumber: any;
   uimg: any;
+  urlimg:any;
   uss:any;
 
   constructor(private router: Router, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }

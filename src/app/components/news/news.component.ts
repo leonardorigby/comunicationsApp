@@ -1,5 +1,5 @@
-import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
+import { Router } from '@angular/router';
 import { Component, OnInit, Injector, NgZone } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -18,7 +18,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserModule } from '@angular/platform-browser';
 
 
-
+// https://lh3.google.com/u/0/d/   1WWfDj3A2A5C3N5tKARgxxfOIko7u3-gy     =w1920-h927-iv1
+// https://drive.google.com/file/d/1WWfDj3A2A5C3N5tKARgxxfOIko7u3-gy/view
 
 @Component({
   selector: 'app-news',
@@ -96,9 +97,6 @@ single=new Array<{
   constructor(public sanitizer: DomSanitizer,private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
 
   ngOnInit() {
-    const num = 18000;
-    var output = (num/100).toFixed(2);
-    console.log(output);
 
     this.video="https://www.youtube.com/embed/5Z2C0wy4bmg";
     this.arrayMetricos = new Array<Metrico>();
@@ -247,11 +245,12 @@ single=new Array<{
   getAllNews() {
     this.firebaseService.getNews().subscribe((result) => {
       this.newsArray = [];
+
       result.forEach((Data: any) => {
         var id = Data.payload.doc.id;
         this.idpublication = id;
         var aux = Data.payload.doc.data();
-
+        console.log(aux)
      if(aux.encuesta=='true'){
 
     //   console.log(aux);
@@ -334,7 +333,7 @@ single=new Array<{
 
   getContador(idus, idpu, reaccion) {
   }
-  getLikes(admin, description, dislike, endDate, key, like, startDate, title, reaccion, img,encuesta,video,event) {
+  getLikes(admin, description, dislike, endDate, key, like, startDate, title, reaccion, img,encuesta,video,event,urlimg) {
     if (reaccion == 'like') {
       if (like.length >= 1) {
         let th = this;
@@ -343,6 +342,7 @@ single=new Array<{
           let notif = <any>{
             admin: admin,
             key: key,
+            urlimg: urlimg,
             description: description,
             dislike: dislike,
             like: like,
@@ -369,6 +369,7 @@ single=new Array<{
               key: key,
               description: description,
               dislike: dislike,
+              urlimg: urlimg,
               like: like,
               endDate: endDate,
               image: img,
@@ -393,6 +394,7 @@ single=new Array<{
               description: description,
               dislike: dislike,
               like: like,
+              urlimg: urlimg,
               endDate: endDate,
               image: img,
               startDate: startDate,
@@ -420,6 +422,7 @@ single=new Array<{
             key: key,
             description: description,
             dislike: dislike,
+            urlimg: urlimg,
             like: like,
             endDate: endDate,
             image: img,
@@ -444,6 +447,7 @@ single=new Array<{
             description: description,
             dislike: dislike,
             like: like,
+            urlimg: urlimg,
             endDate: endDate,
             image: img,
             startDate: startDate,
@@ -468,6 +472,7 @@ single=new Array<{
             like: like,
             endDate: endDate,
             image: img,
+            urlimg: urlimg,
             startDate: startDate,
             title: title,
             encuesta:encuesta,
@@ -490,6 +495,7 @@ single=new Array<{
               description: description,
               dislike: dislike,
               like: like,
+              urlimg: urlimg,
               endDate: endDate,
               image: img,
               startDate: startDate,
@@ -515,6 +521,7 @@ single=new Array<{
               key: key,
               description: description,
               dislike: dislike,
+              urlimg: urlimg,
               like: like,
               endDate: endDate,
               image: img,
@@ -547,6 +554,7 @@ single=new Array<{
             description: description,
             dislike: dislike,
             like: like,
+            urlimg: urlimg,
             endDate: endDate,
             image: img,
             startDate: startDate,
@@ -572,6 +580,7 @@ single=new Array<{
             description: description,
             dislike: dislike,
             like: like,
+            urlimg: urlimg,
             endDate: endDate,
             image: img,
             startDate: startDate,
@@ -604,6 +613,10 @@ single=new Array<{
 
   createNew(newsForm, value) {
     console.log(value);
+    console.log(value, extradata);
+    if(value.video==""){
+      value.video=undefined;
+    }
     var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
     var extradata = {
       admin:{

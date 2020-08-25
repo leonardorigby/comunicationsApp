@@ -14,6 +14,7 @@ import { DepartamentComponent } from './components/departament/departament.compo
 import { PublicationComponent } from './components/publication/publication.component';
 import { IconsComponent } from './components/icons/icons.component';
 import { CreateComponent } from './components/create/create.component';
+import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'terminos-condiciones',
+    component: TerminosCondicionesComponent,
     // canActivate: [AuthGuard]
   },
     {

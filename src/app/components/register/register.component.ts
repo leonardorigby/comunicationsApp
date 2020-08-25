@@ -52,7 +52,8 @@ export class RegisterComponent implements OnInit {
       employeeNumber: ['', Validators.required ],
       department: ['', Validators.required ],
       plant: ['', Validators.required ],
-      birthdate: ['', Validators.required ]
+      birthdate: ['', Validators.required ],
+      terminosCondiciones: ['', Validators.required ]
    });
   }
 
@@ -60,13 +61,18 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.controls;
   }
   registerNewUser(form, data) {
+    console.log(form, data);
     this.submitted = true;
     // stop here if form is invalid
        if (this.registerForm.invalid) {
        console.log(this.registerForm.invalid);
+       console.log(data)
+       if(data.terminosCondiciones != true){
+         alert("Debes aceptar terminos y condiciones.")
+       }
            return;
        }
-
+      if(data.terminosCondiciones == true){
         if(this.newUser.email.endsWith('@sanmina.com')){
           var newuser = {
             id: this.newUser.id,
@@ -78,7 +84,8 @@ export class RegisterComponent implements OnInit {
             idPlant: data.plant,
             idRole: "user",
             image: this.newUser.image,
-            authorized: true
+            authorized: true,
+            AcceptTerminosCondiciones: data.terminosCondiciones
           };
           console.log(newuser);
           this.auth.registerNewUser(newuser).then(result => {
@@ -96,7 +103,8 @@ export class RegisterComponent implements OnInit {
             idPlant: data.plant,
             idRole: "user",
             image: this.newUser.image,
-            authorized: false
+            authorized: false,
+            AcceptTerminosCondiciones: data.terminosCondiciones
           };
           console.log(newuser);
           this.auth.registerNewUser(newuser).then(result => {
@@ -104,6 +112,10 @@ export class RegisterComponent implements OnInit {
             this.router.navigate(['/login']);
           })
         }
+      }else{
+        alert("Debes aceptar los terminos y condiciones.");
+      }
+
 
   }
 
