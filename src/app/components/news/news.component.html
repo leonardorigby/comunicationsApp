@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="row" *ngIf="news.encuesta.includes('true')">
-        <div class="col-8" style="text-align: center;">
+        <div class="col-8" style="text-align: center;" style="max-width: 250px;">
           <ngx-charts-bar-vertical
             [view]="view"
             [scheme]="colorScheme"
@@ -43,7 +43,7 @@
             <img *ngIf="news.urlimg!=null && news.video==''" src="https://lh3.google.com/u/0/d/{{news.urlimg}}=w1920-h927-iv1" alt="" class="newsimages">
             <!-- <video *ngIf="news.urlimg.includes('https')==false && news.image.includes('.mp4')==true || news.image.includes('.avi')==true && news.video==undefined" src="{{news.image}}" controls class="newsimages"> -->
               <!-- Lo sentimos. Este vídeo no puede ser reproducido en tu navegador.</video> -->
-            <youtube-player class="newsimagess" id="video" *ngIf="news.urlimg==null &&  news.video!=null && news.image==null" [videoId]="news.video" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
+            <youtube-player class="newsimagess" id="video" *ngIf="news.video!=''" [videoId]="news.video" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player>
           </section>
         </div>
       </div>
@@ -113,95 +113,3 @@
   </div>
 </div>
 
-
-
-<!-- <div class="container-fluid" *ngIf="create===false" style="background: transparent;">
-  <div class="row">
-    <div class="col-lg-12 masterformcol">
-
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        </div>
-      </div>
-      <div class="row rowformsnew">
-        <div class=" col-lg-12 border">
-          <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="row">
-                  <div class="col-md-12 text-center">
-                    <img src="{{url}}" class="avatar" alt="news images" *ngIf="url">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 text-center">
-                    <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg,.avi,.mp4,.mkv" />
-                    <label for="file" class="btn-2">Upload Image</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="title" class="title">Title</label>
-                      <div class="FieldElement">
-                        <input type="text" name="title" ngModel class="form-control inputsform">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="title" class="viedo">URL de tu video de youtube</label>
-                      <div class="FieldElement">
-                        <input type="text" name="video" ngModel class="form-control inputsform">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="title" class="title">¿Es una encuesta?</label>
-                      <div class="FieldElement">
-                        <select name="encuesta" ngModel id="" class="form-control inputsform">
-                          <option ngModel value="true">Si</option>
-                          <option ngModel value="false" selected>No</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="form-group">
-                      <label for="description">Description</label>
-                      <textarea name="description" ngModel class="form-control" rows="9" cols="90"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="finishDate">Publication End Date</label>
-                      <input type="date" name="finishDate" ngModel class="form-control inputsform">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <button type="submit" class="btn createbtn" name="button">Create</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->

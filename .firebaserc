@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "sanminacomunications",
-    "sanminanews-staging": "sanminanewsapp"
+    "sanminanews-staging": "sanminanewsapp",
+    "sanminanewsapp": "sanminanewsapp"
   }
 }

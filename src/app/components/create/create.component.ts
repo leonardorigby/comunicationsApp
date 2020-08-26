@@ -1,12 +1,4 @@
-// import { Component, OnInit, Injector, NgZone } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { FirebaseService } from '../../services/firebase.service';
-// import { AngularFireStorage } from '@angular/fire/storage';
-// import { formatDate } from '@angular/common';
-// import { Notification } from '../models/Notification';
-// import * as moment from 'moment';
-// import { User } from './../models/user.model';
-// import { AuthService } from './../../services/auth.service';
+
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, Injector, NgZone } from '@angular/core';

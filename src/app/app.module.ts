@@ -20,6 +20,8 @@ import { AuthGuard } from './auth.guard';
 
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {AngularFireModule} from 'angularfire2';
+import { ChartsModule } from 'ng2-charts';
+// import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { NewsComponent } from './components/news/news.component';
 import { TransportComponent } from './components/transport/transport.component';
@@ -38,6 +40,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CreateComponent } from './components/create/create.component';
 import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
+import { StadisticsComponent } from './components/stadistics/stadistics.component';
 // Nombre público del proyecto firebase AUth google
 // project-625108487289
 
@@ -57,7 +60,8 @@ import { TerminosCondicionesComponent } from './components/terminos-condiciones/
     PublicationComponent,
     IconsComponent,
     CreateComponent,
-    TerminosCondicionesComponent
+    TerminosCondicionesComponent,
+    StadisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +77,7 @@ import { TerminosCondicionesComponent } from './components/terminos-condiciones/
     HttpClientModule,
     FormsModule,
     NgxChartsModule,
+    ChartsModule,
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

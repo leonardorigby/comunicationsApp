@@ -1,5 +1,5 @@
-import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit, Injector, NgZone } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -16,10 +16,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { User } from './../models/user.model';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserModule } from '@angular/platform-browser';
+import { ThemeService } from 'ng2-charts';
+import { GeneralService } from 'src/app/services/general.service';
+import { format } from 'url';
 
 
 // https://lh3.google.com/u/0/d/   1WWfDj3A2A5C3N5tKARgxxfOIko7u3-gy     =w1920-h927-iv1
-// https://drive.google.com/file/d/1WWfDj3A2A5C3N5tKARgxxfOIko7u3-gy/view
+// https://drive.google.com/file/d/1WWfDj3A2A5C3N5tKARgxxfOIko7u3-gy/view               
 
 @Component({
   selector: 'app-news',
@@ -69,11 +72,11 @@ export class NewsComponent implements OnInit {
   like:boolean;
   dislike:boolean;
   user:Auxuser;
-  view: any[] = [650, 450];
+  view: any[] = [550, 450];
   showXAxis = true;
   showYAxis = true;
   gradient = true;
-  showLegend = true;
+  showLegend = false;
   showXAxisLabel = true;
   xAxisLabel = 'Reacciones';
   showYAxisLabel = true;
@@ -82,7 +85,7 @@ export class NewsComponent implements OnInit {
   colorScheme = {
     domain: ['#A10A28',  '#AAAAAA']
   };
-
+ 
 single=new Array<{
   name:'',
   value:0
@@ -94,10 +97,11 @@ single=new Array<{
   an:any;
   done:boolean;
 
-  constructor(public sanitizer: DomSanitizer,private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
+  constructor(private general: GeneralService,public sanitizer: DomSanitizer,private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
 
   ngOnInit() {
-
+ 
+    
     this.video="https://www.youtube.com/embed/5Z2C0wy4bmg";
     this.arrayMetricos = new Array<Metrico>();
     this.arrayMetricosaux = new Array<any>();
@@ -120,10 +124,10 @@ single=new Array<{
   if (screen.width < 1024) {
   this.view = [350, 350];
   }else if (screen.width < 1280) {
-  this.view =  [650, 450];
+  this.view =  [550, 450];
 }else {
-  this.view =  [650, 450];
-
+  this.view =  [550, 450];
+    
   }
 }
 // public get currentTime(): number
@@ -136,13 +140,13 @@ single=new Array<{
     console.log('player instance', player.getCurrentTime());
   }
   onStateChange(event) {
-
+   
       console.log(this.player.getVideoUrl());
       // this.player.set
       // setTimeout(, 600);
       // this.done = true;
-
-
+    
+   
   }
   stopVideo() {
     this.player.stopVideo();
@@ -184,7 +188,7 @@ single=new Array<{
           result.forEach(r => {
             var user: any;
             user = r.payload.doc.data();
-
+            
             if (user.id == not.admin) {
               this.m = new Metrico;
               this.m.adminImg = user.image;
@@ -226,7 +230,7 @@ single=new Array<{
                   this.m.todas.push(this.user);
               }
               this.arrayMetricos.push(this.m);
-
+             
             }
           });
         });
@@ -235,17 +239,17 @@ single=new Array<{
 
 
       console.log(this.arrayMetricos);
-
+ 
     });
-
-
-
+    
+   
+     
   }
 
   getAllNews() {
     this.firebaseService.getNews().subscribe((result) => {
       this.newsArray = [];
-
+      
       result.forEach((Data: any) => {
         var id = Data.payload.doc.id;
         this.idpublication = id;
@@ -263,7 +267,7 @@ single=new Array<{
           "name": "No",
           "value": aux.dislike.length
         },
-
+    
       ];
     //   console.log(this.single);
      }
@@ -276,7 +280,7 @@ single=new Array<{
           console.log('se elimino a ', aux);
         } else {
           aux.key = id;
-          //
+          // 
           let tmplike=new Array();
           let tmpdislike= new Array();
           if(aux.like==undefined){
@@ -292,9 +296,9 @@ single=new Array<{
             for(var x=0;x<aux.dislike.length;x++){
               tmpdislike.push(aux.dislike[x].id);
             }
-
+         
           }
-          //
+          // 
           aux.auxlike=tmplike;
           aux.auxdislike=tmpdislike;
           aux.todas=new Array();
@@ -320,14 +324,20 @@ single=new Array<{
               }
           aux.time = (moment(aux.endDate)).diff(moment(new Date()), 'days');
           this.newsArray.push(aux);
-          var arraux = this.newsArray.sort((unaMascota, otraMascota) => unaMascota.title.localeCompare(otraMascota.title));
+          
+          var arraux = this.newsArray.sort(function(a, b) {
+            return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+          });
+
+         arraux.reverse();
+         
           this.newsArray = arraux;
-
-
+          
+        
         }
-
+     
       });
-
+      
     });
   }
 
@@ -627,9 +637,9 @@ single=new Array<{
       },
       creationDate: creationDate
     };
-
+    
     if (this.url != null ) {
-
+     
       var imgRef = '/img/' + this.imageRef;
       this.afStorage.upload(imgRef, this.targetFile).then(r => {
         this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
@@ -638,7 +648,7 @@ single=new Array<{
               res => {
                 console.log(res);
               });
-
+          
         });
         console.log("imagen guardada?");
       });

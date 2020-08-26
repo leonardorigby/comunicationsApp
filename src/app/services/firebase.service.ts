@@ -102,7 +102,7 @@ export class FirebaseService {
   }
   //create news
   createNews(value, imgRef, extradata) {
-
+   
     return this.db.collection('notification').add({
       admin: extradata.admin,
       title: value.title,
@@ -117,7 +117,6 @@ export class FirebaseService {
       encuesta: value.encuesta
     });
   }
-
   createMetricos(value){
     return this.db.collection('metricos').add(value);
   }
@@ -143,14 +142,14 @@ export class FirebaseService {
     const value = { authorized: true };
     return this.db.collection('users').doc(userKey).set(user);
   }
-  updateUserRole(user, rol){
-      const userRef = this.db.collection('users').doc(user.id);
-      return userRef.update({idRole: rol});
-  }
   // delete users
   deleteUser(userKey) {
     return this.db.collection('users').doc(userKey).delete();
   }
+  updateUserRole(user, rol){
+    const userRef = this.db.collection('users').doc(user.id);
+    return userRef.update({idRole: rol});
+}
   // all users
   getUsers() {
     return this.db.collection('/users').snapshotChanges();

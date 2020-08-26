@@ -15,6 +15,7 @@ import { PublicationComponent } from './components/publication/publication.compo
 import { IconsComponent } from './components/icons/icons.component';
 import { CreateComponent } from './components/create/create.component';
 import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
+import { StadisticsComponent } from './components/stadistics/stadistics.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     // canActivate: [AuthGuard]
+  },
+  {
+    path: 'stadistics',
+    component: StadisticsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'terminos-condiciones',
