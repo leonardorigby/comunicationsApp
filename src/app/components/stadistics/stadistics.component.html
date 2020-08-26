@@ -10,12 +10,13 @@
                     <span class="expiracion">Creada el {{news.startDate}}</span>
 
                     <i class="far fa-trash-alt" style="color:red" (click)="delete(news.key,news.title)"></i>
-                    <i class="far fa-edit"      style="color:orange" (click)="update(news)" ></i>
+                    <i type="button" class="far fa-edit"   data-toggle="modal" data-target="#staticBackdrop"   style="color:orange" (click)="update(news)" ></i>
 
                     <!-- <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span> -->
                 </div>
                
             </div>
+     
             <div class="row descriptiondiv" *ngIf="news.encuesta.includes('true')">
                 <div class="col-lg-12 ">
                     <p style="font-size: 1em; text-align: center;"><strong class="titlep">{{news.title}}. </strong> <br>
@@ -131,4 +132,81 @@
 
     </div>
 </div>
-<div id="contenedor1"></div>
+<div id="contenedor1">
+           <!--  -->
+        
+              
+              <!-- Modal -->
+              <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">Editando Publicación</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form #newsForm="ngForm" name="newsForm" (submit)="updateAll(newsForm.value)" >
+
+                    <div class="modal-body">
+                        <div class="row" >
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <strong class="text-secondary">Titulo</strong>
+                                    <div class="FieldElement">
+                                      <input id="title" type="text" name="title" ngModel class="form-control inputsform" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <strong class="text-secondary">Video URL de youtube</strong>
+                                    <div class="FieldElement">
+                                      <input id="video" type="text" name="video" ngModel class="form-control inputsform" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <strong class="text-secondary">URL de Imagen</strong>
+                                    <div class="FieldElement">
+                                      <input id="urlimg" type="text" name="urlimg" ngModel class="form-control inputsform" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <strong class="text-secondary">¿Encuesta?</strong>
+                                    <div class="FieldElement">
+                                      <select id="encuesta" name="encuesta" ngModel id="" class="form-control inputsform" value="{{ob.encuesta}}">
+                                        <option ngModel value="true">Si</option>
+                                        <option ngModel value="false" selected>No</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-12">
+                                  <div class="form-group">
+                                    <strong class="text-secondary">Descripcion</strong>
+                                    <textarea id="description" name="description" ngModel class="form-control" rows="9" cols="90" ></textarea>
+                                  </div>
+                                </div>
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                    <strong class="text-secondary">Fecha de expiracion</strong>
+                                    <input id="endDate" type="date" name="finishDate" ngModel class="form-control inputsform" >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          
+                    <div class="modal-footer">
+                      <button id="cerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-primary">Editar</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            <!--  -->
+</div>

@@ -137,11 +137,11 @@ single=new Array<{
 // public loadVideoById(videoId: string, startSeconds?: number): void
   savePlayer(player) {
     this.player = player;
-    console.log('player instance', player.getCurrentTime());
+    // console.log('player instance', player.getCurrentTime());
   }
   onStateChange(event) {
    
-      console.log(this.player.getVideoUrl());
+      // console.log(this.player.getVideoUrl());
       // this.player.set
       // setTimeout(, 600);
       // this.done = true;
@@ -167,15 +167,15 @@ single=new Array<{
   }
   }
   onSelect(data): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    // console.log('Item clicked', JSON.parse(JSON.stringify(data)));
   }
 
   onActivate(data): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
+    // console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
   onDeactivate(data): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
   getMetricos() {
     this.firebaseService.getNews().subscribe(response => {
@@ -238,7 +238,7 @@ single=new Array<{
       });
 
 
-      console.log(this.arrayMetricos);
+      // console.log(this.arrayMetricos);
  
     });
     
@@ -254,7 +254,7 @@ single=new Array<{
         var id = Data.payload.doc.id;
         this.idpublication = id;
         var aux = Data.payload.doc.data();
-        console.log(aux)
+        // console.log(aux)
      if(aux.encuesta=='true'){
 
     //   console.log(aux);
@@ -418,7 +418,7 @@ single=new Array<{
         // }
       } else {
         let th = this;
-        console.log('nuevo porque no hay nada');
+        // console.log('nuevo porque no hay nada');
         if (dislike.some(person => person.id === this.uid) == false) {
           like.push({
             id: this.uid,
@@ -549,7 +549,7 @@ single=new Array<{
 
       } else {
         let th = this;
-        console.log('nuevo porque no hay nada');
+        // console.log('nuevo porque no hay nada');
         if (like.some(person => person.id === this.uid) == false) {
           dislike.push({
             id: this.uid,
@@ -574,7 +574,7 @@ single=new Array<{
           };
           th.firebaseService.updateNew(key, notif);
         } else if (like.some(person => person.id === this.uid) == true) {
-          console.log(th.uid);
+          // console.log(th.uid);
           like = like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
 
           dislike.push({
@@ -603,12 +603,12 @@ single=new Array<{
       }
     }
     localStorage.setItem("video", ''+this.player.getCurrentTime());
-    console.log(this.player.getCurrentTime()," lleva");
+    // console.log(this.player.getCurrentTime()," lleva");
 
   }
 
   recordNews(records) {
-    console.log(records);
+    // console.log(records);
   }
 
   openCreateForm() {
@@ -622,8 +622,8 @@ single=new Array<{
   }
 
   createNew(newsForm, value) {
-    console.log(value);
-    console.log(value, extradata);
+    // console.log(value);
+    // console.log(value, extradata);
     if(value.video==""){
       value.video=undefined;
     }
@@ -672,7 +672,7 @@ single=new Array<{
   getNews() {
     this.firebaseService.getNews()
       .subscribe(result => {
-        console.log(result);
+        // console.log(result);
       });
   }
 

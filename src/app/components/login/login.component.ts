@@ -30,16 +30,16 @@ export class LoginComponent implements OnInit {
   getUserData():void{
     this.auth.getUserData().subscribe((result)=>{
       this.user = result;
-      console.log(this.user);
+      // console.log(this.user);
         if(this.user){
-        console.log("user");
+        // console.log("user");
         if(this.user.authorized==true){
           this.loginuser = true;
-          console.log("authorized");
+          // console.log("authorized");
           this.router.navigate(['/news']);
         }else if(this.user.authorized==false){
           this.loginuser = true;
-          console.log("not authorized");
+          // console.log("not authorized");
 
           Swal.fire({
             icon: 'error',
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         }
         this.loginuser = true;
       }else{
-        console.log("no user");
+        // console.log("no user");
         this.loginuser = false;
         // Swal.fire({
         //   icon: 'error',

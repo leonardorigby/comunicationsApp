@@ -55,7 +55,7 @@ export class AppComponent implements OnInit{
   testService(){
     this.generalservice.testService().subscribe(
      response => {
-        console.log(response);
+        // console.log(response);
      },
      err => {
        console.log(err);
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit{
   testOneSignal(){
     this.generalservice.testOneSignal().subscribe(
      response => {
-        console.log(response);
+        // console.log(response);
      },
      err => {
        console.log(err);

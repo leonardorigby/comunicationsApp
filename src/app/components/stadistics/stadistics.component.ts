@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import  { ExportToCSV } from "@molteni/export-csv";
 import Swal from 'sweetalert2'
 
+declare var $: any;
 
 
 @Component({
@@ -33,6 +34,7 @@ export class StadisticsComponent implements OnInit {
   october: any;
   november: any;
   december: any;
+  ob:any;
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -46,7 +48,7 @@ export class StadisticsComponent implements OnInit {
   ];
 
   ngOnInit() {
-   
+   this.ob=""
     this.january = 0;
     this.february = 0;
     this.march = 0;
@@ -80,7 +82,7 @@ export class StadisticsComponent implements OnInit {
       var arraux = this.publications.sort((unaMascota, otraMascota) => unaMascota.title.localeCompare(otraMascota.title));
       this.publications = arraux;
       //  this.getCharts();
-
+      // news
 
       // console.log(this.publications);
         // setTimeout(this.getCharts, 80000);
@@ -93,7 +95,7 @@ export class StadisticsComponent implements OnInit {
 
   exportCSV(data) {
   //  const arr = this.CSV.parse(data);
-   console.log(data);
+  //  console.log(data);
    var exporter = new ExportToCSV();
 exporter.exportColumnsToCSV(this.publications, "Conteo De Interacciones",["allLikes"]);
     // const options = {
@@ -240,15 +242,29 @@ exporter.exportColumnsToCSV(this.publications, "Conteo De Interacciones",["allLi
     // console.log("se supone que elimino");
   }
   update(data){
-    console.log("se supone que actualizo",data);
-    document.getElementById('contenedor1').innerHTML="<button type='button'  data-toggle='modal' data-target='#"+data.key+"'></button>";
-    document.getElementById('contenedor1').innerHTML="<div class='modal fade' id='"+data.key+"' data-backdrop='static' data-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true'><div class='modal-dialog'><div class='modal-content'><div class='modal-header'><h5 class='modal-title' id='staticBackdropLabel'>Modal title</h5><button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div><div class='modal-body'></div><div class='modal-footer'><button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button><button type='button' class='btn btn-primary'>Editar</button></div></div></div></div>";
-    document.getElementById(data.key).click();
-
+    this.ob="";
+     console.log("se supone que actualizo",data);
+ 
+this.ob=data;
+$("#title").val(this.ob.title);
+$("#video").val(this.ob.video);
+$("#urlimg").val("https://drive.google.com/file/d/"+this.ob.urlimg+"/view?usp=sharing");
+$("#encuesta").val(this.ob.encuesta);
+$("#description").val(this.ob.description);
+$("#endDate").val(this.ob.endDate);
   }
-  updateAll(key,data){
-    // this.firebaseService.updateNew(key,data);
-    console.log("se supone que actualizocon datos");
+  updateAll(data){
+    this.ob.title=$("#title").val(),
+    this.ob.video=$("#video").val(),
+    this.ob.urlimg=$("#urlimg").val().slice(32, -17),
+    this.ob.encuesta=$('select[name=encuesta]').val(),
+    this.ob.description=$("#description").val(),
+    this.ob.endDate=$("#endDate").val()
+      this.firebaseService.updateNew(this.ob.key,this.ob);
+    
+
+    setTimeout($('#cerrar').click(),5000);
+    console.log("se supone que actualizocon datos",this.ob);
 
   }
 }
