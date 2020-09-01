@@ -28,6 +28,25 @@
                     <p class="descriptionp"><strong class="titlep">{{news.title}}. </strong>{{news.description}}</p>
                 </div>
             </div>
+            <div class="row" *ngIf="news.encuesta.includes('true')">
+              <div class="col-8" style="text-align: center;" style="max-width: 250px;">
+                <ngx-charts-bar-vertical
+                  [view]="view"
+                  [scheme]="colorScheme"
+                  [results]="news.single"
+                  [gradient]="gradient"
+                  [xAxis]="showXAxis"
+                  [yAxis]="showYAxis"
+                  [legend]="showLegend"
+                  [showXAxisLabel]="showXAxisLabel"
+                  [showYAxisLabel]="showYAxisLabel"
+                  [xAxisLabel]="xAxisLabel"
+                  [yAxisLabel]="yAxisLabel"
+                  [yScaleMax]="news.like.length+news.dislike.length"
+                  [animations]="false" (select)="onSelect($event)">
+                </ngx-charts-bar-vertical>
+              </div>
+            </div>
             <div class="row imgP" *ngIf="news.encuesta.includes('false')">
                 <img *ngIf="news.image!=null  && news.video==''" src="{{news.image}}" alt="" class="newsimages">
                 <img *ngIf="news.urlimg!=null && news.video==''"
@@ -36,16 +55,7 @@
                 <!-- Lo sentimos. Este vídeo no puede ser reproducido en tu navegador.</video> -->
                 <img class="newsimages" id="video" *ngIf="news.video!=''" src="assets/images/preview.jpg">
             </div>
-            <div class="row">
-                <!-- <div class="col-4 offset-1">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button (click)="filterOption('all')" type="button" class="btn btn-secondary"
-                            clicked>All</button>
-                        <button (click)="filterOption('like')" type="button" class="btn btn-secondary">Likes</button>
-                        <button (click)="filterOption('dislike')" type="button" class="btn btn-secondary">Dislikes</button>
-                    </div>
-
-                </div> -->
+            <!-- <div class="row">
                 <div class="col-1 offset-2">
                 <button (click)="changeTable()" type="button" class="btn btn-secondary">{{change}}</button>
 
@@ -54,13 +64,8 @@
                     <button (click)="exportCSV(news)" type="button" class="btn btn-secondary">Download in CSV</button>
                 
                 </div>
-            </div>
-            <div *ngIf="change=='Stadistics'" class="row peaple " >
-                <!-- <div  *ngFor="let p of news.like;let i=index">
-                <div class="col-1">
-                    <p class="user"><img class="userr" src="{{p.img}}" alt=""> {{p.name}}</p>
-                </div>
             </div> -->
+            <!-- <div *ngIf="change=='Stadistics'" class="row peaple " >
                 <div class="col-8 offset-2 ">
 
                     <table class="table ">
@@ -78,7 +83,6 @@
                                 <td><img class="userr" src="{{p.img}}" alt=""></td>
                                 <td>{{p.name}}</td>
                                 <td> <i class="fas fa-heart text-danger likeicons"></i></td>
-                                <!-- fa-heart-broken -->
                             </tr>
                         </tbody>
                         <tbody *ngIf="reactions=='all'">
@@ -89,7 +93,6 @@
                                 <td> <i *ngIf="p.like==true" class="fas fa-heart text-danger likeicons"></i> <i
                                         *ngIf="p.like==false" class="fas fa-heart-broken text-danger likeicons"></i>
                                 </td>
-                                <!-- fa-heart-broken -->
                             </tr>
                         </tbody>
                         <tbody *ngIf="reactions=='dislike'">
@@ -98,13 +101,12 @@
                                 <td><img class="userr" src="{{p.img}}" alt=""></td>
                                 <td>{{p.name}}</td>
                                 <td> <i class="fas fa-heart-broken text-danger likeicons"></i></td>
-                                <!-- fa-heart-broken -->
                             </tr>
                         </tbody>
                         </table>
                 </div>
-            </div>
-            <div *ngIf="change=='Table'" class="row">
+            </div> -->
+            <!-- <div *ngIf="change=='Table'" class="row">
                 <div class="col-lg-10 offset-1 ">
                 <div style="display: block">
                     <canvas baseChart
@@ -116,12 +118,12 @@
                     </canvas>
                   </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
 
     </div>
-    <div class="col-4 offset-1 fixed-bottom">
+    <!-- <div class="col-4 offset-1 fixed-bottom">
         <p id="esc">{{reactions}}</p>
         <div class="btn-group" role="group" aria-label="Basic example">
             <button (click)="filterOption('all')" type="button" class="btn btn-secondary"
@@ -130,7 +132,7 @@
             <button (click)="filterOption('dislike')" type="button" class="btn btn-secondary">Dislikes</button>
         </div>
 
-    </div>
+    </div> -->
 </div>
 <div id="contenedor1">
            <!--  -->
@@ -158,14 +160,14 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
                                   <div class="form-group">
                                     <strong class="text-secondary">Video URL de youtube</strong>
                                     <div class="FieldElement">
                                       <input id="video" type="text" name="video" ngModel class="form-control inputsform" >
                                     </div>
                                   </div>
-                                </div>
+                                </div> -->
                                 <div class="col-md-12">
                                   <div class="form-group">
                                     <strong class="text-secondary">URL de Imagen</strong>

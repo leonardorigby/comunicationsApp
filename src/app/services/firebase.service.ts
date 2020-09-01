@@ -12,6 +12,8 @@ import { Publication } from '../components/models/publication';
 import { Likes } from '../components/models/Likes';
 import { User } from '../components/models/user.model';
 import { Icons } from '../components/models/icons';
+import { format } from 'url';
+import { formatDate } from '@angular/common';
 
 
 
@@ -109,7 +111,7 @@ export class FirebaseService {
       description: value.description,
       image: imgRef,
       urlimg: value.urlimg.slice(32, -17),
-      startDate: extradata.creationDate,
+      startDate: extradata.creationDate+' '+formatDate(new Date,'HH:mm:ss','en'),
       endDate: value.finishDate,
       like: new Array(),
       dislike: new Array(),

@@ -18,6 +18,7 @@ import { User } from './../models/user.model';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserModule } from '@angular/platform-browser';
 
+declare var $: any;
 
 
 @Component({
@@ -100,7 +101,32 @@ export class CreateComponent implements OnInit {
       this.firebaseService.createNews(value, "", extradata)
             .then(
               res => {
-                console.log(res);
+                let aux=[];
+                aux.push(res);
+                 var key=aux[0]._key.path.segments[1];
+                 var  notif=""; 
+                 this.firebaseService.getNew(key).subscribe((r:any)=>{
+                  var data=r.payload.data();
+                  if(data.image==undefined){
+                  data.image="";
+                  }
+                  notif = <any>{
+                  admin: data.admin,
+                  key: key,
+                  description: data.description,
+                  dislike: data.dislike,
+                  like: data.like,
+                  endDate: data.endDate,
+                  image: data.image,
+                  urlimg: data.urlimg,
+                  startDate: data.startDate,
+                  title: data.title,
+                  encuesta:data.encuesta,
+                  video:data.video,
+                };
+                this.firebaseService.updateNew(key, notif)
+              
+              });
               });
     }
     newsForm.reset();
@@ -108,5 +134,8 @@ export class CreateComponent implements OnInit {
     this.router.navigate(['/home']);
 
   }
-
+  getUrl(){
+  this.url=$("#urlimg").val().slice(32, -17);
+  console.log(this.url);
+}
 }

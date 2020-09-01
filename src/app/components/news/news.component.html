@@ -5,11 +5,17 @@
     <div class="newsdiv" *ngFor="let news of newsArray;let i=index">
       <div class="row">
         <div class="col-xs-4 mod">
-          <p class="user"><img class="userr" src="{{news.admin.image}}" alt=""> {{news.admin.name}}</p>
+          <p class="user"><img class="userr" src="{{news.admin.image}}" alt=""> {{news.admin.name}} </p>
         </div>
-        <div class="col-xs-3  exp">
-          <span class="expiracion" *ngIf="news.time!=0">Expira en {{news.time}} dia(s)</span>
-          <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span>
+        <div class="col-xs-5  exp">
+          <!-- {{news.startDate}} -->
+          <span *ngIf="news.fechaPublicado.horas==0  && news.fechaPublicado.minutos==0" class="expiracion">Publicado hace {{news.fechaPublicado.segundos}} segundos</span>
+          <span *ngIf="news.fechaPublicado.horas>=1 && news.fechaPublicado.horas<=11 && news.fechaPublicado.minutos!=0" class="expiracion">Publicado hace {{news.fechaPublicado.horas}} Hora(s) con {{news.fechaPublicado.minutos}} minuto(s)</span>
+          <span *ngIf="news.fechaPublicado.horas>=1 && news.fechaPublicado.horas<=11 && news.fechaPublicado.minutos==0" class="expiracion">Publicado hace {{news.fechaPublicado.horas}} Hora(s) </span>
+          <span *ngIf="news.fechaPublicado.horas==0 && news.fechaPublicado.minutos!=0" class="expiracion">Publicado hace {{news.fechaPublicado.minutos}} minuto(s)</span>
+          <span *ngIf="news.fechaPublicado.horas>=12" class="expiracion"> Publicado en {{news.startDate | date:'medium'}} </span>
+          <!-- <span class="expiracion" *ngIf="news.time!=0">Expira en {{news.time}} dia(s)</span>
+          <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span> -->
         </div>
       </div>
       <div class="row descriptiondiv" *ngIf="news.encuesta.includes('true')">

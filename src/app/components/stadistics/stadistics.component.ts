@@ -35,6 +35,24 @@ export class StadisticsComponent implements OnInit {
   november: any;
   december: any;
   ob:any;
+  view: any[] = [550, 450];
+  showXAxis = true;
+  showYAxis = true;
+  gradient = true;
+  showLegend = false;
+  showXAxisLabel = true;
+  xAxisLabel = 'Reacciones';
+  showYAxisLabel = true;
+  yAxisLabel = 'Personas';
+
+  colorScheme = {
+    domain: ['#A10A28', '#AAAAAA']
+  };
+
+  single = new Array<{
+    name: '',
+    value: 0
+  }>();
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -69,6 +87,22 @@ export class StadisticsComponent implements OnInit {
       result.forEach((Data: any) => {
         // console.log(Data.payload.doc.data());
         var aux = Data.payload.doc.data();
+        if (aux.encuesta == 'true') {
+
+          //   console.log(aux);
+          aux.single = [
+            {
+              "name": "Si",
+              "value": aux.like.length
+            },
+            {
+              "name": "No",
+              "value": aux.dislike.length
+            },
+
+          ];
+          //   console.log(this.single);
+        }
         aux.dislike.forEach((data: any) => {
           data.like = false;
         });
@@ -89,7 +123,14 @@ export class StadisticsComponent implements OnInit {
 
 
     })
-    
+    if (screen.width < 1024) {
+      this.view = [350, 350];
+    } else if (screen.width < 1280) {
+      this.view = [550, 450];
+    } else {
+      this.view = [550, 450];
+
+    }
   }
 
 

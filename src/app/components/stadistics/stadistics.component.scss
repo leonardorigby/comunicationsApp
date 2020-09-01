@@ -102,9 +102,10 @@
       // box-shadow: 0px 0px 16px -4px rgba(184,184,184,1);
   }
   .newsimages{
-      height: auto;
-      width: 100%;
-      max-width: 720px;
+    height: auto;
+    width: 100%;
+    margin-left: 2%;
+	max-width: 689px;
   }
   .newsimagess{
       height: 350px;
@@ -292,12 +293,7 @@
 .likeicons{
     font-size: 27px;
 }
-  .imgP{
-      width: 20%;
-      height:20%;
-      margin-left: 40%;
-    // text-align: center;
-  }
+
 
 //   .my-custom-scrollbar {
 //     position: relative;

@@ -64,14 +64,14 @@ export class NewsComponent implements OnInit {
   uname: any;
   unumber: any;
   uimg: any;
-  uss:any;
+  uss: any;
   arrayMetricos = new Array<Metrico>();
   arrayMetricosaux = new Array<any>();
   m: any;
-  todas:boolean;
-  like:boolean;
-  dislike:boolean;
-  user:Auxuser;
+  todas: boolean;
+  like: boolean;
+  dislike: boolean;
+  user: Auxuser;
   view: any[] = [550, 450];
   showXAxis = true;
   showYAxis = true;
@@ -83,31 +83,31 @@ export class NewsComponent implements OnInit {
   yAxisLabel = 'Personas';
 
   colorScheme = {
-    domain: ['#A10A28',  '#AAAAAA']
+    domain: ['#A10A28', '#AAAAAA']
   };
- 
-single=new Array<{
-  name:'',
-  value:0
-}>();
-  btn1:any;
-  btn2:any;
-  video:any;
-  player: YT.Player;
-  an:any;
-  done:boolean;
 
-  constructor(private general: GeneralService,public sanitizer: DomSanitizer,private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
+  single = new Array<{
+    name: '',
+    value: 0
+  }>();
+  btn1: any;
+  btn2: any;
+  video: any;
+  player: YT.Player;
+  an: any;
+  done: boolean;
+
+  constructor(private general: GeneralService, public sanitizer: DomSanitizer, private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
 
   ngOnInit() {
- 
-    
-    this.video="https://www.youtube.com/embed/5Z2C0wy4bmg";
+
+
+    this.video = "https://www.youtube.com/embed/5Z2C0wy4bmg";
     this.arrayMetricos = new Array<Metrico>();
     this.arrayMetricosaux = new Array<any>();
-    this.todas=true;
-    this.like=false;
-    this.dislike=false;
+    this.todas = true;
+    this.like = false;
+    this.dislike = false;
     this.getAllNews();
     this.auth.getUserData().subscribe(s => {
       this.uid = s.id;
@@ -115,56 +115,56 @@ single=new Array<{
       this.unumber = s.employeeNumber;
       this.uimg = s.image;
       this.uss = {
-        id : s.id,
-        name : s.fullName,
-        number : s.employeeNumber,
-        img : s.image,
+        id: s.id,
+        name: s.fullName,
+        number: s.employeeNumber,
+        img: s.image,
       }
     });
-  if (screen.width < 1024) {
-  this.view = [350, 350];
-  }else if (screen.width < 1280) {
-  this.view =  [550, 450];
-}else {
-  this.view =  [550, 450];
-    
+    if (screen.width < 1024) {
+      this.view = [350, 350];
+    } else if (screen.width < 1280) {
+      this.view = [550, 450];
+    } else {
+      this.view = [550, 450];
+
+    }
   }
-}
-// public get currentTime(): number
-// public play(): void
-// public pause(): void
-// public cueVideoById(videoId: string, startSeconds?: number): void
-// public loadVideoById(videoId: string, startSeconds?: number): void
+  // public get currentTime(): number
+  // public play(): void
+  // public pause(): void
+  // public cueVideoById(videoId: string, startSeconds?: number): void
+  // public loadVideoById(videoId: string, startSeconds?: number): void
   savePlayer(player) {
     this.player = player;
     // console.log('player instance', player.getCurrentTime());
   }
   onStateChange(event) {
-   
-      // console.log(this.player.getVideoUrl());
-      // this.player.set
-      // setTimeout(, 600);
-      // this.done = true;
-    
-   
+
+    // console.log(this.player.getVideoUrl());
+    // this.player.set
+    // setTimeout(, 600);
+    // this.done = true;
+
+
   }
   stopVideo() {
     this.player.stopVideo();
   }
-  pReacciones(value){
-    if(value=='todas'){
-    this.todas=true;
-    this.like=false;
-    this.dislike=false;
-  }else if(value=='like'){
-    this.todas=false;
-    this.like=true;
-    this.dislike=false;
-  }else if(value=='dislike'){
-    this.todas=false;
-    this.like=false;
-    this.dislike=true;
-  }
+  pReacciones(value) {
+    if (value == 'todas') {
+      this.todas = true;
+      this.like = false;
+      this.dislike = false;
+    } else if (value == 'like') {
+      this.todas = false;
+      this.like = true;
+      this.dislike = false;
+    } else if (value == 'dislike') {
+      this.todas = false;
+      this.like = false;
+      this.dislike = true;
+    }
   }
   onSelect(data): void {
     // console.log('Item clicked', JSON.parse(JSON.stringify(data)));
@@ -188,7 +188,7 @@ single=new Array<{
           result.forEach(r => {
             var user: any;
             user = r.payload.doc.data();
-            
+
             if (user.id == not.admin) {
               this.m = new Metrico;
               this.m.adminImg = user.image;
@@ -196,41 +196,41 @@ single=new Array<{
               this.m.endDate = not.endDate;
               this.m.startDate = not.startDate;
               this.m.title = not.title;
-              if (not.dislike==undefined) {
+              if (not.dislike == undefined) {
                 this.m.dislike = [];
                 this.m.like = not.like;
-              } else if (not.like==undefined) {
+              } else if (not.like == undefined) {
                 this.m.dislike = not.dislike;
                 this.m.like = [];
               } else {
                 this.m.dislike = not.dislike;
                 this.m.like = not.like;
               }
-              let tmplike=new Array();
-              let tmpdislike=new Array<Auxuser>();
-              this.m.todas=new Array();
-              for(var x=0;x<this.m.like.length;x++){
-                this.user=new Auxuser;
-                  this.user.date=this.m.like[x].date;
-                  this.user.id=this.m.like[x].id;
-                  this.user.img=this.m.like[x].img;
-                  this.user.name=this.m.like[x].name;
-                  this.user.number=this.m.like[x].number
-                  this.user.like=true;
-                  this.m.todas.push(this.user);
+              let tmplike = new Array();
+              let tmpdislike = new Array<Auxuser>();
+              this.m.todas = new Array();
+              for (var x = 0; x < this.m.like.length; x++) {
+                this.user = new Auxuser;
+                this.user.date = this.m.like[x].date;
+                this.user.id = this.m.like[x].id;
+                this.user.img = this.m.like[x].img;
+                this.user.name = this.m.like[x].name;
+                this.user.number = this.m.like[x].number
+                this.user.like = true;
+                this.m.todas.push(this.user);
               }
-              for(var x=0;x<this.m.dislike.length;x++){
-                this.user=new Auxuser;
-                  this.user.date=this.m.dislike[x].date;
-                  this.user.id=this.m.dislike[x].id;
-                  this.user.img=this.m.dislike[x].img;
-                  this.user.name=this.m.dislike[x].name;
-                  this.user.number=this.m.dislike[x].number
-                  this.user.like=false;
-                  this.m.todas.push(this.user);
+              for (var x = 0; x < this.m.dislike.length; x++) {
+                this.user = new Auxuser;
+                this.user.date = this.m.dislike[x].date;
+                this.user.id = this.m.dislike[x].id;
+                this.user.img = this.m.dislike[x].img;
+                this.user.name = this.m.dislike[x].name;
+                this.user.number = this.m.dislike[x].number
+                this.user.like = false;
+                this.m.todas.push(this.user);
               }
               this.arrayMetricos.push(this.m);
-             
+
             }
           });
         });
@@ -239,38 +239,56 @@ single=new Array<{
 
 
       // console.log(this.arrayMetricos);
- 
+
     });
-    
-   
-     
+
+
+
   }
 
   getAllNews() {
     this.firebaseService.getNews().subscribe((result) => {
       this.newsArray = [];
-      
+
       result.forEach((Data: any) => {
         var id = Data.payload.doc.id;
         this.idpublication = id;
         var aux = Data.payload.doc.data();
-        // console.log(aux)
-     if(aux.encuesta=='true'){
-
-    //   console.log(aux);
-      aux.single = [
-        {
-          "name": "Si",
-          "value": aux.like.length
-        },
-        {
-          "name": "No",
-          "value": aux.dislike.length
-        },
+        console.log(aux)
+        var now = new Date();
+        var then = new Date(aux.startDate);
+        // var diff = moment.duration(moment(then,"DD/MM/YYYY HH:mm:ss").diff(moment(now,"DD/MM/YYYY HH:mm:ss")));
+        var diff =(now.getTime() - then.getTime()) ;
+        var hours = Math.floor(diff / (1000 * 60 * 60));
+        diff -= hours * (1000 * 60 * 60);
+        var mins = Math.floor(diff / (1000 * 60));
+        diff -= mins * (1000 * 60);
+        var seconds = Math.floor(diff / (1000 ));
+        // var seconds
     
-      ];
-    //   console.log(this.single);
-     }
+        aux.fechaPublicado={
+          // dias:days,
+          horas:hours,
+          minutos:mins,
+           segundos:seconds
+        }
+        // console.log(aux)
+        if (aux.encuesta == 'true') {
+
+          //   console.log(aux);
+          aux.single = [
+            {
+              "name": "Si",
+              "value": aux.like.length
+            },
+            {
+              "name": "No",
+              "value": aux.dislike.length
+            },
+
+          ];
+          //   console.log(this.single);
+        }
         aux.imgaux = aux.image;
         if (formatDate(new Date(), 'yyyy-MM-dd', 'en') == aux.endDate && formatDate(new Date(), 'hh:mm:ss', 'en') == '23:59:59') {
           this.firebaseService.createMetricos(aux);
@@ -281,69 +299,68 @@ single=new Array<{
         } else {
           aux.key = id;
           // 
-          let tmplike=new Array();
-          let tmpdislike= new Array();
-          if(aux.like==undefined){
-            aux.like=new Array();
-          }else{
-            for(var x=0;x<aux.like.length;x++){
+          let tmplike = new Array();
+          let tmpdislike = new Array();
+          if (aux.like == undefined) {
+            aux.like = new Array();
+          } else {
+            for (var x = 0; x < aux.like.length; x++) {
               tmplike.push(aux.like[x].id);
             }
           }
-          if(aux.dislike==undefined){
-            aux.dislike=new Array();
-          }else{
-            for(var x=0;x<aux.dislike.length;x++){
+          if (aux.dislike == undefined) {
+            aux.dislike = new Array();
+          } else {
+            for (var x = 0; x < aux.dislike.length; x++) {
               tmpdislike.push(aux.dislike[x].id);
             }
-         
+
           }
           // 
-          aux.auxlike=tmplike;
-          aux.auxdislike=tmpdislike;
-          aux.todas=new Array();
-              for(var x=0;x<aux.like.length;x++){
-                this.user=new Auxuser;
-                  this.user.date=  aux.like[x].date;
-                  this.user.id=    aux.like[x].id;
-                  this.user.img=   aux.like[x].img;
-                  this.user.name=  aux.like[x].name;
-                  this.user.number=aux.like[x].number
-                  this.user.like=true;
-                  aux.todas.push(this.user);
-              }
-              for(var x=0;x<aux.dislike.length;x++){
-                this.user=new Auxuser;
-                  this.user.date=  aux.dislike[x].date;
-                  this.user.id=    aux.dislike[x].id;
-                  this.user.img=   aux.dislike[x].img;
-                  this.user.name=  aux.dislike[x].name;
-                  this.user.number=aux.dislike[x].number
-                  this.user.like=false;
-                  aux.todas.push(this.user);
-              }
+          aux.auxlike = tmplike;
+          aux.auxdislike = tmpdislike;
+          aux.todas = new Array();
+          for (var x = 0; x < aux.like.length; x++) {
+            this.user = new Auxuser;
+            this.user.date = aux.like[x].date;
+            this.user.id = aux.like[x].id;
+            this.user.img = aux.like[x].img;
+            this.user.name = aux.like[x].name;
+            this.user.number = aux.like[x].number
+            this.user.like = true;
+            aux.todas.push(this.user);
+          }
+          for (var x = 0; x < aux.dislike.length; x++) {
+            this.user = new Auxuser;
+            this.user.date = aux.dislike[x].date;
+            this.user.id = aux.dislike[x].id;
+            this.user.img = aux.dislike[x].img;
+            this.user.name = aux.dislike[x].name;
+            this.user.number = aux.dislike[x].number
+            this.user.like = false;
+            aux.todas.push(this.user);
+          }
           aux.time = (moment(aux.endDate)).diff(moment(new Date()), 'days');
           this.newsArray.push(aux);
-          
-          var arraux = this.newsArray.sort(function(a, b) {
+
+          var arraux = this.newsArray.sort(function (a, b) {
             return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
           });
 
-         arraux.reverse();
-         
+          arraux.reverse();
+
           this.newsArray = arraux;
-          
-        
+
         }
-     
+
       });
-      
+
     });
   }
 
   getContador(idus, idpu, reaccion) {
   }
-  getLikes(admin, description, dislike, endDate, key, like, startDate, title, reaccion, img,encuesta,video,event,urlimg) {
+  getLikes(admin, description, dislike, endDate, key, like, startDate, title, reaccion, img, encuesta, video, event, urlimg) {
     if (reaccion == 'like') {
       if (like.length >= 1) {
         let th = this;
@@ -360,8 +377,8 @@ single=new Array<{
             image: img,
             startDate: startDate,
             title: title,
-            encuesta:encuesta,
-            video:video,
+            encuesta: encuesta,
+            video: video,
           };
           th.firebaseService.updateNew(key, notif);
 
@@ -385,8 +402,8 @@ single=new Array<{
               image: img,
               startDate: startDate,
               title: title,
-              encuesta:encuesta,
-              video:video,
+              encuesta: encuesta,
+              video: video,
             };
             th.firebaseService.updateNew(key, notif);
           } else if (dislike.some(person => person.id === this.uid) == true) {
@@ -409,8 +426,8 @@ single=new Array<{
               image: img,
               startDate: startDate,
               title: title,
-              encuesta:encuesta,
-              video:video,
+              encuesta: encuesta,
+              video: video,
             };
             th.firebaseService.updateNew(key, notif);
           }
@@ -438,8 +455,8 @@ single=new Array<{
             image: img,
             startDate: startDate,
             title: title,
-            encuesta:encuesta,
-            video:video,
+            encuesta: encuesta,
+            video: video,
           };
           th.firebaseService.updateNew(key, notif);
         } else if (dislike.some(person => person.id === this.uid) == true) {
@@ -462,8 +479,8 @@ single=new Array<{
             image: img,
             startDate: startDate,
             title: title,
-            encuesta:encuesta,
-            video:video,
+            encuesta: encuesta,
+            video: video,
           };
           th.firebaseService.updateNew(key, notif);
         }
@@ -485,8 +502,8 @@ single=new Array<{
             urlimg: urlimg,
             startDate: startDate,
             title: title,
-            encuesta:encuesta,
-            video:video,
+            encuesta: encuesta,
+            video: video,
           };
           th.firebaseService.updateNew(key, notif);
           ////break;
@@ -510,8 +527,8 @@ single=new Array<{
               image: img,
               startDate: startDate,
               title: title,
-              encuesta:encuesta,
-              video:video,
+              encuesta: encuesta,
+              video: video,
             };
             th.firebaseService.updateNew(key, notif);
             //////break;
@@ -537,8 +554,8 @@ single=new Array<{
               image: img,
               startDate: startDate,
               title: title,
-              encuesta:encuesta,
-              video:video,
+              encuesta: encuesta,
+              video: video,
             };
             th.firebaseService.updateNew(key, notif);
             //////break;
@@ -569,8 +586,8 @@ single=new Array<{
             image: img,
             startDate: startDate,
             title: title,
-            encuesta:encuesta,
-            video:video,
+            encuesta: encuesta,
+            video: video,
           };
           th.firebaseService.updateNew(key, notif);
         } else if (like.some(person => person.id === this.uid) == true) {
@@ -595,14 +612,14 @@ single=new Array<{
             image: img,
             startDate: startDate,
             title: title,
-            encuesta:encuesta,
-            video:video,
+            encuesta: encuesta,
+            video: video,
           };
           th.firebaseService.updateNew(key, notif);
         }
       }
     }
-    localStorage.setItem("video", ''+this.player.getCurrentTime());
+    localStorage.setItem("video", '' + this.player.getCurrentTime());
     // console.log(this.player.getCurrentTime()," lleva");
 
   }
@@ -624,22 +641,22 @@ single=new Array<{
   createNew(newsForm, value) {
     // console.log(value);
     // console.log(value, extradata);
-    if(value.video==""){
-      value.video=undefined;
+    if (value.video == "") {
+      value.video = undefined;
     }
     var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
     var extradata = {
-      admin:{
-        id:this.uid,
-        image:this.uimg,
-        name:this.uname,
-        number:this.unumber
+      admin: {
+        id: this.uid,
+        image: this.uimg,
+        name: this.uname,
+        number: this.unumber
       },
       creationDate: creationDate
     };
-    
-    if (this.url != null ) {
-     
+
+    if (this.url != null) {
+
       var imgRef = '/img/' + this.imageRef;
       this.afStorage.upload(imgRef, this.targetFile).then(r => {
         this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
@@ -648,7 +665,7 @@ single=new Array<{
               res => {
                 console.log(res);
               });
-          
+
         });
         console.log("imagen guardada?");
       });
@@ -656,12 +673,12 @@ single=new Array<{
 
 
 
-    }else{
+    } else {
       this.firebaseService.createNews(value, "", extradata)
-            .then(
-              res => {
-                console.log(res);
-              });
+        .then(
+          res => {
+            console.log(res);
+          });
     }
     newsForm.reset();
     this.newsArray = new Array;
