@@ -41,6 +41,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CreateComponent } from './components/create/create.component';
 import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 import { StadisticsComponent } from './components/stadistics/stadistics.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 // Nombre público del proyecto firebase AUth google
 // project-625108487289
 
@@ -61,7 +62,8 @@ import { StadisticsComponent } from './components/stadistics/stadistics.componen
     IconsComponent,
     CreateComponent,
     TerminosCondicionesComponent,
-    StadisticsComponent
+    StadisticsComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

@@ -16,11 +16,17 @@ import { IconsComponent } from './components/icons/icons.component';
 import { CreateComponent } from './components/create/create.component';
 import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 import { StadisticsComponent } from './components/stadistics/stadistics.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    // canActivate: [AuthGuard]
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent,
     // canActivate: [AuthGuard]
   },
   {

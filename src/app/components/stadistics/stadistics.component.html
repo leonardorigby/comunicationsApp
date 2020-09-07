@@ -1,7 +1,7 @@
 <div id="contenedor" class="row contenedor">
     <div class="col-lg-12">
         <div class="newsdiv" *ngFor="let news of publications;let i=index">
-         
+
             <div class="row">
                 <div class="col-xs-4 mod">
                     <p class="user"><img class="userr" src="{{news.admin.image}}" alt=""> {{news.admin.name}}</p>
@@ -14,9 +14,9 @@
 
                     <!-- <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span> -->
                 </div>
-               
+
             </div>
-     
+
             <div class="row descriptiondiv" *ngIf="news.encuesta.includes('true')">
                 <div class="col-lg-12 ">
                     <p style="font-size: 1em; text-align: center;"><strong class="titlep">{{news.title}}. </strong> <br>
@@ -43,7 +43,7 @@
                   [xAxisLabel]="xAxisLabel"
                   [yAxisLabel]="yAxisLabel"
                   [yScaleMax]="news.like.length+news.dislike.length"
-                  [animations]="false" (select)="onSelect($event)">
+                  [animations]="false" >
                 </ngx-charts-bar-vertical>
               </div>
             </div>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="col-4 offset-4">
                     <button (click)="exportCSV(news)" type="button" class="btn btn-secondary">Download in CSV</button>
-                
+
                 </div>
             </div> -->
             <!-- <div *ngIf="change=='Stadistics'" class="row peaple " >
@@ -136,8 +136,8 @@
 </div>
 <div id="contenedor1">
            <!--  -->
-        
-              
+
+
               <!-- Modal -->
               <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -201,7 +201,7 @@
                                 </div>
                               </div>
                             </div>
-                          
+
                     <div class="modal-footer">
                       <button id="cerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                       <button type="submit" class="btn btn-primary">Editar</button>
