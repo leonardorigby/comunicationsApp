@@ -34,7 +34,7 @@
                       <strong class="text-secondary">URL de Imagen</strong>
                       <div class="FieldElement">
                         <input id="urlimg" type="text" name="urlimg" ngModel class="form-control inputsform">
-                        <span type="button" (click)="getUrl()">Visualización</span>
+                        <span class="botonValidar btn btn-success" type="button" (click)="getUrl()">Validar Imagen</span>
                       </div>
                     </div>
                   </div>
@@ -42,7 +42,7 @@
                     <div class="form-group">
                       <strong class="text-secondary">¿Encuesta?</strong>
                       <div class="FieldElement">
-                        <select name="encuesta" ngModel id="" class="form-control inputsform">
+                        <select name="encuesta" ngModel id="" class="form-control inputsform" value="false" >
                           <option ngModel value="true">Si</option>
                           <option ngModel value="false" selected>No</option>
                         </select>
