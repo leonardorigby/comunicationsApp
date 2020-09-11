@@ -73,6 +73,12 @@ export class CreateComponent implements OnInit {
 
   createNew(newsForm, value) {
     console.log(value);
+    if(value.video==undefined){
+      value.video="";
+    }
+    if(value.image==undefined){
+      value.image="";
+    }
     var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
     var extradata = {
       admin:{
@@ -83,7 +89,7 @@ export class CreateComponent implements OnInit {
       },
       creationDate: creationDate
     };
-
+  
     if (this.url != null ) {
       var imgRef = '/img/' + this.imageRef;
       this.afStorage.upload(imgRef, this.targetFile).then(r => {
