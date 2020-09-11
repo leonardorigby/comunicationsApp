@@ -74,7 +74,7 @@ export class CreateComponent implements OnInit {
   createNew(newsForm, value) {
     console.log(value);
     if(value.video==undefined){
-      value.video="";
+      value.video=" ";
     }
     if(value.image==undefined){
       value.image="";
@@ -123,12 +123,12 @@ export class CreateComponent implements OnInit {
                   dislike: data.dislike,
                   like: data.like,
                   endDate: data.endDate,
-                  image: data.image,
+                  // image: data.image,
                   urlimg: data.urlimg,
                   startDate: data.startDate,
                   title: data.title,
                   encuesta:data.encuesta,
-                  video:data.video,
+                  // video:data.video,
                 };
                 this.firebaseService.updateNew(key, notif)
               

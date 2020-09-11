@@ -291,24 +291,24 @@ export class StadisticsComponent implements OnInit {
 
     this.ob = data;
     $("#title").val(this.ob.title);
-    $("#video").val(this.ob.video);
+    // $("#video").val(this.ob.video);
     if (this.ob.urlimg == "") {
       $("#urlimg").val("");
     } else {
       $("#urlimg").val("https://drive.google.com/file/d/" + this.ob.urlimg + "/view?usp=sharing");
     }
-    $("#encuesta").val(this.ob.encuesta);
+    $("#encuesta").val(this.ob.encuesta);   
     $("#description").val(this.ob.description);
     $("#endDate").val(this.ob.endDate);
   }
   updateAll(data) {
-    this.ob.title = $("#title").val(),
-      this.ob.video = $("#video").val(),
+      this.ob.title = $("#title").val(),
+      // this.ob.video = $("#video").val(),
       this.ob.urlimg = $("#urlimg").val().slice(32, -17),
       this.ob.encuesta = $('select[name=encuesta]').val(),
       this.ob.description = $("#description").val(),
       this.ob.endDate = $("#endDate").val()
-    this.firebaseService.updateNew(this.ob.key, this.ob);
+      this.firebaseService.updateNew(this.ob.key, this.ob);
 
 
     setTimeout($('#cerrar').click(), 5000);

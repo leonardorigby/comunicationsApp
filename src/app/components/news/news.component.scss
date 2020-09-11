@@ -277,6 +277,10 @@ textarea:focus{
 
 
 }
+@media (max-width: 767.98px) {
+	.mod{width: 100% !important;}
+	.exp{width: 100% !important;margin-left: -10% !important;margin-top: -15% !important;}
+}
 .mod{
 	// margin-left: 5px;
 	width: 40%;
@@ -314,3 +318,4 @@ textarea:focus{
 		text-align: center !important;
 
 }
+

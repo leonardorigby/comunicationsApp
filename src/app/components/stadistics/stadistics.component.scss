@@ -18,6 +18,12 @@
       // padding-bottom: 2%;
       padding: 1%;
   }
+  @media (max-width: 767.98px) {
+	.mod{width: 100% !important;}
+    .exp{width: 100% !important;margin-left: 0% !important;margin-top: -5% !important;
+        padding-bottom: 2% !important;
+    }
+}
   .avatar{
       height: 270px;
       width: 250px;

@@ -360,31 +360,31 @@ export class NewsComponent implements OnInit {
 
   getContador(idus, idpu, reaccion) {
   }
-  getLikes(admin, description, dislike, endDate, key, like, startDate, title, reaccion, img, encuesta, video, event, urlimg) {
+  getLikes(pub,reaccion) {
     if (reaccion == 'like') {
-      if (like.length >= 1) {
+      if (pub.like.length >= 1) {
         let th = this;
-        if (like.some(person => person.id === this.uid) == true) {
-          like = like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+        if (pub.like.some(person => person.id === this.uid) == true) {
+          pub.like = pub.like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
           let notif = <any>{
-            admin: admin,
-            key: key,
-            urlimg: urlimg,
-            description: description,
-            dislike: dislike,
-            like: like,
-            endDate: endDate,
-            image: img,
-            startDate: startDate,
-            title: title,
-            encuesta: encuesta,
-            video: video,
+            admin: pub.admin,
+            key: pub.key,
+            urlimg: pub.urlimg,
+            description: pub.description,
+            dislike: pub.dislike,
+            like: pub.like,
+            endDate: pub.endDate,
+            
+            startDate: pub.startDate,
+            title: pub.title,
+            encuesta: pub.encuesta,
+            
           };
-          th.firebaseService.updateNew(key, notif);
+          th.firebaseService.updateNew(pub.key, notif);
 
         } else {
-          if (dislike.some(person => person.id === this.uid) == false) {
-            like.push({
+          if (pub.dislike.some(person => person.id === this.uid) == false) {
+            pub.like.push({
               id: this.uid,
               name: this.uname,
               number: this.unumber,
@@ -392,23 +392,23 @@ export class NewsComponent implements OnInit {
               date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
             });
             let notif = <any>{
-              admin: admin,
-              key: key,
-              description: description,
-              dislike: dislike,
-              urlimg: urlimg,
-              like: like,
-              endDate: endDate,
-              image: img,
-              startDate: startDate,
-              title: title,
-              encuesta: encuesta,
-              video: video,
+              admin: pub.admin,
+              key: pub.key,
+              description: pub.description,
+              dislike: pub.dislike,
+              urlimg: pub.urlimg,
+              like: pub.like,
+              endDate: pub.endDate,
+              
+              startDate: pub.startDate,
+              title: pub.title,
+              encuesta: pub.encuesta,
+              
             };
-            th.firebaseService.updateNew(key, notif);
-          } else if (dislike.some(person => person.id === this.uid) == true) {
-            dislike = dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
-            like.push({
+            th.firebaseService.updateNew(pub.key, notif);
+          } else if (pub.dislike.some(person => person.id === this.uid) == true) {
+            pub.dislike = pub.dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+            pub.like.push({
               id: this.uid,
               name: this.uname,
               number: this.unumber,
@@ -416,28 +416,28 @@ export class NewsComponent implements OnInit {
               date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
             });
             let notif = <any>{
-              admin: admin,
-              key: key,
-              description: description,
-              dislike: dislike,
-              like: like,
-              urlimg: urlimg,
-              endDate: endDate,
-              image: img,
-              startDate: startDate,
-              title: title,
-              encuesta: encuesta,
-              video: video,
+              admin: pub.admin,
+              key: pub.key,
+              description: pub.description,
+              dislike: pub.dislike,
+              like: pub.like,
+              urlimg: pub.urlimg,
+              endDate: pub.endDate,
+              
+              startDate: pub.startDate,
+              title: pub.title,
+              encuesta: pub.encuesta,
+              
             };
-            th.firebaseService.updateNew(key, notif);
+            th.firebaseService.updateNew(pub.key, notif);
           }
         }
         // }
       } else {
         let th = this;
         // console.log('nuevo porque no hay nada');
-        if (dislike.some(person => person.id === this.uid) == false) {
-          like.push({
+        if (pub.dislike.some(person => person.id === this.uid) == false) {
+          pub.like.push({
             id: this.uid,
             name: this.uname,
             number: this.unumber,
@@ -445,23 +445,23 @@ export class NewsComponent implements OnInit {
             date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
           });
           let notif = <any>{
-            admin: admin,
-            key: key,
-            description: description,
-            dislike: dislike,
-            urlimg: urlimg,
-            like: like,
-            endDate: endDate,
-            image: img,
-            startDate: startDate,
-            title: title,
-            encuesta: encuesta,
-            video: video,
+            admin: pub.admin,
+            key: pub.key,
+            description: pub.description,
+            dislike: pub.dislike,
+            urlimg: pub.urlimg,
+            like: pub.like,
+            endDate: pub.endDate,
+            
+            startDate: pub.startDate,
+            title: pub.title,
+            encuesta: pub.encuesta,
+            
           };
-          th.firebaseService.updateNew(key, notif);
-        } else if (dislike.some(person => person.id === this.uid) == true) {
-          dislike = dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
-          like.push({
+          th.firebaseService.updateNew(pub.key, notif);
+        } else if (pub.dislike.some(person => person.id === this.uid) == true) {
+          pub.dislike = pub.dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+          pub.like.push({
             id: this.uid,
             name: this.uname,
             number: this.unumber,
@@ -469,47 +469,47 @@ export class NewsComponent implements OnInit {
             date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
           });
           let notif = <any>{
-            admin: admin,
-            key: key,
-            description: description,
-            dislike: dislike,
-            like: like,
-            urlimg: urlimg,
-            endDate: endDate,
-            image: img,
-            startDate: startDate,
-            title: title,
-            encuesta: encuesta,
-            video: video,
+            admin: pub.admin,
+            key: pub.key,
+            description: pub.description,
+            dislike: pub.dislike,
+            like: pub.like,
+            urlimg:pub.urlimg,
+            endDate: pub.endDate,
+            
+            startDate: pub.startDate,
+            title: pub.title,
+            encuesta: pub.encuesta,
+            
           };
-          th.firebaseService.updateNew(key, notif);
+          th.firebaseService.updateNew(pub.key, notif);
         }
       }
     } else if (reaccion == 'dislike') {
       let th = this;
-      if (dislike.length >= 1) {
+      if (pub.dislike.length >= 1) {
 
-        if (dislike.some(person => person.id === this.uid) == true) {
-          dislike = dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+        if (pub.dislike.some(person => person.id === this.uid) == true) {
+          pub.dislike = pub.dislike.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
           let notif = <any>{
-            admin: admin,
-            key: key,
-            description: description,
-            dislike: dislike,
-            like: like,
-            endDate: endDate,
-            image: img,
-            urlimg: urlimg,
-            startDate: startDate,
-            title: title,
-            encuesta: encuesta,
-            video: video,
+            admin: pub.admin,
+            key: pub.key,
+            description: pub.description,
+            dislike: pub.dislike,
+            like: pub.like,
+            endDate: pub.endDate,
+            
+            urlimg: pub.urlimg,
+            startDate: pub.startDate,
+            title: pub.title,
+            encuesta: pub.encuesta,
+            
           };
-          th.firebaseService.updateNew(key, notif);
+          th.firebaseService.updateNew(pub.key, notif);
           ////break;
         } else {
-          if (like.some(person => person.id === this.uid) == false) {
-            dislike.push({
+          if (pub.like.some(person => person.id === this.uid) == false) {
+            pub.dislike.push({
               id: this.uid,
               name: this.uname,
               number: this.unumber,
@@ -517,26 +517,26 @@ export class NewsComponent implements OnInit {
               date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
             });
             let notif = <any>{
-              admin: admin,
-              key: key,
-              description: description,
-              dislike: dislike,
-              like: like,
-              urlimg: urlimg,
-              endDate: endDate,
-              image: img,
-              startDate: startDate,
-              title: title,
-              encuesta: encuesta,
-              video: video,
+              admin: pub.admin,
+              key: pub.key,
+              description: pub.description,
+              dislike: pub.dislike,
+              like: pub.like,
+              urlimg: pub.urlimg,
+              endDate: pub.endDate,
+              
+              startDate: pub.startDate,
+              title: pub.title,
+              encuesta: pub.encuesta,
+              
             };
-            th.firebaseService.updateNew(key, notif);
+            th.firebaseService.updateNew(pub.key, notif);
             //////break;
-          } else if (like.some(person => person.id === this.uid) == true) {
+          } else if (pub.like.some(person => person.id === this.uid) == true) {
             let th = this;
-            like = like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+            pub.like = pub.like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
 
-            dislike.push({
+            pub.dislike.push({
               id: this.uid,
               name: this.uname,
               number: this.unumber,
@@ -544,20 +544,20 @@ export class NewsComponent implements OnInit {
               date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
             });
             let notif = <any>{
-              admin: admin,
-              key: key,
-              description: description,
-              dislike: dislike,
-              urlimg: urlimg,
-              like: like,
-              endDate: endDate,
-              image: img,
-              startDate: startDate,
-              title: title,
-              encuesta: encuesta,
-              video: video,
+              admin: pub.admin,
+              key: pub.key,
+              description: pub.description,
+              dislike: pub.dislike,
+              urlimg: pub.urlimg,
+              like: pub.like,
+              endDate: pub.endDate,
+              
+              startDate: pub.startDate,
+              title: pub.title,
+              encuesta: pub.encuesta,
+              
             };
-            th.firebaseService.updateNew(key, notif);
+            th.firebaseService.updateNew(pub.key, notif);
             //////break;
           }
 
@@ -567,8 +567,8 @@ export class NewsComponent implements OnInit {
       } else {
         let th = this;
         // console.log('nuevo porque no hay nada');
-        if (like.some(person => person.id === this.uid) == false) {
-          dislike.push({
+        if (pub.like.some(person => person.id === this.uid) == false) {
+          pub.dislike.push({
             id: this.uid,
             name: this.uname,
             number: this.unumber,
@@ -576,46 +576,45 @@ export class NewsComponent implements OnInit {
             date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
           });
           let notif = <any>{
-            admin: admin,
-            key: key,
-            description: description,
-            dislike: dislike,
-            like: like,
-            urlimg: urlimg,
-            endDate: endDate,
-            image: img,
-            startDate: startDate,
-            title: title,
-            encuesta: encuesta,
-            video: video,
+            admin: pub.admin,
+            key: pub.key,
+            dislike: pub.dislike,
+            like: pub.like,
+            urlimg: pub.urlimg,
+            endDate: pub.endDate,
+            
+            startDate: pub.startDate,
+            title: pub.title,
+            encuesta: pub.encuesta,
+            
           };
-          th.firebaseService.updateNew(key, notif);
-        } else if (like.some(person => person.id === this.uid) == true) {
+          th.firebaseService.updateNew(pub.key, notif);
+        } else if (pub.like.some(person => person.id === this.uid) == true) {
           // console.log(th.uid);
-          like = like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
+          pub.like = pub.like.filter(function (e) { return e.id !== th.uid && e.name !== th.uname && e.number !== th.uname && e.img !== th.uimg });
 
-          dislike.push({
-            id: this.uid,
+          pub.dislike.push({
+              id: this.uid,
             name: this.uname,
             number: this.unumber,
             img: this.uimg,
             date: formatDate(new Date(), 'yyyy-MM-dd  HH:mm:ss', 'en')
           });
           let notif = <any>{
-            admin: admin,
-            key: key,
-            description: description,
-            dislike: dislike,
-            like: like,
-            urlimg: urlimg,
-            endDate: endDate,
-            image: img,
-            startDate: startDate,
-            title: title,
-            encuesta: encuesta,
-            video: video,
+            admin: pub.admin,
+            key: pub.key,
+            description: pub.description,
+            dislike: pub.dislike,
+            like: pub.like,
+            urlimg: pub.urlimg,
+            endDate: pub.endDate,
+            
+            startDate: pub.startDate,
+            title: pub.title,
+            encuesta: pub.encuesta,
+            
           };
-          th.firebaseService.updateNew(key, notif);
+          th.firebaseService.updateNew(pub.key, notif);
         }
       }
     }
