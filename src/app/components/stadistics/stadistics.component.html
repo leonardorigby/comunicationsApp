@@ -30,7 +30,7 @@
           <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="news.single" [gradient]="gradient"
             [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-            [yScaleMax]="news.like.length+news.dislike.length" [animations]="false" (select)="onSelect($event)">
+            [yScaleMax]="news.like.length+news.dislike.length" [animations]="false" >
           </ngx-charts-bar-vertical>
         </div>
       </div>
@@ -40,7 +40,7 @@
         <!-- <video *ngIf="news.urlimg.includes('https')==false && news.image.includes('.mp4')==true || news.image.includes('.avi')==true && news.video==undefined" src="{{news.image}}" controls class="newsimages"> -->
         <!-- Lo sentimos. Este vídeo no puede ser reproducido en tu navegador.</video> -->
         <img class="newsimages" id="video" *ngIf="news.video" src="assets/images/preview.jpg">
-      
+
       </div>
       <div class="row">
         <div class="col-lg-12">
@@ -66,7 +66,7 @@
                 </div>
                 <div class="col-4 offset-4">
                     <button (click)="exportCSV(news)" type="button" class="btn btn-secondary">Download in CSV</button>
-                
+
                 </div>
             </div> -->
       <!-- <div *ngIf="change=='Stadistics'" class="row peaple " >
@@ -273,7 +273,7 @@
                 </div>
               </div>
               <div class="col-md-12">
-              
+
                 <div class="form-group">
                   <strong class="text-secondary">¿Encuesta?</strong>
                   <div class="FieldElement">

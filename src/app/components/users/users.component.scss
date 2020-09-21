@@ -97,3 +97,30 @@ h1{
 .roundicon:hover{
   background-color: rgb(191, 191, 191);
 }
+.b-search{
+  display: flex;
+  border-bottom: 1px solid #DBDBDB;
+  margin-bottom: 30px;
+}
+.b-search input{
+  float: left;
+  border: 0;
+  height: 32px;
+  background-color: #FAFAFA;
+}
+.b-search input:focus{
+  box-shadow: 0 0 0 0;
+}
+.b-search input:hover{
+  box-shadow: 0 0 0 0;
+}
+.b-search i{
+  float: left;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  background-color: #FAFAFA;
+  color: #000;
+
+}

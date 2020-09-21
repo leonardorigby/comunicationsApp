@@ -18,7 +18,9 @@ import Swal from 'sweetalert2'
 export class UsersComponent implements OnInit {
 
   users: any;
+  usersTmp: any;
   public roles: Role[];
+  searchValue: any;
 
   constructor(private router: Router, public auth: AuthService, public db: FirebaseService) { }
 
@@ -28,6 +30,22 @@ export class UsersComponent implements OnInit {
 
   }
 
+  searchUsers() {
+    var vm= this ;
+    vm.users = [];
+    const name = this.searchValue;
+    console.log(name)
+    this.usersTmp.findIndex(function(post, index) {
+	     if(post.fullName.startsWith(name)){
+         // console.log(post);
+         vm.users.push(post);
+         console.log(vm.users);
+
+      }
+    });
+
+   }
+
 getUsers(){
   this.db.getUsers().subscribe((result)=>{
     this.users = [];
@@ -35,6 +53,9 @@ getUsers(){
       this.users.push(usersData.payload.doc.data());
 
     });
+    this.usersTmp = this.users;
+    console.log(this.usersTmp);
+
   });
 }
 autorizedUser(info, key){
