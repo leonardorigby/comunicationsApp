@@ -112,7 +112,7 @@ export class FirebaseService {
       image: imgRef,
       urlimg: value.urlimg.slice(32, -17),
       startDate: extradata.creationDate+' '+formatDate(new Date,'HH:mm:ss','en'),
-      endDate: value.finishDate,
+      endDate: value.endDate,
       categoria:value.categoria,
       like: new Array(),
       dislike: new Array(),

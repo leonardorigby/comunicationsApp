@@ -1,4 +1,124 @@
   <div class="col-lg-12"><strong>Categoria Salud</strong> </div>
-  <div class="col-lg-12 text-center">
-    <img src="assets/images/healthnews.png" alt="" height="300" width="300">
+  <div class="row newsrow" >
+    <div class="col-lg-12">
+      <div class="newsdiv" *ngFor="let news of newsArray;let i=index" >
+         <div *ngIf="news.categoria=='salud'">
+        <div class="row">
+          <div class="col-xs-4 mod">
+            <p class="user"><img class="userr" src="{{news.admin.image}}" alt=""> {{news.admin.name}} </p>
+          </div>
+          <div class="col-xs-5  exp">
+            <!-- {{news.startDate}} -->
+            <span *ngIf="news.fechaPublicado.horas==0  && news.fechaPublicado.minutos==0" class="expiracion">Publicado hace {{news.fechaPublicado.segundos}} segundos</span>
+            <span *ngIf="news.fechaPublicado.horas>=1 && news.fechaPublicado.horas<=11 && news.fechaPublicado.minutos!=0" class="expiracion">Publicado hace {{news.fechaPublicado.horas}} Hora(s) con {{news.fechaPublicado.minutos}} minuto(s)</span>
+            <span *ngIf="news.fechaPublicado.horas>=1 && news.fechaPublicado.horas<=11 && news.fechaPublicado.minutos==0" class="expiracion">Publicado hace {{news.fechaPublicado.horas}} Hora(s) </span>
+            <span *ngIf="news.fechaPublicado.horas==0 && news.fechaPublicado.minutos!=0" class="expiracion">Publicado hace {{news.fechaPublicado.minutos}} minuto(s)</span>
+            <span *ngIf="news.fechaPublicado.horas>=12" class="expiracion"> Publicado en {{news.startDate | date:'medium'}} </span>
+            <!-- <span class="expiracion" *ngIf="news.time!=0">Expira en {{news.time}} dia(s)</span>
+            <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span> -->
+          </div>
+        </div>
+        <div class="row descriptiondiv" *ngIf="news.encuesta.includes('true')">
+          <div class="col-lg-12 ">
+            <p style="font-size: 2em; text-align: center;"><strong class="titlep">{{news.title}}. </strong> <br> {{news.description}}</p>
+          </div>
+        </div>
+        <div class="row" *ngIf="news.encuesta.includes('true')">
+          <div class="col-8" style="text-align: center;" style="max-width: 250px;">
+            <ngx-charts-bar-vertical
+              [view]="view"
+              [scheme]="colorScheme"
+              [results]="news.single"
+              [gradient]="gradient"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [legend]="showLegend"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              [xAxisLabel]="xAxisLabel"
+              [yAxisLabel]="yAxisLabel"
+              [yScaleMax]="news.like.length+news.dislike.length"
+              [animations]="false" (select)="onSelect($event)">
+            </ngx-charts-bar-vertical>
+          </div>
+        </div>
+        <div class="row" *ngIf="news.encuesta.includes('false')">
+          <div class="col-lg-12">
+            <section style="text-align: center;">
+              <img *ngIf="news.image" src="{{news.image}}" alt="" class="newsimages">
+              <img *ngIf="news.urlimg" src="https://lh3.google.com/u/0/d/{{news.urlimg}}=w1920-h927-iv1" alt="" class="newsimages">
+              <!-- <video *ngIf="news.urlimg.includes('https')==false && news.image.includes('.mp4')==true || news.image.includes('.avi')==true && news.video==undefined" src="{{news.image}}" controls class="newsimages"> -->
+              <!-- Lo sentimos. Este vídeo no puede ser reproducido en tu navegador.</video> -->
+              <!-- <youtube-player class="newsimagess" id="video" *ngIf="news.video" [videoId]="news.video" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player> -->
+           
+            </section>
+          </div>
+        </div>
+        <div class="row" *ngIf="news.encuesta.includes('false')">
+          <div class="col-lg-12">
+            <div class="navlikes">
+              <p *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news,'like')"><i
+                  class="far fa-heart text-dark likeicons"></i></p>
+              <p *ngIf="news.auxlike.includes(uid)==true" (click)="getLikes(news,'like')"><i
+                  class="fas fa-heart text-danger likeicons"></i></p>
+              <p *ngIf="news.auxdislike.includes(uid)==false" (click)="getLikes(news,'dislike')"><i
+                  class="fas fa-heart-broken text-dark likeicons"></i></p>
+              <p *ngIf="news.auxdislike.includes(uid)==true" (click)="getLikes(news,'dislike')"><i
+                  class="fas fa-heart-broken text-danger likeicons"></i></p>
+            </div>
+          </div>
+          <div class="row">
+            <nav class="countlikes">
+              <ul>
+                <p>{{news.like.length}} likes.</p>
+                <p>{{news.dislike.length}} dislikes.</p>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="row" *ngIf="news.encuesta.includes('true')">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sino">
+            <div class="navlikess">
+              <p *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news,'like')"><i
+                  class="far fa-heart text-dark likeicons"></i>Si</p>
+              <p style="background-color: palevioletred; padding-left: 5%;" *ngIf="news.auxlike.includes(uid)==true"
+                (click)="getLikes(news,'like')"><i class="fas fa-heart text-white likeicons"></i>Si</p>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sino">
+            <div class="navlikess">
+              <p *ngIf="news.auxdislike.includes(uid)==false" (click)="getLikes(news,'dislike')"><i
+                  class="fas fa-heart-broken text-dark likeicons"></i>No</p>
+              <p style="background-color: palevioletred;padding-right: 5%;padding-left: 0%; " *ngIf="news.auxdislike.includes(uid)==true"
+                (click)="getLikes(news,'dislike')"><i class="fas fa-heart-broken text-white likeicons"></i>No</p>
+            </div>
+          </div>
+          <div class="row">
+            <nav class="countlikes">
+              <ul>
+                <p>{{news.like.length}} Si.</p>
+                <p>{{news.dislike.length}} No.</p>
+              </ul>
+              <ul>
+                <p> {{news.todas.length}} Persona(s) ha(n) votado.</p>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="row descriptiondiv" *ngIf="news.encuesta.includes('false')">
+          <div class="col-lg-12 ">
+            <p class="descriptionp"><strong class="titlep">{{news.title}}. </strong>{{news.description}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <div class="row">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ </div>
   </div>
+  
+  

@@ -374,7 +374,6 @@ export class NewsComponent implements OnInit {
             dislike: pub.dislike,
             like: pub.like,
             endDate: pub.endDate,
-            
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
