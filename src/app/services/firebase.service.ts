@@ -113,9 +113,10 @@ export class FirebaseService {
       urlimg: value.urlimg.slice(32, -17),
       startDate: extradata.creationDate+' '+formatDate(new Date,'HH:mm:ss','en'),
       endDate: value.finishDate,
+      categoria:value.categoria,
       like: new Array(),
       dislike: new Array(),
-       video: value.video,
+      video: value.video,
       encuesta: value.encuesta
     });
   }

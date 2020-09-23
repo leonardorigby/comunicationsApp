@@ -298,12 +298,13 @@ export class StadisticsComponent implements OnInit {
       $("#urlimg").val("https://drive.google.com/file/d/" + this.ob.urlimg + "/view?usp=sharing");
     }
     $("#encuesta").val(this.ob.encuesta);   
+    $("#categoria").val(this.ob.categoria);   
     $("#description").val(this.ob.description);
     $("#endDate").val(this.ob.endDate);
   }
   updateAll(data) {
       this.ob.title = $("#title").val(),
-      // this.ob.video = $("#video").val(),
+      this.ob.categoria = $("#categoria").val(),
       this.ob.urlimg = $("#urlimg").val().slice(32, -17),
       this.ob.encuesta = $('select[name=encuesta]').val(),
       this.ob.description = $("#description").val(),

@@ -289,7 +289,7 @@ export class NewsComponent implements OnInit {
           ];
           //   console.log(this.single);
         }
-        aux.imgaux = aux.image;
+        // aux.imgaux = aux.image;
         if (formatDate(new Date(), 'yyyy-MM-dd', 'en') == aux.endDate && formatDate(new Date(), 'hh:mm:ss', 'en') == '23:59:59') {
           this.firebaseService.createMetricos(aux);
           var storageRef = this.afStorage.ref(aux.image);//  bloque de eliminacion de imagen del storage
@@ -451,8 +451,7 @@ export class NewsComponent implements OnInit {
             dislike: pub.dislike,
             urlimg: pub.urlimg,
             like: pub.like,
-            endDate: pub.endDate,
-            
+            endDate: pub.endDate,    
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,

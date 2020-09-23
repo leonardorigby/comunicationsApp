@@ -40,9 +40,21 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
+                      <strong class="text-secondary">Categoria</strong>
+                      <div class="FieldElement">
+                        <select name="categoria" ngModel id="" class="form-control inputsform"  >
+                          <option ngModel value="Salud" selected>Salud</option>
+                          <option ngModel value="Transporte" >Transporte</option>
+                          <option ngModel value="Comedor" >Comedor</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
                       <strong class="text-secondary">¿Encuesta?</strong>
                       <div class="FieldElement">
-                        <select name="encuesta" ngModel id="" class="form-control inputsform"  >
+                        <select name="encuesta" ngModel id="encuesta" class="form-control inputsform"  >
                           <option ngModel value="true">Si</option>
                           <option ngModel value="false" selected>No</option>
                         </select>
@@ -52,13 +64,13 @@
                   <div class="col-lg-12">
                     <div class="form-group">
                       <strong class="text-secondary">Descripcion</strong>
-                      <textarea name="description" ngModel class="form-control" rows="9" cols="90"></textarea>
+                      <textarea name="description" id="description" ngModel class="form-control" rows="9" cols="90"></textarea>
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <strong class="text-secondary">Fecha de expiracion</strong>
-                      <input type="date" name="finishDate" ngModel class="form-control inputsform">
+                      <input type="date" name="endDate" ngModel class="form-control inputsform">
                     </div>
                   </div>
                 <div class="row">

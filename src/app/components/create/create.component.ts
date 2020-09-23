@@ -123,7 +123,7 @@ export class CreateComponent implements OnInit {
                   dislike: data.dislike,
                   like: data.like,
                   endDate: data.endDate,
-                  // image: data.image,
+                  categoria: data.categoria,
                   urlimg: data.urlimg,
                   startDate: data.startDate,
                   title: data.title,

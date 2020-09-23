@@ -3,11 +3,11 @@
     <div class="newsdiv" *ngFor="let news of publications;let i=index">
 
       <div class="row">
-        <div class="col-xs-4 mod">
+        <div class="col-xs-7 mod">
           <p class="user"><img class="userr" src="{{news.admin.image}}" alt=""> {{news.admin.name}}</p>
         </div>
         <div class="col-xs-3  exp">
-          <span class="expiracion">Creada el {{news.startDate}}</span>
+          <!-- <span class="expiracion">Creada el {{news.startDate}}</span> -->
 
           <i class="far fa-trash-alt" style="color:red" (click)="delete(news.key,news.title)"></i>
           <i type="button" class="far fa-edit" data-toggle="modal" data-target="#staticBackdrop" style="color:orange"
@@ -273,11 +273,23 @@
                 </div>
               </div>
               <div class="col-md-12">
+                <div class="form-group">
+                  <strong class="text-secondary">Categoria</strong>
+                  <div class="FieldElement">
+                    <select name="categoria" ngModel id="categoria" class="form-control inputsform"  >
+                      <option ngModel value="Salud" selected>Salud</option>
+                      <option ngModel value="Transporte" >Transporte</option>
+                      <option ngModel value="Comedor" >Comedor</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
 
                 <div class="form-group">
                   <strong class="text-secondary">¿Encuesta?</strong>
                   <div class="FieldElement">
-                    <select id="encuesta" name="encuesta" ngModel id="" class="form-control inputsform"
+                    <select id="encuesta" name="encuesta" ngModel id="encuesta" class="form-control inputsform"
                       value="{{ob.encuesta}}">
                       <option ngModel value="true">Si</option>
                       <option ngModel value="false" selected>No</option>
@@ -295,7 +307,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <strong class="text-secondary">Fecha de expiracion</strong>
-                  <input id="endDate" type="date" name="finishDate" ngModel class="form-control inputsform">
+                  <input id="endDate" type="date" name="endDate" ngModel class="form-control inputsform">
                 </div>
               </div>
             </div>
