@@ -119,6 +119,7 @@ export class FirebaseService {
       video: value.video,
       encuesta: value.encuesta
     });
+    
   }
   createMetricos(value){
     return this.db.collection('metricos').add(value);
