@@ -72,13 +72,6 @@ export class CreateComponent implements OnInit {
   }
 
   createNew(newsForm, value) {
-    console.log(value);
-    if(value.video==undefined){
-      value.video=" ";
-    }
-    if(value.image==undefined){
-      value.image="";
-    }
     var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
     var extradata = {
       admin:{
@@ -90,20 +83,20 @@ export class CreateComponent implements OnInit {
       creationDate: creationDate
     };
   
-    if (this.url != null ) {
-      var imgRef = '/img/' + this.imageRef;
-      this.afStorage.upload(imgRef, this.targetFile).then(r => {
-        this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
-          this.firebaseService.createNews(value, downloadURL, extradata)
-            .then(
-              res => {
-                console.log(res);
-              });
+    // if (this.url != null ) {
+    //   var imgRef = '/img/' + this.imageRef;
+    //   this.afStorage.upload(imgRef, this.targetFile).then(r => {
+    //     this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
+    //       this.firebaseService.createNews(value, downloadURL, extradata)
+    //         .then(
+    //           res => {
+    //             console.log(res);
+    //           });
 
-        });
-        console.log("imagen guardada?");
-      });
-    }else{
+    //     });
+    //     console.log("imagen guardada?");
+    //   });
+    // }else{
       this.firebaseService.createNews(value, "", extradata)
             .then(
               res => {
@@ -128,13 +121,12 @@ export class CreateComponent implements OnInit {
                   startDate: data.startDate,
                   title: data.title,
                   encuesta:data.encuesta,
-                  // video:data.video,
                 };
                 this.firebaseService.updateNew(key, notif)
               
               });
               });
-    }
+    // }
     newsForm.reset();
     // this.newsArray = new Array;
     this.router.navigate(['/home']);

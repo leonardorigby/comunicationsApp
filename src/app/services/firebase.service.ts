@@ -104,19 +104,16 @@ export class FirebaseService {
   }
   //create news
   createNews(value, imgRef, extradata) {
-   
     return this.db.collection('notification').add({
       admin: extradata.admin,
       title: value.title,
       description: value.description,
-      image: imgRef,
       urlimg: value.urlimg.slice(32, -17),
       startDate: extradata.creationDate+' '+formatDate(new Date,'HH:mm:ss','en'),
       endDate: value.endDate,
       categoria:value.categoria,
       like: new Array(),
       dislike: new Array(),
-      video: value.video,
       encuesta: value.encuesta
     });
     

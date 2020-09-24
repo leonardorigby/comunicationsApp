@@ -309,6 +309,7 @@ export class StadisticsComponent implements OnInit {
       this.ob.encuesta = $('select[name=encuesta]').val(),
       this.ob.description = $("#description").val(),
       this.ob.endDate = $("#endDate").val()
+      
       this.firebaseService.updateNew(this.ob.key, this.ob);
 
 
