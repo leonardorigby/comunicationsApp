@@ -9,11 +9,11 @@
         </div>
         <div class="col-xs-5  exp">
           <!-- {{news.startDate}} -->
-          <span *ngIf="news.fechaPublicado.horas==0  && news.fechaPublicado.minutos==0" class="expiracion">Publicado hace {{news.fechaPublicado.segundos}} segundos</span>
-          <span *ngIf="news.fechaPublicado.horas>=1 && news.fechaPublicado.horas<=11 && news.fechaPublicado.minutos!=0" class="expiracion">Publicado hace {{news.fechaPublicado.horas}} Hora(s) con {{news.fechaPublicado.minutos}} minuto(s)</span>
-          <span *ngIf="news.fechaPublicado.horas>=1 && news.fechaPublicado.horas<=11 && news.fechaPublicado.minutos==0" class="expiracion">Publicado hace {{news.fechaPublicado.horas}} Hora(s) </span>
-          <span *ngIf="news.fechaPublicado.horas==0 && news.fechaPublicado.minutos!=0" class="expiracion">Publicado hace {{news.fechaPublicado.minutos}} minuto(s)</span>
-          <span *ngIf="news.fechaPublicado.horas>=12" class="expiracion"> Publicado en {{news.startDate | date:'medium'}} </span>
+          <span *ngIf="news.fechaPublicado.horas==0  && news.fechaPublicado.minutos==0" class="expiracion">Hace {{news.fechaPublicado.segundos}} segundos</span>
+          <span *ngIf="news.fechaPublicado.horas>=1 && news.fechaPublicado.horas<=11 && news.fechaPublicado.minutos!=0" class="expiracion">Hace {{news.fechaPublicado.horas}} Hora(s) con {{news.fechaPublicado.minutos}} minuto(s)</span>
+          <span *ngIf="news.fechaPublicado.horas>=1 && news.fechaPublicado.horas<=11 && news.fechaPublicado.minutos==0" class="expiracion">Hace {{news.fechaPublicado.horas}} Hora(s) </span>
+          <span *ngIf="news.fechaPublicado.horas==0 && news.fechaPublicado.minutos!=0" class="expiracion">Hace {{news.fechaPublicado.minutos}} minuto(s)</span>
+          <span *ngIf="news.fechaPublicado.horas>=12" class="expiracion"> {{news.startDate | date:'medium'}} </span>
           <!-- <span class="expiracion" *ngIf="news.time!=0">Expira en {{news.time}} dia(s)</span>
           <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span> -->
         </div>
