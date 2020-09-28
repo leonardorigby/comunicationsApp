@@ -5,6 +5,7 @@ import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 @Component({
   selector: 'app-root',
@@ -17,12 +18,55 @@ export class AppComponent implements OnInit{
   public changetheme: boolean = true;
   // url: string;
 
-  constructor(route: ActivatedRoute, private router: Router, private generalservice: GeneralService, public auth: AuthService){
+  constructor(route: ActivatedRoute,
+     private router: Router,
+      private generalservice: GeneralService,
+       public auth: AuthService,
+       private afMessaging: AngularFireMessaging){
     // console.log(this.route);
 
   }
 
   ngOnInit(){
+
+
+
+
+    if( ! localStorage.getItem('token') ){
+
+      this.afMessaging.getToken.toPromise()
+    
+      .then( token =>{
+  
+        if( token ){
+
+          localStorage.setItem('token', token);
+          
+          console.log('Token del usuario ', token );
+  
+        }else{
+  
+          return this.afMessaging.requestPermission.toPromise();
+  
+        }
+  
+  
+      } )
+      .then( () =>{
+        console.log('Se pidio el permiso');
+      })
+      
+      .catch( err => console.log('Error al usar las notificaciones', err) );
+
+    }else{
+
+      console.log('Ya hay un token guardado', localStorage.getItem('token'));
+    }
+
+    
+
+
+
     $(".page-wrapper").removeClass("toggled");
     // this.testService();
     // this.testOneSignal();
