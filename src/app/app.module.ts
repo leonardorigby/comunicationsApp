@@ -81,7 +81,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     NgxChartsModule,
     ChartsModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('multiples-sw.js', { enabled: environment.production })
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
