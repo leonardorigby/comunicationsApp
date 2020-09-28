@@ -34,13 +34,17 @@ export class UsersComponent implements OnInit {
     var vm= this ;
     vm.users = [];
     const name = this.searchValue;
-    console.log(name)
+    const searchVal = name.toString();
     this.usersTmp.findIndex(function(post, index) {
-	     if(post.fullName.startsWith(name)){
-         // console.log(post);
-         vm.users.push(post);
-         console.log(vm.users);
 
+      const employeeNumber = post.employeeNumber.toString();
+
+	     if(employeeNumber.startsWith(searchVal)){
+
+         vm.users.push(post);
+
+      }else if(post.fullName.startsWith(searchVal)){
+        vm.users.push(post);
       }
     });
 
@@ -54,7 +58,6 @@ getUsers(){
 
     });
     this.usersTmp = this.users;
-    console.log(this.usersTmp);
 
   });
 }

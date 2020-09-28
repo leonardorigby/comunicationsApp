@@ -63,7 +63,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     CreateComponent,
     TerminosCondicionesComponent,
     StadisticsComponent,
-    PerfilComponent
+    PerfilComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,30 +7,33 @@
       <div class="col-12 text-center">
         <span class="txt-name">{{user.fullName}}</span>
       </div>
-      <div class="col-12 text-center">
+      <div class="col-12 text-center mb-5">
         <span>{{user.employeeNumber}}</span>
       </div>
       <div class="d-flex">
-          <div class="col-6 text-center">
-
+          <div class="col-6 mb-5">
+            <label for="">Planta</label>
             <div class="d-block">
-              <div><span>PLANTA</span></div>
-              <div class="sunket">
                 <span>{{user.idPlant}}</span>
-              </div>
-
             </div>
-
           </div>
-
-        <div class="col-6 text-center sunket">
-          <span>
-            {{user.idDepartment}}
-          </span>
+        <div class="col-6 mb-5">
+          <label for="">Departamento</label>
+          <div class="d-block">
+            <span>{{user.idDepartment}}</span>
+          </div>
         </div>
       </div>
-      <div class="col-12 text-center">
+      <div class="col-12">
+        <label for="">Fecha de Nacimiento</label>
+        <div class="d-block">
         <span>{{user.birthDate}}</span>
+      </div>
+      </div>
+      <div class="col-12 mt-3">
+        <div class="form-group">
+          <span><input class="mr-1"type="checkbox" formControlName="activeNitifications" ngModel name="activeNitifications" value="true" > Avtivar Notificaciones</span>
+        </div>
       </div>
     </div>
   </div>
