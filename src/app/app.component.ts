@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {ActivatedRoute} from '@angular/router';
 
 import { AngularFireMessaging } from '@angular/fire/messaging';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -22,14 +23,70 @@ export class AppComponent implements OnInit{
      private router: Router,
       private generalservice: GeneralService,
        public auth: AuthService,
-       private afMessaging: AngularFireMessaging){
+       private afMessaging: AngularFireMessaging,
+       private http: HttpClient,
+       private fcm: AngularFireMessaging){
     // console.log(this.route);
+
+  }
+
+  public pedirPermisoNotificaciones(){
+
+    
+    this.afMessaging.getToken.toPromise()
+    
+    .then( token =>{
+
+      if( token ){
+        
+        console.log('token fresco', token);
+
+        const headers = new HttpHeaders({
+          'Authorization': 'key=AAAAkYtejHk:APA91bEjqyrVYjgLiJ-omeOtXNwslB6OQRwDfIbvZh7ESDBSAax_RwkOHaCj-JyA1ai6LROhuSi085GUhnP9xMRyLq4Dw5rJeQRbQpu6vgkIdoKCyQoGrKRDCy-U4bfU5VbUvOCiCFOF'
+        });
+
+
+        this.http.post(`https://iid.googleapis.com/iid/v1/${token}/rel/topics/all`,{}, {headers})
+        .toPromise()
+        .then( () =>{
+
+          console.log('Se guardo el token para el topic all');
+        })
+        .catch(err => {
+          console.log('Error al guardar token para el topic all',err);
+        })
+
+      }else{
+
+        return this.afMessaging.requestPermission.toPromise();
+
+      }
+
+
+    } )
+    .then( () =>{
+      console.log('Se pidio el permiso');
+    })
+    
+    .catch( err => console.log('Error al usar las notificaciones', err) );
 
   }
 
   ngOnInit(){
 
 
+    //Para que la notificacion se muestre aunque este abierta la app
+    this.fcm.messages.subscribe( (mensaje:any) =>{
+
+      console.log('Llega ', mensaje);
+
+      new Notification(
+         mensaje.notification.title,
+          { body :  mensaje.notification.body } 
+         );
+
+     
+    }, err => console.log(err) );
 
 
     if( ! localStorage.getItem('token') ){

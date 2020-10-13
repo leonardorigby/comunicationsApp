@@ -1,10 +1,10 @@
 
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit, Injector, NgZone } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
+
 import { formatDate } from '@angular/common';
 import { Notification } from '../models/Notification';
 import * as moment from 'moment';
@@ -17,6 +17,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { User } from './../models/user.model';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserModule } from '@angular/platform-browser';
+import { Departamento, NotificacionesComponent, Planta } from '../notificaciones/notificaciones.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 declare var $: any;
 
@@ -38,10 +41,32 @@ export class CreateComponent implements OnInit {
   urlimg:any;
   uss:any;
 
-  constructor(private router: Router, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
+  
+  public departamentos : Departamento[] = [];
+  public plantas: Planta[] = [];
+
+  
+
+  public formaNoticia: FormGroup;
+
+
+
+  constructor(private router: Router,
+    public firebaseService: FirebaseService,
+    public afStorage: AngularFireStorage,
+    public auth: AuthService
+    ) { }
 
 
   ngOnInit() {
+
+   
+
+    this.cargarNoticiaForm();
+    this.cargarZonas();
+
+
+
     this.auth.getUserData().subscribe(s => {
       this.uid = s.id;
       this.uname = s.fullName;
@@ -56,6 +81,56 @@ export class CreateComponent implements OnInit {
     });
 
   }
+
+  private cargarZonas(){
+
+
+    this.firebaseService.getDepartaments().snapshotChanges().subscribe( departamentos =>{
+
+     
+      departamentos.forEach( departamento =>{
+
+     
+      const  { name }  =  departamento.payload.toJSON() as any ;
+
+      this.departamentos.push( { $key : departamento.key , name , check: false})
+
+
+      });
+
+     console.log('Los departamentos');
+    
+     console.table(this.departamentos);
+     
+      
+    });
+
+    this.firebaseService.getPlants().snapshotChanges().subscribe( plantas =>{
+
+   
+
+     plantas.forEach( planta =>{
+
+      const { name } = planta.payload.toJSON() as any;
+
+      this.plantas.push({ $key : planta.key , name , check: false})
+
+     });
+
+   
+
+    
+     console.log('Las plantas',);
+     console.table(  this.plantas );
+
+    });
+
+
+
+  }
+
+
+
   loadImage(event) {
     // console.log(event);
     // console.log(event.target.files[0]);
@@ -68,6 +143,44 @@ export class CreateComponent implements OnInit {
       }
       reader.readAsDataURL(event.target.files[0]);
     }
+
+  }
+
+  private cargarNoticiaForm (){
+
+    this.formaNoticia = new FormGroup({
+
+      titulo: new FormControl(null, Validators.required ),
+
+      urlImg : new FormControl(null, Validators.required),
+
+      categoria: new FormControl(null, Validators.required ),
+
+      tituloNotificacion: new FormControl(null, Validators.required ),
+
+      cuerpo: new FormControl(null, Validators.required )
+
+
+
+    });
+
+
+  };
+
+  public async crearNoticia(){
+
+   await this.firebaseService.getNew('9ZQdQplqPJ2fAVWop0CF').toPromise()
+    .then( noticia =>{
+
+      console.log('Asi trae a la noticia', noticia);
+
+    })
+    .catch(err => console.log('Error al obtener una noticias por id',err) );
+
+
+    console.log('Valores del formulario', this.formaNoticia );
+
+    
 
   }
 
@@ -97,6 +210,7 @@ export class CreateComponent implements OnInit {
     //     console.log("imagen guardada?");
     //   });
     // }else{
+
       this.firebaseService.createNews(value, "", extradata)
             .then(
               res => {
@@ -122,10 +236,19 @@ export class CreateComponent implements OnInit {
                   title: data.title,
                   encuesta:data.encuesta,
                 };
-                this.firebaseService.updateNew(key, notif)
+
+               return this.firebaseService.updateNew(key, notif);
               
-              });
-              });
+              }) ;
+
+              })
+              .then( () =>{
+                console.log('Se guardo la noticia');
+
+               
+              })
+              
+              .catch(err => console.log('Error al crear la noticia', err) );
     // }
     newsForm.reset();
     // this.newsArray = new Array;
@@ -136,4 +259,21 @@ export class CreateComponent implements OnInit {
   this.url=$("#urlimg").val().slice(32, -17);
   console.log(this.url);
 }
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
 }

@@ -17,6 +17,7 @@ import { CreateComponent } from './components/create/create.component';
 import { TerminosCondicionesComponent } from './components/terminos-condiciones/terminos-condiciones.component';
 import { StadisticsComponent } from './components/stadistics/stadistics.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 
 const routes: Routes = [
   {
@@ -106,6 +107,10 @@ const routes: Routes = [
       component: IconsComponent,
       canActivate: [AuthGuard]
 
+    },
+    {
+    path:'notificaciones',
+      component: NotificacionesComponent
     },
     {
       path: '**',

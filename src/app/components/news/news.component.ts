@@ -19,6 +19,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ThemeService } from 'ng2-charts';
 import { GeneralService } from 'src/app/services/general.service';
 import { format } from 'url';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import  { environment } from 'src/environments/environment';
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 
 // https://lh3.google.com/u/0/d/   1WWfDj3A2A5C3N5tKARgxxfOIko7u3-gy     =w1920-h927-iv1
@@ -97,9 +100,31 @@ export class NewsComponent implements OnInit {
   an: any;
   done: boolean;
 
-  constructor(private general: GeneralService, public sanitizer: DomSanitizer, private router: Router, private injector: Injector, public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
+  constructor( private general: GeneralService,
+    public sanitizer: DomSanitizer,
+    private router: Router,
+    private injector: Injector,
+    public firebaseService: FirebaseService,
+    public afStorage: AngularFireStorage,
+    public auth: AuthService,
+    private http: HttpClient,
+    private fcm: AngularFireMessaging
+    
+   ) { }
 
   ngOnInit() {
+
+    
+
+    if( ! localStorage.getItem('notificaciones') ){
+
+    this.auth.getUserData().subscribe( usuario => this.activarTopics( usuario ) );
+
+    
+    }else{
+      console.log('Las notificaciones estaban ya configuradas');
+    }
+    
 
 
     this.video = "https://www.youtube.com/embed/5Z2C0wy4bmg";
@@ -130,6 +155,42 @@ export class NewsComponent implements OnInit {
 
     }
   }
+
+
+
+
+  public async activarTopics( usuario: User ){
+
+const token = await this.fcm.getToken.toPromise();
+
+this.firebaseService.getIdByName('departament' , usuario.idDepartment ).subscribe( id => this.guardarTokenEnTopic( id , token ) );
+
+this.firebaseService.getIdByName('plant' , usuario.idPlant ).subscribe( id => this.guardarTokenEnTopic( id , token ) );
+
+this.guardarTokenEnTopic('all', token);
+   
+  localStorage.setItem('notificaciones', 'true');
+
+  } 
+
+  
+
+  public  guardarTokenEnTopic( topic : string, token:string ){
+
+    const headers = new HttpHeaders({
+      'Authorization': environment.fcmKey
+    });
+
+   return this.http.post(`https://iid.googleapis.com/iid/v1/${token}/rel/topics/${topic}`, null ,{ headers })
+    .toPromise()
+    .then( resp =>{
+      console.log('Resp de guardar el token en el topic', resp);
+    })
+    .catch(err => console.log('Error al madnar el token al topic ', err) );
+    
+  }
+
+
   // public get currentTime(): number
   // public play(): void
   // public pause(): void

@@ -43,6 +43,7 @@ import { TerminosCondicionesComponent } from './components/terminos-condiciones/
 import { StadisticsComponent } from './components/stadistics/stadistics.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { NotificacionesComponent } from './components/notificaciones/notificaciones.component';
 // Nombre público del proyecto firebase AUth google
 // project-625108487289
 
@@ -65,6 +66,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
     TerminosCondicionesComponent,
     StadisticsComponent,
     PerfilComponent,
+    NotificacionesComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../models/user.model'; // optional
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2'
+import { AngularFireMessaging } from '@angular/fire/messaging';
 
 
 
@@ -17,10 +18,26 @@ export class LoginComponent implements OnInit {
   public loginuser: boolean = true;
 
 
-  constructor(public auth: AuthService, private router: Router) { }
+  constructor(public auth: AuthService, 
+    private router: Router,
+
+    private fcm: AngularFireMessaging
+    ) { }
 
   ngOnInit() {
     this.getUserData();
+  }
+
+
+  public activarNotificaciones(){
+
+    return this.fcm.requestPermission.subscribe( () =>{
+
+      console.log('Se pidio el permiso');
+      new Notification('Bienvenido a Sanmina news',{ body : 'Ahora estaras enterado de cualquier noticia'})
+
+    }, err => console.log('Error al pedir permiso de las notificaciones o las cancelo',err) );
+
   }
 
   googleSignin(){

@@ -1,93 +1,216 @@
-    <div class="row newsrow" >
-        <div class="col-lg-12 newsdiv" >
-          <form #newsForm="ngForm" name="newsForm" (submit)="createNew(newsForm, newsForm.value)" >
-            <div class="row" >
-              <div class="col-lg-12">
-                <div class="row">
-                  <div class="col-md-12">
-                    <img src="https://lh3.google.com/u/0/d/{{url}}=w1920-h927-iv1" class="newsimage" alt=" " onerror="this.src='assets/images/error-404-not-found.jpg'" *ngIf="url">
-                    
-                  </div>
-                </div>
-                  <!-- <div class="col-md-12 text-center">
-                    <input type="file" (change)="loadImage($event)" id="file" accept=".png,.jpg,.avi,.mp4,.mkv" />
-                    <label for="file" class="btn-2">Seleccionar imagen</label>
-                  </div> -->
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Titulo</strong>
-                      <div class="FieldElement">
-                        <input id="title" type="text" name="title" ngModel class="form-control inputsform">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Video URL de youtube</strong>
-                      <div class="FieldElement">
-                        <input type="text" name="video" ngModel class="form-control inputsform">
-                      </div>
-                    </div>
-                  </div> -->
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">URL de Imagen</strong>
-                      <div class="FieldElement">
-                        <input id="urlimg" type="text" name="urlimg" ngModel class="form-control inputsform">
-                        <span class="botonValidar btn btn-success" type="button" (click)="getUrl()">Validar Imagen</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Categoria</strong>
-                      <div class="FieldElement">
-                        <select name="categoria" ngModel id="categoria" class="form-control inputsform"  >
-                          <option ngModel value="salud" >Salud</option>
-                          <option ngModel value="transporte" >Transporte</option>
-                          <option ngModel value="comedor" >Comedor</option>
 
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">¿Encuesta?</strong>
-                      <div class="FieldElement">
-                        <select name="encuesta" ngModel id="encuesta" class="form-control inputsform"  >
-                          <option ngModel value="true">Si</option>
-                          <option ngModel value="false" selected>No</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Descripcion</strong>
-                      <textarea name="description" id="description" ngModel class="form-control" rows="9" cols="90"></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <strong class="text-secondary">Fecha de expiracion</strong>
-                      <input type="date" name="endDate" ngModel class="form-control inputsform">
-                    </div>
-                  </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group text-center">
-                      <button type="submit" class="btn createbtn" name="button">Crear Publicacion</button>
-                    </div>
-                  </div>
-                  <!-- <div class="col-md-6">
-                    <div class="form-group text-center">
-                      <button type="submit" class="btn createbtn bg-warning" name="button">Crear Encuesta</button>
-                    </div>
-                  </div> -->
+
+<form [formGroup]="formaNoticia">
+
+  <div class="form-group">
+    <strong class="text-secondary">Titulo</strong>
+    <div class="FieldElement">
+      <input  type="text" formControlName="titulo" class="form-control inputsform">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <strong class="text-secondary">Url de Imagen</strong>
+    <div class="FieldElement">
+      <input type="text" formControlName="urlImg"  class="form-control inputsform">
+    </div>
+  </div>
+
+  <div style="text-align: center;"> 
+
+    <button  class="btn btn-success">
+      Validar Imagen
+    </button>
+
+  </div>
+
+  <div class="form-group">
+    <strong class="text-secondary">Categoria</strong>
+    <div class="FieldElement">
+      <select formControlName="categoria" class="form-control inputsform"  >
+        <option ngValue="salud"  >Salud</option>
+        <option  ngValue="transprte" >Transporte</option>
+        <option  ngValue="comedor" >Comedor</option>
+
+      </select>
+    </div>
+  </div>
+
+
+ 
+
+
+</form>
+
+
+
+
+
+  <p style="text-align: center; font-size: bold;"> Datos requeridos para la notificacion </p>
+   
+
+     <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a href="#todos" class="nav-link active" data-toggle="tab" >Todos</a>
+      </li>
+      <li class="nav-item">
+        <a href="#usuario" class="nav-link" data-toggle="tab" >Un usuario</a>
+      </li>
+      <li class="nav-item">
+        <a href="#multiple" class="nav-link" data-toggle="tab" >Multiple</a>
+      </li>
+
+      <div class="card" style="width: 100%; ">
+        <div class="card-body">
+    
+         <form [formGroup]="formaNoticia">
+    
+          <div class="form-group">
+            <label for="exampleInputEmail1">Titulo</label>
+            <input type="email" class="form-control" formControlName="tituloNotificacion" >
+          </div>
+    
+          <div class="form-group">
+            <label for="exampleInputEmail1">Contenido</label>
+            <input type="email" class="form-control" formControlName="cuerpo" >
+          </div>
+    
+    
+    
+    
+        </form>
+      
+      
+        </div>
+    
+      </div>
+
+
+
+
+     <div class="row" >
+      <div class="col-lg-12">
+
+
+        <div class="row">
+          <div class="col-md-12">
+
+
+            <div class="tab-content" >
+              <div class="tab-pane fade show active" id="todos" style="text-align: center;">
+      
+                <div class="card" style="width: 100%; ">
+                  <div class="card-body">
+                   <p style="font-weight: bold; text-align: center;">Todos</p>
+      
+                   <button  [disabled]="formaNoticia.invalid" class="btn btn-primary">
+                    Enviar
+                   </button>
+      
+                   </div>
                 </div>
+                 
+               
+          
               </div>
-            </div>
-          </form>
+          
+          
+             
+          
+          
+          
+              <div class="tab-pane fade" id="usuario">
+                 
+                <!-- <div class="form-group">
+                  <label for="exampleInputEmail1">Token del usuario</label>
+                  <input type="text" class="form-control" [(ngModel)]="usuarioToken" >
+                </div> -->
+                
+                <button [disabled]="formaNoticia.invalid" class="btn btn-primary">
+                  Enviar
+                </button>
+          
+              </div>
+      
+      
+              <div class="tab-pane fade" id="multiple">
+                 
+              
+
+                   
+      <div class="card" style="width: 100%; ">
+        <div class="card-body">
+          <p style="font-weight: bold; text-align: center;">Departamentos</p>
+         <br>
+
+        <div class="form-check-inline " *ngFor="let departamento of departamentos">
+          <label class="form-check-label departamentos" >
+            <input type="checkbox" class="form-check-input" [(ngModel)]="departamento.check">
+            {{departamento.name}}
+          </label>
+        </div>
+
+        </div>
+
+      </div>
+      
+
+      <div class="card" style="width: 100%; ">
+        <div class="card-body">
+         <p style="font-weight: bold; text-align: center;">Plantas</p>
+  
+         <br>
+  
+        <div class="form-check-inline " *ngFor="let planta of plantas">
+          <label class="form-check-label plantas" >
+            <input type="checkbox" class="form-check-input" [(ngModel)]="planta.check">
+            {{planta.name}}
+          </label>
+        </div>
+  
+  
         </div>
       </div>
+                
+                <button [disabled]="formaNoticia.invalid" class="btn btn-primary">
+                  Enviar
+                </button>
+          
+              </div>
+      
+            </div>
+
+
+
+
+          </div> 
+        </div> 
+
+
+
+
+      </div> 
+    </div> 
+
+   
+
+
+  
+
+
+ 
+
+          
+      
+
+
+      
+
+   
+   
+
+
+
+
+
+      

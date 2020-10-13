@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, QueryFn } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFireAuth } from '@angular/fire/auth';
 
@@ -14,6 +14,8 @@ import { User } from '../components/models/user.model';
 import { Icons } from '../components/models/icons';
 import { format } from 'url';
 import { formatDate } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map, reduce } from 'rxjs/operators';
 
 
 
@@ -46,7 +48,10 @@ export class FirebaseService {
   selectUser: User = new User();
   selectIcons: Icons = new Icons();
 
-  constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, public afStorage: AngularFireStorage, private firebase: AngularFireDatabase) { }
+  constructor(public afAuth: AngularFireAuth,
+    public db: AngularFirestore,
+    public afStorage: AngularFireStorage, 
+    private firebase: AngularFireDatabase) { }
 
 
 
@@ -65,6 +70,16 @@ export class FirebaseService {
   //   return this.url;
   //   console.log(this.url);
   // }
+
+  public  getIdByName( coleccion:string ,nombre: string ) :Observable<string> {
+
+    return this.firebase.list<any>(`/${coleccion}`, ref => ref.orderByChild('name').equalTo( nombre ) )
+    .stateChanges()
+    .pipe(
+      map( resultado => resultado.key )
+    );
+  
+  }
 
   // get news images
   getPicture() {
