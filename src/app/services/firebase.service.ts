@@ -81,6 +81,10 @@ export class FirebaseService {
   
   }
 
+  public getUserTokenByName( nombreUsuario: string){
+   return this. db.collection('/users', ref => ref.limit(1).where( 'fullName' , '==', nombreUsuario  )).snapshotChanges();
+  }
+
   // get news images
   getPicture() {
     return this.db.collection('/news').valueChanges()

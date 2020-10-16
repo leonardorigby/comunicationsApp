@@ -8,6 +8,7 @@ import { Departament } from '../models/departament';
 import { Plant } from '../models/plant';
 
 import $ from 'jquery';
+import { User } from '../models/user.model';
 
 
 
@@ -25,6 +26,10 @@ export class NotificacionesComponent implements OnInit {
   
 
   public formaNotificaion: FormGroup;
+
+  public nombreUsuario: string = '';
+
+  public encontrado: boolean ;
 
   public usuarioToken:string ='';
 
@@ -49,6 +54,35 @@ export class NotificacionesComponent implements OnInit {
 
     this.cargarForms();
     this.cargarZonas();
+
+  }
+
+  public buscarUsuario(){
+    
+    this.firebaseService.getUserTokenByName(  this.nombreUsuario )
+    .subscribe( resp =>{
+
+      console.log('Asi llega la resp', resp);
+
+     if( resp.length != 0 && (resp[0].payload.doc.data() as User).token ){
+
+      console.log('Usuario encontrado con token', resp[0].payload.doc.data() as User );
+
+      
+      this.usuarioToken  = (resp[0].payload.doc.data() as User).token;
+
+      this.encontrado = true;
+      
+
+     }else{
+
+      console.log('No se encontro el usuario o no a configurado las actualizaciones');
+      this.encontrado = false;
+
+     }
+     
+
+    }, err => console.log(err) );
 
   }
 

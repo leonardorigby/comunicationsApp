@@ -63,20 +63,44 @@
     </div>
 
 
-   
+   <br>
 
 
 
     <div class="tab-pane fade" id="usuario">
-       
-      <div class="form-group">
-        <label for="exampleInputEmail1">Token del usuario</label>
-        <input type="text" class="form-control" [(ngModel)]="usuarioToken" >
+
+      <p style="font-weight: bold;"> Buscar por nombre</p>
+     
+
+      <div class="input-group">
+        
+        <input type="text" class="form-control" [(ngModel)]="nombreUsuario" placeholder="Escribe el nombre del usuario">
+        <div class="input-group-append">
+          <button (click)="buscarUsuario()" class="btn btn-secondary" type="button">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
       </div>
-      
-      <button (click)="enviarAUsuario()" [disabled]="formaNotificaion.invalid" class="btn btn-primary">
+
+
+     <br>
+
+
+      <div *ngIf="encontrado" class="alert alert-success" role="alert">
+       Se encontro el usuario
+
+       <button (click)="enviarAUsuario()" [disabled]="formaNotificaion.invalid" class="btn btn-primary">
         Enviar
       </button>
+
+      </div>
+      
+      <div *ngIf=" encontrado != undefined && ! encontrado " class="alert alert-danger" role="alert">
+        No se encontro al usuario o no ha configurado las notificaciones
+      </div>
+
+
+      
 
     </div>
 

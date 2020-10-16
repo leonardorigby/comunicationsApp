@@ -9,5 +9,6 @@ export class User {
   idRole: string;
   image: string;
   authorized: boolean;
+  token?:string;
 
 }

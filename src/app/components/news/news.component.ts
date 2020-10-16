@@ -163,13 +163,34 @@ export class NewsComponent implements OnInit {
 
 const token = await this.fcm.getToken.toPromise();
 
-this.firebaseService.getIdByName('departament' , usuario.idDepartment ).subscribe( id => this.guardarTokenEnTopic( id , token ) );
 
-this.firebaseService.getIdByName('plant' , usuario.idPlant ).subscribe( id => this.guardarTokenEnTopic( id , token ) );
+if( usuario.idDepartment != ""){
+  this.firebaseService.getIdByName('departament' , usuario.idDepartment ).subscribe( id => this.guardarTokenEnTopic( id , token ));
+}
 
-this.guardarTokenEnTopic('all', token);
-   
+if( usuario.idPlant != ""){
+  this.firebaseService.getIdByName('plant' , usuario.idPlant ).subscribe(  id => this.guardarTokenEnTopic( id , token ) );
+}
+
+
+
+this.guardarTokenEnTopic('all', token)
+.then( ()=>{
+
+usuario.token = token;
+
+ return this.auth.registerNewUser( usuario );
+
+})
+.then( () => {
+  console.log("se actualizo token de usuario");
   localStorage.setItem('notificaciones', 'true');
+})
+.catch( err => console.log(err) );
+
+
+   
+  
 
   } 
 
