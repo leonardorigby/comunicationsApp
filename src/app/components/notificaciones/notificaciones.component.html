@@ -1,6 +1,31 @@
 
 <p style="text-align: center; font-size: bold;"> Datos requeridos para la notificacion </p>
 
+<div class="card" style="width: 100%; ">
+  <div class="card-body">
+   
+   <form [formGroup]="formaNotificaion" (ngSubmit)="enviarAUsuario()">
+
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Titulo</label>
+      <input type="email" class="form-control" formControlName="titulo" >
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Contenido</label>
+      <input type="email" class="form-control" formControlName="cuerpo" >
+    </div>
+
+  </form>
+
+
+  </div>
+
+</div>
+
+<p style="text-align: center; font-size: bold;"> Personas que recibiran la notificacion </p>
+
 
   <ul class="nav nav-tabs">
     <li class="nav-item">
@@ -19,34 +44,7 @@
 
 
 
-  <div class="card" style="width: 100%; ">
-    <div class="card-body">
-     
-      
-      
 
-     <form [formGroup]="formaNotificaion" (ngSubmit)="enviarAUsuario()">
-
-
-      <div class="form-group">
-        <label for="exampleInputEmail1">Titulo</label>
-        <input type="email" class="form-control" formControlName="titulo" >
-      </div>
-
-      <div class="form-group">
-        <label for="exampleInputEmail1">Contenido</label>
-        <input type="email" class="form-control" formControlName="cuerpo" >
-      </div>
-
-
-
-
-    </form>
-  
-  
-    </div>
-
-  </div>
 
 
 
@@ -55,9 +53,13 @@
 
     
     <div class="tab-pane fade show active" id="todos" style="text-align: center;">
+
+      <br>
        
-       <button  [disabled]="formaNotificaion.invalid" (click)="enviarATodos()" class="btn btn-primary">
-        Enviar
+       <button  [disabled]="formaNotificaion.invalid" (click)="enviarATodos()" class="btn btn-primary btn-block">
+        Enviar la notificacion a TODOS
+
+        <i class="fas fa-bell"></i>
        </button>
 
     </div>
@@ -86,11 +88,13 @@
      <br>
 
 
-      <div *ngIf="encontrado" class="alert alert-success" role="alert">
-       Se encontro el usuario
+      <div *ngIf="encontrado" style="text-align: center;" class="alert alert-success" role="alert">
+       Se encontro el usuario!
 
-       <button (click)="enviarAUsuario()" [disabled]="formaNotificaion.invalid" class="btn btn-primary">
-        Enviar
+       <button (click)="enviarAUsuario()" [disabled]="formaNotificaion.invalid" class="btn btn-primary btn-block">
+        Enviar notificacion a {{nombreUsuario}}
+
+        <i class="fas fa-bell"></i>
       </button>
 
       </div>
@@ -153,8 +157,9 @@
   
       
     
-        <button  [disabled]="formaNotificaion.invalid" class="btn btn-primary" (click)="enviarATopics()">
-          Enviar
+        <button  [disabled]="formaNotificaion.invalid" class="btn btn-primary btn-block" (click)="enviarATopics()">
+          Enviar a las zonas seleccionadas
+          <i class="fas fa-bell"></i>
         </button>
 
 

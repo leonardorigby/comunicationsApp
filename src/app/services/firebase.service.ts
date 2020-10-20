@@ -121,6 +121,26 @@ export class FirebaseService {
   searchNewsByAge(value) {
     return this.db.collection('notification', ref => ref.orderBy('date').startAt(value)).snapshotChanges();
   }
+
+
+  crearNoticia(formulario: any , admin:any){
+    return this.db.collection('notification').add({
+      admin,
+      title: formulario.titulo,
+      description: formulario.descripcion,
+      urlimg: formulario.urlImg.slice(32, -17),
+      startDate: formatDate(new Date(), 'yyyy-MM-dd', 'en')+' '+formatDate(new Date,'HH:mm:ss','en'),
+      endDate: formulario.endDate,
+      categoria: formulario.categoria,
+      like: new Array(),
+      dislike: new Array(),
+      encuesta: formulario.encuesta
+    });
+
+
+
+  }
+
   //create news
   createNews(value, imgRef, extradata) {
     return this.db.collection('notification').add({

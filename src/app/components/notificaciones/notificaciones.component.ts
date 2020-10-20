@@ -1,13 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ApplicationRef, Component, OnInit } from '@angular/core';
-import { AngularFireMessaging } from '@angular/fire/messaging';
+import { Component, OnInit } from '@angular/core';
+
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { environment} from 'src/environments/environment';
-import { Departament } from '../models/departament';
-import { Plant } from '../models/plant';
 
-import $ from 'jquery';
 import { User } from '../models/user.model';
 
 
@@ -38,9 +35,7 @@ export class NotificacionesComponent implements OnInit {
 
   constructor( 
     private httpService: HttpClient,
-    private fcm: AngularFireMessaging,
-    public firebaseService: FirebaseService,
-    private vista: ApplicationRef
+    public firebaseService: FirebaseService
     ) { 
     
       
@@ -67,12 +62,10 @@ export class NotificacionesComponent implements OnInit {
      if( resp.length != 0 && (resp[0].payload.doc.data() as User).token ){
 
       console.log('Usuario encontrado con token', resp[0].payload.doc.data() as User );
-
       
       this.usuarioToken  = (resp[0].payload.doc.data() as User).token;
 
       this.encontrado = true;
-      
 
      }else{
 
@@ -93,15 +86,11 @@ export class NotificacionesComponent implements OnInit {
 
     this.firebaseService.getDepartaments().snapshotChanges().subscribe( departamentos =>{
 
-     
       departamentos.forEach( departamento =>{
 
-     
       const  { name }  =  departamento.payload.toJSON() as any ;
 
-      this.departamentos.push( { $key : departamento.key , name , check: false})
-
-
+      this.departamentos.push( { $key : departamento.key , name , check: false});
       });
 
      console.log( this.departamentos );
@@ -111,19 +100,13 @@ export class NotificacionesComponent implements OnInit {
 
     this.firebaseService.getPlants().snapshotChanges().subscribe( plantas =>{
 
-   
-
      plantas.forEach( planta =>{
 
       const { name } = planta.payload.toJSON() as any;
 
-      this.plantas.push({ $key : planta.key , name , check: false})
-
+      this.plantas.push({ $key : planta.key , name , check: false});
      });
 
-   
-
-    
      console.log('Las plantas', this.plantas);
 
     });
@@ -150,6 +133,10 @@ export class NotificacionesComponent implements OnInit {
     .toPromise()
     .then( resp =>{
       console.log('Talves se envio', resp);
+      this.formaNotificaion.reset({
+        titulo:'',
+        cuerpo:''
+      });
 
     })
     .catch(err => console.log('Error al enviar notificacion para uno', err) );
@@ -195,9 +182,7 @@ export class NotificacionesComponent implements OnInit {
 
 
     this.plantas.forEach( planta =>{
-
       if( planta.check ) seleccionados.push( {  $key: planta.$key , name: planta.name , check:true });
-
     });
 
 

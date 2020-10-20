@@ -6,22 +6,13 @@ import { FirebaseService } from '../../services/firebase.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 import { formatDate } from '@angular/common';
-import { Notification } from '../models/Notification';
-import * as moment from 'moment';
-import { Likes } from '../models/Likes';
-import { Auxuser } from '../models/AuxUser';
-import { Metrico } from '../models/Metrico';
-import { element } from 'protractor';
-import { DomSanitizer } from '@angular/platform-browser';
-// import YouTubePlayer from 'youtube-player';
-import { User } from './../models/user.model';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { BrowserModule } from '@angular/platform-browser';
-import { Departamento, NotificacionesComponent, Planta } from '../notificaciones/notificaciones.component';
+
+import { Departamento, Planta } from '../notificaciones/notificaciones.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { User } from '../models/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-declare var $: any;
 
 
 @Component({
@@ -44,17 +35,20 @@ export class CreateComponent implements OnInit {
   
   public departamentos : Departamento[] = [];
   public plantas: Planta[] = [];
-
-  
-
+  private usuarioAutor: User;
   public formaNoticia: FormGroup;
+  public tabSeleccionado :string ='todos';
 
+  public encontrado: boolean;
+  public nombreUsuario : string = '';
+  public usuarioToken : string = '';
 
 
   constructor(private router: Router,
     public firebaseService: FirebaseService,
     public afStorage: AngularFireStorage,
-    public auth: AuthService
+    public auth: AuthService,
+    private httpService: HttpClient
     ) { }
 
 
@@ -65,22 +59,11 @@ export class CreateComponent implements OnInit {
     this.cargarNoticiaForm();
     this.cargarZonas();
 
-
-
-    this.auth.getUserData().subscribe(s => {
-      this.uid = s.id;
-      this.uname = s.fullName;
-      this.unumber = s.employeeNumber;
-      this.uimg = s.image;
-      this.uss = {
-        id : s.id,
-        name : s.fullName,
-        number : s.employeeNumber,
-        img : s.image,
-      }
-    });
+    this.auth.getUserData().subscribe( usuario => this.usuarioAutor = usuario );
 
   }
+
+  
 
   private cargarZonas(){
 
@@ -156,6 +139,12 @@ export class CreateComponent implements OnInit {
 
       categoria: new FormControl(null, Validators.required ),
 
+      encuesta : new FormControl(false, Validators.required ),
+
+      descripcion: new FormControl(null, Validators.required),
+
+      endDate: new FormControl(null, Validators.required),
+
       tituloNotificacion: new FormControl(null, Validators.required ),
 
       cuerpo: new FormControl(null, Validators.required )
@@ -167,22 +156,261 @@ export class CreateComponent implements OnInit {
 
   };
 
-  public async crearNoticia(){
+  public publicarNoticia(){
 
-   await this.firebaseService.getNew('9ZQdQplqPJ2fAVWop0CF').toPromise()
-    .then( noticia =>{
+    console.log('Valores del formulario', this.formaNoticia.value );
+   
+    const admin = {
+      id: this.usuarioAutor.id,
+      image: this.usuarioAutor.image,
+      name: this.usuarioAutor.fullName,
+      number: this.usuarioAutor.employeeNumber
+    };
 
-      console.log('Asi trae a la noticia', noticia);
+
+    this.firebaseService.crearNoticia( this.formaNoticia.value, admin )
+    .then(  () =>{
+
+      console.log('Se creo la noticia');
+      
+      switch( this.tabSeleccionado ){
+
+        case 'todos':
+
+        this.enviarATodos();
+
+        break;
+
+        case 'usuario':
+
+        this.enviarAUsuario();
+
+        break;
+
+
+        default:
+
+        this.enviarATopics();
+        
+      }
+
+
 
     })
-    .catch(err => console.log('Error al obtener una noticias por id',err) );
+    .catch( err => console.log('Error en el proceso  de crear una noticia ', err) );
+    
+
+    console.log('Admin de la noticia', admin);
+
+  }
 
 
-    console.log('Valores del formulario', this.formaNoticia );
 
+  public enviarATodos(){
+
+    const headers = new HttpHeaders({
+      'Authorization': environment.fcmKey
+    });
+
+    const notificacionBody = {
+      notification:{
+        title: this.formaNoticia.value.tituloNotificacion,
+        body: this.formaNoticia.value.cuerpo
+      },
+      to:'/topics/all'
+    };
+
+   return this.httpService.post('https://fcm.googleapis.com/fcm/send', notificacionBody ,{ headers })
+    .toPromise()
+    .then( resp =>{
+      console.log('Talves se envio', resp);
+      this.formaNoticia.reset({
+        titulo :null,
+        urlImg:null,
+        categoria:null,
+        encuesta:false,
+        descripcion:null,
+        endDate:null,
+        tituloNotificacion:null,
+        cuerpo:null
+      });
+
+    })
+    .catch(err => console.log('Error al enviar notificacion para uno', err) );
     
 
   }
+
+  public enviarAUsuario(){
+
+    const headers = new HttpHeaders({
+      'Authorization': environment.fcmKey
+    });
+
+    const notificacionBody = {
+      notification:{
+        title: this.formaNoticia.value.tituloNotificacion,
+        body: this.formaNoticia.value.cuerpo
+      },
+      to: this.usuarioToken
+    };
+
+   return this.httpService.post('https://fcm.googleapis.com/fcm/send', notificacionBody ,{ headers })
+    .toPromise()
+    .then( resp =>{
+      console.log('Talves se envio', resp);
+      this.formaNoticia.reset({
+        titulo :null,
+        urlImg:null,
+        categoria:null,
+        encuesta:false,
+        descripcion:null,
+        endDate:null,
+        tituloNotificacion:null,
+        cuerpo:null
+      });
+
+    })
+    .catch(err => console.log('Error al enviar notificacion para uno', err) );
+
+
+  }
+
+  public buscarUsuario(){
+    
+    this.firebaseService.getUserTokenByName(  this.nombreUsuario )
+    .subscribe( resp =>{
+
+      console.log('Asi llega la resp', resp);
+
+     if( resp.length != 0 && (resp[0].payload.doc.data() as User).token ){
+
+      console.log('Usuario encontrado con token', resp[0].payload.doc.data() as User );
+      
+      this.usuarioToken  = (resp[0].payload.doc.data() as User).token;
+
+      this.encontrado = true;
+
+     }else{
+
+      console.log('No se encontro el usuario o no a configurado las actualizaciones');
+      this.encontrado = false;
+
+     }
+     
+
+    }, err => console.log(err) );
+
+  }
+
+
+  
+  public enviarATopics(){
+    
+
+    const seleccionados = this.departamentos.filter( topic => topic.check == true );
+
+
+    this.plantas.forEach( planta =>{
+      if( planta.check ) seleccionados.push( {  $key: planta.$key , name: planta.name , check:true });
+    });
+
+
+    console.log('Los seleccionados en total son : ', seleccionados );
+
+    let aux:string='';
+
+      seleccionados.forEach( async(topic, index) => {
+      
+        aux += `'${topic.$key}' in topics ||`
+        
+
+        if( (index +1 ) == seleccionados.length &&  seleccionados.length <= 5 ){
+
+          aux = aux.substring(0, aux.length-2);
+
+          console.log('Se enviaran 5 o  menos', aux);
+         this.enviarNotificacionATopics( aux );
+          
+          aux ='';
+
+        }
+
+        else if( (index +1 ) % 5 == 0  ){
+  
+          aux = aux.substring(0, aux.length-2);
+
+          console.log('Se enviaran 5 a', aux);
+       await this.enviarNotificacionATopics( aux );
+        aux ='';
+          
+          
+        }else if( seleccionados.length > 5 && (index +1 ) == seleccionados.length ){
+
+          aux = aux.substring(0, aux.length-2);
+
+          console.log('Se enviaran los que sobran', aux);
+          this.enviarNotificacionATopics( aux );
+          
+          aux =''; 
+
+        }
+  
+  
+      
+      } );
+
+
+     
+
+    // }
+     
+   
+  }
+
+
+  private enviarNotificacionATopics( condition:string ){
+
+    const notificacionBody = {
+      notification:{
+        title: this.formaNoticia.value.tituloNotificacion,
+        body: this.formaNoticia.value.cuerpo
+      },
+      condition
+    };
+
+    const headers = new HttpHeaders({
+      'Authorization': environment.fcmKey
+    });
+
+   return this.httpService.post('https://fcm.googleapis.com/fcm/send', notificacionBody ,{ headers })
+    .toPromise()
+    .then( resp =>{
+      console.log('Talves se envio', resp);
+
+      this.formaNoticia.reset({
+        titulo :null,
+        urlImg:null,
+        categoria:null,
+        encuesta:false,
+        descripcion:null,
+        endDate:null,
+        tituloNotificacion:null,
+        cuerpo:null
+      });
+
+    })
+    .catch(err => console.log('Error al enviar notificacion para uno', err) );
+
+  }
+
+
+
+
+
+
+
+ 
 
   createNew(newsForm, value) {
     var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
@@ -255,8 +483,9 @@ export class CreateComponent implements OnInit {
     this.router.navigate(['/home']);
 
   }
+
   getUrl(){
-  this.url=$("#urlimg").val().slice(32, -17);
+ // this.url=$("#urlimg").val().slice(32, -17);
   console.log(this.url);
 }
 

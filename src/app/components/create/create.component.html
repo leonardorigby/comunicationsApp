@@ -1,5 +1,7 @@
 
 
+
+
 <form [formGroup]="formaNoticia">
 
   <div class="form-group">
@@ -31,9 +33,30 @@
         <option ngValue="salud"  >Salud</option>
         <option  ngValue="transprte" >Transporte</option>
         <option  ngValue="comedor" >Comedor</option>
-
       </select>
     </div>
+  </div>
+
+
+  <div class="form-group">
+    <strong class="text-secondary">¿Encuesta?</strong>
+    <div class="FieldElement">
+      <select formControlName="encuesta" class="form-control inputsform"  >
+        <option ngValue="true">Si</option>
+        <option ngValue="false" selected>No</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <strong class="text-secondary">Descripcion</strong>
+    <textarea formControlName="descripcion" class="form-control" rows="9" cols="90"></textarea>
+  </div>
+
+
+  <div class="form-group">
+    <strong class="text-secondary">Fecha de expiracion</strong>
+    <input type="date" formControlName="endDate" class="form-control inputsform">
   </div>
 
 
@@ -45,66 +68,64 @@
 
 
 
-
   <p style="text-align: center; font-size: bold;"> Datos requeridos para la notificacion </p>
    
+  <div class="card" style="width: 100%; ">
+    <div class="card-body">
+
+     <form [formGroup]="formaNoticia">
+
+      <div class="form-group">
+        <label >Titulo</label>
+        <input type="email" class="form-control" formControlName="tituloNotificacion" >
+      </div>
+
+      <div class="form-group">
+        <label >Contenido</label>
+        <input type="email" class="form-control" formControlName="cuerpo" >
+      </div>
+
+    </form>
+  
+  
+    </div>
+
+  </div>
+
 
      <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a href="#todos" class="nav-link active" data-toggle="tab" >Todos</a>
+        <a href="#todos" class="nav-link active" data-toggle="tab" (click)="tabSeleccionado='todos'" >
+          Todos
+        </a>
       </li>
       <li class="nav-item">
-        <a href="#usuario" class="nav-link" data-toggle="tab" >Un usuario</a>
+        <a href="#usuario" class="nav-link" data-toggle="tab" (click)="tabSeleccionado='usuario'" >
+          Un usuario
+        </a>
       </li>
       <li class="nav-item">
-        <a href="#multiple" class="nav-link" data-toggle="tab" >Multiple</a>
+        <a href="#multiple" class="nav-link" data-toggle="tab" (click)="tabSeleccionado='multiple'">
+          Multiple
+        </a>
       </li>
 
-      <div class="card" style="width: 100%; ">
-        <div class="card-body">
-    
-         <form [formGroup]="formaNoticia">
-    
-          <div class="form-group">
-            <label for="exampleInputEmail1">Titulo</label>
-            <input type="email" class="form-control" formControlName="tituloNotificacion" >
-          </div>
-    
-          <div class="form-group">
-            <label for="exampleInputEmail1">Contenido</label>
-            <input type="email" class="form-control" formControlName="cuerpo" >
-          </div>
-    
-    
-    
-    
-        </form>
-      
-      
-        </div>
-    
-      </div>
+      </ul>
 
 
 
-
-     <div class="row" >
-      <div class="col-lg-12">
-
-
-        <div class="row">
-          <div class="col-md-12">
 
 
             <div class="tab-content" >
-              <div class="tab-pane fade show active" id="todos" style="text-align: center;">
+              <div class="tab-pane fade show active" id="todos" >
       
                 <div class="card" style="width: 100%; ">
                   <div class="card-body">
                    <p style="font-weight: bold; text-align: center;">Todos</p>
       
-                   <button  [disabled]="formaNoticia.invalid" class="btn btn-primary">
-                    Enviar
+                   <button  [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                    Publicar noticia y enviar notificaciones a TODOS
+                    <i class="fas fa-bell"></i>
                    </button>
       
                    </div>
@@ -116,19 +137,42 @@
           
           
              
-          
-          
-          
               <div class="tab-pane fade" id="usuario">
-                 
-                <!-- <div class="form-group">
-                  <label for="exampleInputEmail1">Token del usuario</label>
-                  <input type="text" class="form-control" [(ngModel)]="usuarioToken" >
-                </div> -->
-                
-                <button [disabled]="formaNoticia.invalid" class="btn btn-primary">
-                  Enviar
+
+                <p style="font-weight: bold;"> Buscar por nombre</p>
+               
+          
+                <div class="input-group">
+                  
+                  <input type="text" class="form-control" [(ngModel)]="nombreUsuario" placeholder="Escribe el nombre del usuario">
+                  <div class="input-group-append">
+                    <button (click)="buscarUsuario()" class="btn btn-secondary" type="button">
+                      <i class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+          
+          
+               <br>
+          
+          
+                <div *ngIf="encontrado" style="text-align: center;" class="alert alert-success" role="alert">
+                 Se encontro el usuario!
+          
+                 <button (click)="enviarAUsuario()" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                 Publicar noticia y notificar a {{nombreUsuario}}
+          
+                  <i class="fas fa-bell"></i>
                 </button>
+          
+                </div>
+                
+                <div *ngIf=" encontrado != undefined && ! encontrado " class="alert alert-danger" role="alert">
+                  No se encontro al usuario o no ha configurado las notificaciones
+                </div>
+          
+          
+                
           
               </div>
       
@@ -172,8 +216,10 @@
         </div>
       </div>
                 
-                <button [disabled]="formaNoticia.invalid" class="btn btn-primary">
-                  Enviar
+                <button [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                  Publicar noticia y enviar notificaciones
+
+                  <i class="fas fa-bell"></i>
                 </button>
           
               </div>
@@ -183,14 +229,7 @@
 
 
 
-          </div> 
-        </div> 
 
-
-
-
-      </div> 
-    </div> 
 
    
 
