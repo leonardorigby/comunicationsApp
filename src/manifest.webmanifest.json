@@ -1,7 +1,7 @@
 {
   "name": "Sanmina News",
   "short_name": "Sanmina News",
-  "theme_color": "#BF0404",
+  "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/",
