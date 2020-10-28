@@ -5,13 +5,14 @@ import { Component, OnInit} from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 
-import { formatDate } from '@angular/common';
+
 
 import { Departamento, Planta } from '../notificaciones/notificaciones.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+
 
 
 
@@ -22,15 +23,10 @@ import { environment } from 'src/environments/environment';
 })
 export class CreateComponent implements OnInit {
 
-  url: any;
-  imageRef: any;
-  targetFile: any;
-  uid: any;
-  uname: any;
-  unumber: any;
-  uimg: any;
-  urlimg:any;
-  uss:any;
+
+
+
+  public imagen: string="";
 
   
   public departamentos : Departamento[] = [];
@@ -62,6 +58,34 @@ export class CreateComponent implements OnInit {
     this.auth.getUserData().subscribe( usuario => this.usuarioAutor = usuario );
 
   }
+  //
+  public verificarImagen(){
+
+ 
+
+    console.log('El puro id es: ', this.getIdImagen(this.formaNoticia.value.urlImg) );
+
+      this.imagen = 'https://drive.google.com/uc?export=view&id=' + this.getIdImagen(this.formaNoticia.value.urlImg) ;
+  
+      //https://drive.google.com/file/d/0B9JJFuhX3qX3VU85U0MyLUpHQXc/view?usp=sharing
+      // https://drive.google.com/file/d/1tDOZn78uGt6cSCS1m5p8gsG340HjHeHg/view?usp=drivesdk
+  
+    }
+
+  public imgError(){
+    this.imagen = 'assets/images/error-404-not-found.jpg'
+  }
+
+  private getIdImagen( url:string ): string{
+return url.substring(32).split('/')[0] || '';
+  }
+
+
+
+
+  
+
+ 
 
   
 
@@ -114,20 +138,7 @@ export class CreateComponent implements OnInit {
 
 
 
-  loadImage(event) {
-    // console.log(event);
-    // console.log(event.target.files[0]);
-    if (event.target.files && event.target.files[0]) {
-      this.targetFile = event.target.files[0];
-      this.imageRef = event.target.files[0].name;
-      var reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    }
-
-  }
+  
 
   private cargarNoticiaForm (){
 
@@ -135,7 +146,7 @@ export class CreateComponent implements OnInit {
 
       titulo: new FormControl(null, Validators.required ),
 
-      urlImg : new FormControl(null, Validators.required),
+      urlImg : new FormControl('', Validators.required),
 
       categoria: new FormControl(null, Validators.required ),
 
@@ -156,6 +167,10 @@ export class CreateComponent implements OnInit {
 
   };
 
+
+
+  
+
   public publicarNoticia(){
 
     console.log('Valores del formulario', this.formaNoticia.value );
@@ -169,7 +184,12 @@ export class CreateComponent implements OnInit {
 
 
     this.firebaseService.crearNoticia( this.formaNoticia.value, admin )
-    .then(  () =>{
+    .then(  noticia =>{
+
+   
+   
+
+      //this.firebaseService.updateNew( noticia.id , noticia.)
 
       console.log('Se creo la noticia');
       
@@ -226,7 +246,7 @@ export class CreateComponent implements OnInit {
       console.log('Talves se envio', resp);
       this.formaNoticia.reset({
         titulo :null,
-        urlImg:null,
+        urlImg:'',
         categoria:null,
         encuesta:false,
         descripcion:null,
@@ -261,7 +281,7 @@ export class CreateComponent implements OnInit {
       console.log('Talves se envio', resp);
       this.formaNoticia.reset({
         titulo :null,
-        urlImg:null,
+        urlImg:'',
         categoria:null,
         encuesta:false,
         descripcion:null,
@@ -390,7 +410,7 @@ export class CreateComponent implements OnInit {
 
       this.formaNoticia.reset({
         titulo :null,
-        urlImg:null,
+        urlImg:'',
         categoria:null,
         encuesta:false,
         descripcion:null,
@@ -410,84 +430,6 @@ export class CreateComponent implements OnInit {
 
 
 
- 
-
-  createNew(newsForm, value) {
-    var creationDate = formatDate(new Date(), 'yyyy-MM-dd', 'en');
-    var extradata = {
-      admin:{
-        id:this.uid,
-        image:this.uimg,
-        name:this.uname,
-        number:this.unumber
-      },
-      creationDate: creationDate
-    };
-  
-    // if (this.url != null ) {
-    //   var imgRef = '/img/' + this.imageRef;
-    //   this.afStorage.upload(imgRef, this.targetFile).then(r => {
-    //     this.afStorage.ref(imgRef).getDownloadURL().subscribe(downloadURL => {
-    //       this.firebaseService.createNews(value, downloadURL, extradata)
-    //         .then(
-    //           res => {
-    //             console.log(res);
-    //           });
-
-    //     });
-    //     console.log("imagen guardada?");
-    //   });
-    // }else{
-
-      this.firebaseService.createNews(value, "", extradata)
-            .then(
-              res => {
-                let aux=[];
-                aux.push(res);
-                 var key=aux[0]._key.path.segments[1];
-                 var  notif=""; 
-                 this.firebaseService.getNew(key).subscribe((r:any)=>{
-                  var data=r.payload.data();
-                  if(data.image==undefined){
-                  data.image="";
-                  }
-                  notif = <any>{
-                  admin: data.admin,
-                  key: key,
-                  description: data.description,
-                  dislike: data.dislike,
-                  like: data.like,
-                  endDate: data.endDate,
-                  categoria: data.categoria,
-                  urlimg: data.urlimg,
-                  startDate: data.startDate,
-                  title: data.title,
-                  encuesta:data.encuesta,
-                };
-
-               return this.firebaseService.updateNew(key, notif);
-              
-              }) ;
-
-              })
-              .then( () =>{
-                console.log('Se guardo la noticia');
-
-               
-              })
-              
-              .catch(err => console.log('Error al crear la noticia', err) );
-    // }
-    newsForm.reset();
-    // this.newsArray = new Array;
-    this.router.navigate(['/home']);
-
-  }
-
-  getUrl(){
- // this.url=$("#urlimg").val().slice(32, -17);
-  console.log(this.url);
-}
 
 
 

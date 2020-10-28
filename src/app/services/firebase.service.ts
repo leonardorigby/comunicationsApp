@@ -128,7 +128,7 @@ export class FirebaseService {
       admin,
       title: formulario.titulo,
       description: formulario.descripcion,
-      urlimg: formulario.urlImg.slice(32, -17),
+      urlimg: this.getIdImagen( formulario.urlImg ) ,
       startDate: formatDate(new Date(), 'yyyy-MM-dd', 'en')+' '+formatDate(new Date,'HH:mm:ss','en'),
       endDate: formulario.endDate,
       categoria: formulario.categoria,
@@ -140,6 +140,10 @@ export class FirebaseService {
 
 
   }
+
+  private getIdImagen( url:string ): string{
+    return url.substring(32).split('/')[0] || '';
+      }
 
   //create news
   createNews(value, imgRef, extradata) {

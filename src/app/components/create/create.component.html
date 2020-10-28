@@ -1,7 +1,6 @@
 
 
 
-
 <form [formGroup]="formaNoticia">
 
   <div class="form-group">
@@ -20,9 +19,20 @@
 
   <div style="text-align: center;"> 
 
-    <button  class="btn btn-success">
+    <button (click)="verificarImagen()" class="btn btn-success">
       Validar Imagen
     </button>
+
+    <br>
+    <br>
+
+    <div class="card" style="width: 100%; " *ngIf="imagen != '' ">
+      <div class="card-body">
+
+        <img (error)="imgError()" width="350px" height="300" [src]="imagen" alt="">
+
+    </div>
+  </div>
 
   </div>
 
@@ -123,7 +133,7 @@
                   <div class="card-body">
                    <p style="font-weight: bold; text-align: center;">Todos</p>
       
-                   <button  [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                   <button (click)="publicarNoticia()" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
                     Publicar noticia y enviar notificaciones a TODOS
                     <i class="fas fa-bell"></i>
                    </button>
@@ -159,7 +169,7 @@
                 <div *ngIf="encontrado" style="text-align: center;" class="alert alert-success" role="alert">
                  Se encontro el usuario!
           
-                 <button (click)="enviarAUsuario()" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                 <button (click)="publicarNoticia()" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
                  Publicar noticia y notificar a {{nombreUsuario}}
           
                   <i class="fas fa-bell"></i>
@@ -216,7 +226,7 @@
         </div>
       </div>
                 
-                <button [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                <button (click)="publicarNoticia()" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
                   Publicar noticia y enviar notificaciones
 
                   <i class="fas fa-bell"></i>
