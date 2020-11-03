@@ -17,13 +17,13 @@
           <i class="fa fa-times"></i>
         </div>
       </div>
-      <div class="sidebar-header" *ngIf="auth.user$ | async as user">
-        <div class="user-pic">
-          <img class="img-responsive img-rounded" [src]="user.image">
+      <div class="sidebar-header"  *ngIf="auth.user$ | async as user">
+        <div class="user-pic" routerLink="/perfil">
+          <img  class="img-responsive img-rounded pointer" [src]="user.image">
         </div>
-        <div class="user-info">
-          <span class="user-name">{{user.fullName}}</span>
-          <span class="user-role">{{user.idRole}}</span>
+        <div class="pointer"  class="user-info">
+          <span  class="user-name pointer">{{user.fullName}}</span>
+          <span  class="user-role">{{user.idRole}}</span>
           <span class="user-status">
             <i class="fa fa-circle"></i>
             <span>{{user.email}}</span>
@@ -161,6 +161,14 @@
                         </div>
                         <div style="display:inline; white-space:nowrap;">
                           <strong> Home </strong>
+                        </div>
+                      </div>
+                      <div class="pointer" routerLink="/perfil" style="white-space:nowrap">
+                        <div style="display:inline;">
+                          <img width="17%" height="17%" class="infoimg" src="assets/icons/perfil.ico" />
+                        </div>
+                        <div style="display:inline; white-space:nowrap;">
+                          <strong> Perfil </strong>
                         </div>
                       </div>
                       <div class="pointer" routerLink="/health" style="white-space:nowrap">
