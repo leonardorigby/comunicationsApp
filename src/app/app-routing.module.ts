@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'perfil',
     component: PerfilComponent,
-    // canActivate: [AuthGuard]
+     canActivate: [AuthGuard]
   },
   {
     path: 'create',
@@ -110,7 +110,9 @@ const routes: Routes = [
     },
     {
     path:'notificaciones',
-      component: NotificacionesComponent
+      component: NotificacionesComponent,
+      canActivate: [AuthGuard]
+
     },
     {
       path: '**',
