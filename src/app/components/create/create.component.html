@@ -1,5 +1,5 @@
 
-
+<button (click)="mostrarNoticia()">asdasasd</button>
 
 <form [formGroup]="formaNoticia">
 
@@ -10,23 +10,21 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <strong class="text-secondary">Url de Imagen</strong>
-    <div class="FieldElement">
-      <input type="text" formControlName="urlImg"  class="form-control inputsform">
-    </div>
-  </div>
+ 
 
   <div style="text-align: center;"> 
+    <input type="file" #imagen style="display: none;" accept="image" (change)="cargarImagen($event)" type="file" >
 
-    <button (click)="verificarImagen()" class="btn btn-success">
-      Validar Imagen
+    <button (click)="imagen.click()" class="btn btn-success">
+      Seleccionar imagen
     </button>
+    
+ 
 
     <br>
     <br>
 
-    <div class="card" style="width: 100%; " *ngIf="imagen != '' ">
+    <div class="card" style="width: 100%; " *ngIf="imagen">
       <div class="card-body">
 
         <img (error)="imgError()" width="350px" height="300" [src]="imagen" alt="">
@@ -40,8 +38,8 @@
     <strong class="text-secondary">Categoria</strong>
     <div class="FieldElement">
       <select formControlName="categoria" class="form-control inputsform"  >
-        <option ngValue="salud"  >Salud</option>
-        <option  ngValue="transprte" >Transporte</option>
+        <option ngValue="salud" >Salud</option>
+        <option  ngValue="transporte" >Transporte</option>
         <option  ngValue="comedor" >Comedor</option>
       </select>
     </div>
@@ -52,8 +50,8 @@
     <strong class="text-secondary">¿Encuesta?</strong>
     <div class="FieldElement">
       <select formControlName="encuesta" class="form-control inputsform"  >
-        <option ngValue="true">Si</option>
-        <option ngValue="false" selected>No</option>
+        <option ngValue=true >Si</option>
+        <option ngValue=false selected>No</option>
       </select>
     </div>
   </div>
@@ -105,17 +103,17 @@
 
      <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a href="#todos" class="nav-link active" data-toggle="tab" (click)="tabSeleccionado='todos'" >
+        <a href="#todos" class="nav-link active" data-toggle="tab" >
           Todos
         </a>
       </li>
       <li class="nav-item">
-        <a href="#usuario" class="nav-link" data-toggle="tab" (click)="tabSeleccionado='usuario'" >
+        <a href="#usuario" class="nav-link" data-toggle="tab" >
           Un usuario
         </a>
       </li>
       <li class="nav-item">
-        <a href="#multiple" class="nav-link" data-toggle="tab" (click)="tabSeleccionado='multiple'">
+        <a href="#multiple" class="nav-link" data-toggle="tab" >
           Multiple
         </a>
       </li>
@@ -133,7 +131,7 @@
                   <div class="card-body">
                    <p style="font-weight: bold; text-align: center;">Todos</p>
       
-                   <button (click)="publicarNoticia()" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                   <button (click)="publicarNoticia('todos')" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
                     Publicar noticia y enviar notificaciones a TODOS
                     <i class="fas fa-bell"></i>
                    </button>
@@ -169,7 +167,7 @@
                 <div *ngIf="encontrado" style="text-align: center;" class="alert alert-success" role="alert">
                  Se encontro el usuario!
           
-                 <button (click)="publicarNoticia()" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                 <button (click)="publicarNoticia('usuario')" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
                  Publicar noticia y notificar a {{nombreUsuario}}
           
                   <i class="fas fa-bell"></i>
@@ -226,7 +224,7 @@
         </div>
       </div>
                 
-                <button (click)="publicarNoticia()" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
+                <button (click)="publicarNoticia('multiple')" [disabled]="formaNoticia.invalid" class="btn btn-primary btn-block">
                   Publicar noticia y enviar notificaciones
 
                   <i class="fas fa-bell"></i>
@@ -235,6 +233,9 @@
               </div>
       
             </div>
+
+
+           
 
 
 

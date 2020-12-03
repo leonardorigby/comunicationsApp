@@ -173,7 +173,6 @@ if( usuario.idPlant != ""){
 }
 
 
-
 this.guardarTokenEnTopic('all', token)
 .then( ()=>{
 
@@ -193,6 +192,11 @@ usuario.token = token;
   
 
   } 
+
+public crearUrlImg(id: string): string{
+
+  return `https://res.cloudinary.com/dlor7n05z/image/upload/v1607017792/noticias/${id}`
+}
 
   
 
@@ -355,7 +359,7 @@ usuario.token = token;
            segundos:seconds
         }
         // console.log(aux)
-        if (aux.encuesta == 'true') {
+        if (aux.encuesta ) {
 
           //   console.log(aux);
           aux.single = [

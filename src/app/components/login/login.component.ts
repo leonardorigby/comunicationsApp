@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
   public loginuser: boolean = true;
 
 
-  constructor(public auth: AuthService, 
+  constructor(
+    public auth: AuthService, 
     private router: Router,
-
     private fcm: AngularFireMessaging
     ) { }
 
@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
     return this.fcm.requestPermission.subscribe( () =>{
 
       console.log('Se pidio el permiso');
-      new Notification('Bienvenido a Sanmina news',{ body : 'Ahora estaras enterado de cualquier noticia'})
+      new Notification('Bienvenido a Sanmina news',{ 
+        body : 'Ahora estaras enterado de cualquier noticia'
+      })
 
     }, err => console.log('Error al pedir permiso de las notificaciones o las cancelo',err) );
 

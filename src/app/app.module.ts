@@ -47,6 +47,12 @@ import { NotificacionesComponent } from './components/notificaciones/notificacio
 // Nombre público del proyecto firebase AUth google
 // project-625108487289
 
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+//Se necesita instalar npm install cloudinary-core
+import * as cloudinary from 'cloudinary-core';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +91,11 @@ import { NotificacionesComponent } from './components/notificaciones/notificacio
     NgxChartsModule,
     ChartsModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('multiples-sw.js', { enabled: environment.production })
+    ServiceWorkerModule.register('multiples-sw.js', { enabled: environment.production }),
+    CloudinaryModule.forRoot( cloudinary, {
+      cloud_name: 'dlor7n05z',
+      upload_preset: 'sanminaNews'
+    })
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

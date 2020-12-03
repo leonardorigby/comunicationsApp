@@ -12,6 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Cloudinary } from '@cloudinary/angular-5.x';
 
 
 
@@ -26,14 +27,16 @@ export class CreateComponent implements OnInit {
 
 
 
-  public imagen: string="";
+  public imagen: string=undefined;
+  public imagenFile: File = undefined;
+  public cloudinary: Cloudinary;
 
   
   public departamentos : Departamento[] = [];
   public plantas: Planta[] = [];
   private usuarioAutor: User;
   public formaNoticia: FormGroup;
-  public tabSeleccionado :string ='todos';
+ 
 
   public encontrado: boolean;
   public nombreUsuario : string = '';
@@ -57,35 +60,53 @@ export class CreateComponent implements OnInit {
 
     this.auth.getUserData().subscribe( usuario => this.usuarioAutor = usuario );
 
+  
+
   }
-  //
-  public verificarImagen(){
+
+
+
+
+  public cargarImagen(event){
+
+      const reader = new FileReader();
+  
+      reader.readAsDataURL( event.target.files[0] );
+  
+      reader.onload =( eventR : any)=>{
+        
+        this.imagenFile = event.target.files[0];
+        this.formaNoticia.controls.urlImg.setValue( true );
+        this.imagen = eventR.target.result
+      }
+
+  }
+
+private subirImagen(){
+
+    const form = new FormData();
+    form.append('upload_preset','sanminaNews' )
+    form.append('file', this.imagenFile);
+
+
+    return this.httpService.post(`https://api.cloudinary.com/v1_1/dlor7n05z/upload`, form ).toPromise();
+  
+  }
 
  
-
-    console.log('El puro id es: ', this.getIdImagen(this.formaNoticia.value.urlImg) );
-
-      this.imagen = 'https://drive.google.com/uc?export=view&id=' + this.getIdImagen(this.formaNoticia.value.urlImg) ;
-  
-      //https://drive.google.com/file/d/0B9JJFuhX3qX3VU85U0MyLUpHQXc/view?usp=sharing
-      // https://drive.google.com/file/d/1tDOZn78uGt6cSCS1m5p8gsG340HjHeHg/view?usp=drivesdk
-  
-    }
 
   public imgError(){
     this.imagen = 'assets/images/error-404-not-found.jpg'
   }
 
-  private getIdImagen( url:string ): string{
-return url.substring(32).split('/')[0] || '';
-  }
 
 
+public mostrarNoticia(){
+
+  console.log( this.formaNoticia.value );
 
 
-  
-
- 
+}
 
   
 
@@ -146,7 +167,7 @@ return url.substring(32).split('/')[0] || '';
 
       titulo: new FormControl(null, Validators.required ),
 
-      urlImg : new FormControl('', Validators.required),
+      urlImg : new FormControl(false, Validators.requiredTrue),
 
       categoria: new FormControl(null, Validators.required ),
 
@@ -169,9 +190,9 @@ return url.substring(32).split('/')[0] || '';
 
 
 
-  
+  //https://drive.google.com/file/d/0B9JJFuhX3qX3VU85U0MyLUpHQXc/view?usp=sharing
 
-  public publicarNoticia(){
+  public publicarNoticia(notificacion:string){
 
     console.log('Valores del formulario', this.formaNoticia.value );
    
@@ -183,42 +204,95 @@ return url.substring(32).split('/')[0] || '';
     };
 
 
-    this.firebaseService.crearNoticia( this.formaNoticia.value, admin )
-    .then(  noticia =>{
+    this.subirImagen().then( (resp:any )=>{
 
-   
-   
+      const idImagen = resp.public_id.split('/')[1];
+     // console.log('Resp de la imagen ', resp);
+     //console.log('Id de la imagen', idImagen);
 
-      //this.firebaseService.updateNew( noticia.id , noticia.)
+     const noticia = {
+      titulo : this.formaNoticia.value.titulo,
+      categoria: this.formaNoticia.value.categoria,
+      urlImg: idImagen,
+      encuesta:this.formaNoticia.value.encuesta,
+      descripcion: this.formaNoticia.value.descripcion,
+      endDate: this.formaNoticia.value.endDate,
+      cuerpo : this.formaNoticia.value.cuerpo
+     };
 
-      console.log('Se creo la noticia');
-      
-      switch( this.tabSeleccionado ){
-
-        case 'todos':
-
-        this.enviarATodos();
-
-        break;
-
-        case 'usuario':
-
-        this.enviarAUsuario();
-
-        break;
-
-
-        default:
-
-        this.enviarATopics();
-        
-      }
-
-
+     return this.firebaseService.crearNoticia( noticia , admin );
 
     })
+    .then(  creada => {
+
+      //console.log('Se creo la noticia', creada);
+      
+      this.firebaseService.getNew( creada.id ).subscribe( noticia =>{
+
+
+        const definitiva = {
+          ...noticia.payload.data() as any,
+          key: creada.id
+        }
+
+        console.log('Actualizada con id');
+
+        this.firebaseService.updateNew(creada.id, definitiva)
+        .then( () =>{
+          
+          // switch( notificacion ){
+
+          //   case 'todos':
+      
+          //   this.enviarATodos();
+      
+          //   break;
+      
+          //   case 'usuario':
+      
+          //   this.enviarAUsuario();
+      
+          //   break;
+      
+      
+          //   default:
+      
+          //   this.enviarATopics();
+            
+          // }
+
+          this.formaNoticia.reset({
+            titulo :null,
+            urlImg:false,
+            categoria:null,
+            encuesta:false,
+            descripcion:null,
+            endDate:null,
+            cuerpo:null
+          });
+
+
+          this.imagenFile = undefined;
+        
+
+
+
+
+        })
+        .catch(err => console.log('Error al actualizar la noticia',err) );
+
+
+      }) 
+    
+    })
+    
     .catch( err => console.log('Error en el proceso  de crear una noticia ', err) );
     
+    // console.log('Se creo la noticia');
+      
+    
+
+
 
     console.log('Admin de la noticia', admin);
 
@@ -244,16 +318,7 @@ return url.substring(32).split('/')[0] || '';
     .toPromise()
     .then( resp =>{
       console.log('Talves se envio', resp);
-      this.formaNoticia.reset({
-        titulo :null,
-        urlImg:'',
-        categoria:null,
-        encuesta:false,
-        descripcion:null,
-        endDate:null,
-        tituloNotificacion:null,
-        cuerpo:null
-      });
+     
 
     })
     .catch(err => console.log('Error al enviar notificacion para uno', err) );
@@ -279,16 +344,7 @@ return url.substring(32).split('/')[0] || '';
     .toPromise()
     .then( resp =>{
       console.log('Talves se envio', resp);
-      this.formaNoticia.reset({
-        titulo :null,
-        urlImg:'',
-        categoria:null,
-        encuesta:false,
-        descripcion:null,
-        endDate:null,
-        tituloNotificacion:null,
-        cuerpo:null
-      });
+     
 
     })
     .catch(err => console.log('Error al enviar notificacion para uno', err) );
@@ -407,18 +463,6 @@ return url.substring(32).split('/')[0] || '';
     .toPromise()
     .then( resp =>{
       console.log('Talves se envio', resp);
-
-      this.formaNoticia.reset({
-        titulo :null,
-        urlImg:'',
-        categoria:null,
-        encuesta:false,
-        descripcion:null,
-        endDate:null,
-        tituloNotificacion:null,
-        cuerpo:null
-      });
-
     })
     .catch(err => console.log('Error al enviar notificacion para uno', err) );
 

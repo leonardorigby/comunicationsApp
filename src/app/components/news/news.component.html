@@ -28,12 +28,12 @@
           <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span> -->
         </div>
       </div>
-      <div class="row descriptiondiv" *ngIf="news.encuesta.includes('true')">
+      <div class="row descriptiondiv" *ngIf="news.encuesta">
         <div class="col-lg-12 ">
           <p style="font-size: 2em; text-align: center;"><strong class="titlep">{{news.title}}. </strong> <br> {{news.description}}</p>
         </div>
       </div>
-      <div class="row" *ngIf="news.encuesta.includes('true')">
+      <div class="row" *ngIf="news.encuesta">
         <div class="col-8" style="text-align: center;" style="max-width: 250px;">
           <ngx-charts-bar-vertical
             [view]="view"
@@ -52,11 +52,11 @@
           </ngx-charts-bar-vertical>
         </div>
       </div>
-      <div class="row" *ngIf="news.encuesta.includes('false')">
+      <div class="row" *ngIf="news.encuesta">
         <div class="col-lg-12">
           <section style="text-align: center;">
-            <img *ngIf="news.image" src="{{news.image}}" alt="" class="newsimages">
-            <img *ngIf="news.urlimg" src="https://lh3.google.com/u/0/d/{{news.urlimg}}=w1920-h927-iv1" alt="" class="newsimages">
+            <!-- <img *ngIf="news.image" src="{{news.image}}" alt="" class="newsimages"> -->
+            <img *ngIf="news.urlimg != '' " [src]="crearUrlImg(news.urlimg)" alt="" class="newsimages">
             <!-- <video *ngIf="news.urlimg.includes('https')==false && news.image.includes('.mp4')==true || news.image.includes('.avi')==true && news.video==undefined" src="{{news.image}}" controls class="newsimages"> -->
             <!-- Lo sentimos. Este vídeo no puede ser reproducido en tu navegador.</video> -->
             <!-- <youtube-player class="newsimagess" id="video" *ngIf="news.video" [videoId]="news.video" (ready)="savePlayer($event)" (change)="onStateChange($event)"></youtube-player> -->
@@ -64,7 +64,7 @@
           </section>
         </div>
       </div>
-      <div class="row" *ngIf="news.encuesta.includes('false')">
+      <div class="row" *ngIf="news.encuesta">
         <div class="col-lg-12">
           <div class="navlikes">
             <p *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news,'like')"><i
@@ -86,7 +86,7 @@
           </nav>
         </div>
       </div>
-      <div class="row" *ngIf="news.encuesta.includes('true')">
+      <div class="row" *ngIf="news.encuesta">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sino">
           <div class="navlikess">
             <p *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news,'like')"><i
@@ -115,7 +115,7 @@
           </nav>
         </div>
       </div>
-      <div class="row descriptiondiv" *ngIf="news.encuesta.includes('false')">
+      <div class="row descriptiondiv" *ngIf="news.encuesta">
         <div class="col-lg-12 ">
           <p class="descriptionp"><strong class="titlep">{{news.title}}. </strong>{{news.description}}</p>
         </div>
