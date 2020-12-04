@@ -27,7 +27,7 @@ export class CreateComponent implements OnInit {
 
 
 
-  public imagen: string=undefined;
+  public imagen: any=undefined;
   public imagenFile: File = undefined;
   public cloudinary: Cloudinary;
 
@@ -77,7 +77,9 @@ export class CreateComponent implements OnInit {
         
         this.imagenFile = event.target.files[0];
         this.formaNoticia.controls.urlImg.setValue( true );
-        this.imagen = eventR.target.result
+        this.imagen = eventR.target.result;
+
+        console.log('Imagen cargada', this.imagen);
       }
 
   }
@@ -273,6 +275,7 @@ public mostrarNoticia(){
 
 
           this.imagenFile = undefined;
+          this.imagen = undefined;
         
 
 
