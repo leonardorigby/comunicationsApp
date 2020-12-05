@@ -79,7 +79,6 @@ export class CreateComponent implements OnInit {
         this.formaNoticia.controls.urlImg.setValue( true );
         this.imagen = eventR.target.result;
 
-        console.log('Imagen cargada', this.imagen);
       }
 
   }
@@ -237,7 +236,7 @@ public mostrarNoticia(){
           key: creada.id
         }
 
-        console.log('Actualizada con id');
+        console.log('Actualizada con id', definitiva);
 
         this.firebaseService.updateNew(creada.id, definitiva)
         .then( () =>{
