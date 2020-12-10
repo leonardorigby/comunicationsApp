@@ -28,12 +28,12 @@
           <span class="expiracion" *ngIf="news.time===0">Expirara hoy</span> -->
         </div>
       </div>
-      <div class="row descriptiondiv" *ngIf="news.encuesta==true">
+      <div class="row descriptiondiv" *ngIf="news.encuesta">
         <div class="col-lg-12 ">
           <p style="font-size: 2em; text-align: center;"><strong class="titlep">{{news.title}}. </strong> <br> {{news.description}}</p>
         </div>
       </div>
-      <div class="row" *ngIf="news.encuesta==true">
+      <div class="row" *ngIf="news.encuesta">
         <div class="col-8" style="text-align: center;" style="max-width: 250px;">
           <ngx-charts-bar-vertical
             [view]="view"
@@ -52,7 +52,7 @@
           </ngx-charts-bar-vertical>
         </div>
       </div>
-      <div class="row" *ngIf="news.encuesta==false">
+      <div class="row" *ngIf="! news.encuesta">
         <div class="col-lg-12">
           <section style="text-align: center;">
             <!-- <img *ngIf="news.image" src="{{news.image}}" alt="" class="newsimages"> -->
@@ -64,7 +64,7 @@
           </section>
         </div>
       </div>
-      <div class="row" *ngIf="news.encuesta==false">
+      <div class="row" *ngIf=" ! news.encuesta ">
         <div class="col-lg-12">
           <div class="navlikes">
             <p *ngIf="news.auxlike.includes(uid)==false" (click)="getLikes(news,'like')"><i
@@ -115,7 +115,7 @@
           </nav>
         </div>
       </div>
-      <div class="row descriptiondiv" *ngIf="news.encuesta==false">
+      <div class="row descriptiondiv" *ngIf="! news.encuesta ">
         <div class="col-lg-12 ">
           <p class="descriptionp"><strong class="titlep">{{news.title}}. </strong>{{news.description}}</p>
         </div>

@@ -1,5 +1,5 @@
 
-<button (click)="mostrarNoticia()">asdasasd</button>
+
 
 <form [formGroup]="formaNoticia">
 
@@ -12,27 +12,7 @@
 
  
 
-  <div style="text-align: center;"> 
-    <input type="file" #imagen style="display: none;" accept="image" (change)="cargarImagen($event)" type="file" >
-
-    <button (click)="imagen.click()" class="btn btn-success">
-      Seleccionar imagen
-    </button>
-    
  
-
-    <br>
-    <br>
-
-    <div class="card" style="width: 100%; " *ngIf="imagen">
-      <div class="card-body">
-
-        <img (error)="imgError()" width="350px" height="300" [src]="imagen" alt="">
-
-    </div>
-  </div>
-
-  </div>
 
   <div class="form-group">
     <strong class="text-secondary">Categoria</strong>
@@ -54,6 +34,29 @@
         <option [ngValue]=false selected>No</option>
       </select>
     </div>
+  </div>
+
+
+  <div style="text-align: center;" *ngIf="! formaNoticia.value.encuesta"> 
+    <input type="file" #imagen style="display: none;" accept="image" (change)="cargarImagen($event)" type="file" >
+
+    <button (click)="imagen.click()" class="btn btn-success">
+      Seleccionar imagen
+    </button>
+    
+ 
+
+    <br>
+    <br>
+
+    <div class="card" style="width: 100%; " *ngIf="imagen">
+      <div class="card-body">
+
+        <img (error)="imgError()" width="350px" height="300" [src]="imagen" alt="">
+
+    </div>
+  </div>
+
   </div>
 
   <div class="form-group">

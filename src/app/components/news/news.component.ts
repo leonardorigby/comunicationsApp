@@ -702,7 +702,7 @@ public crearUrlImg(id: string): string{
         }
       }
     }
-    localStorage.setItem("video", '' + this.player.getCurrentTime());
+   // localStorage.setItem("video", '' + this.player.getCurrentTime());
     // console.log(this.player.getCurrentTime()," lleva");
 
   }

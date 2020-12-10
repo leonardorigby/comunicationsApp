@@ -136,6 +136,11 @@ export class StadisticsComponent implements OnInit {
     }
   }
 
+  public crearUrlImg(id: string): string{
+
+    return `https://res.cloudinary.com/dlor7n05z/image/upload/v1607017792/noticias/${id}`
+  }
+
 
   exportCSV(data) {
     //  const arr = this.CSV.parse(data);

@@ -241,6 +241,11 @@ export class TransportComponent implements OnInit {
 
   }
 
+  public crearUrlImg(id: string): string{
+
+    return `https://res.cloudinary.com/dlor7n05z/image/upload/v1607017792/noticias/${id}`
+  }
+
   getAllNews() {
     this.firebaseService.getNews().subscribe((result) => {
       this.newsArray = [];
@@ -268,7 +273,7 @@ export class TransportComponent implements OnInit {
            segundos:seconds
         }
         // console.log(aux)
-        if (aux.encuesta == 'true') {
+        if (aux.encuesta ) {
 
           //   console.log(aux);
           aux.single = [

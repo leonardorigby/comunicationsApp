@@ -12,7 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from '../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Cloudinary } from '@cloudinary/angular-5.x';
+
 
 
 
@@ -29,7 +29,7 @@ export class CreateComponent implements OnInit {
 
   public imagen: any=undefined;
   public imagenFile: File = undefined;
-  public cloudinary: Cloudinary;
+
 
   
   public departamentos : Departamento[] = [];
@@ -76,7 +76,7 @@ export class CreateComponent implements OnInit {
       reader.onload =( eventR : any)=>{
         
         this.imagenFile = event.target.files[0];
-        this.formaNoticia.controls.urlImg.setValue( true );
+
         this.imagen = eventR.target.result;
 
       }
@@ -90,7 +90,7 @@ private subirImagen(){
     form.append('file', this.imagenFile);
 
 
-    return this.httpService.post(`https://api.cloudinary.com/v1_1/dlor7n05z/upload`, form ).toPromise();
+    return this.httpService.post<any>(`https://api.cloudinary.com/v1_1/dlor7n05z/upload`, form ).toPromise();
   
   }
 
@@ -168,8 +168,6 @@ public mostrarNoticia(){
 
       titulo: new FormControl(null, Validators.required ),
 
-      urlImg : new FormControl(false, Validators.requiredTrue),
-
       categoria: new FormControl(null, Validators.required ),
 
       encuesta : new FormControl(false, Validators.required ),
@@ -193,7 +191,7 @@ public mostrarNoticia(){
 
   //https://drive.google.com/file/d/0B9JJFuhX3qX3VU85U0MyLUpHQXc/view?usp=sharing
 
-  public publicarNoticia(notificacion:string){
+  public async publicarNoticia(notificacion:string){
 
     console.log('Valores del formulario', this.formaNoticia.value );
    
@@ -204,14 +202,16 @@ public mostrarNoticia(){
       number: this.usuarioAutor.employeeNumber
     };
 
+    let idImagen ="";
 
-    this.subirImagen().then( (resp:any )=>{
+  if( ! this.formaNoticia.value.encuesta ){
 
-      const idImagen = resp.public_id.split('/')[1];
-     // console.log('Resp de la imagen ', resp);
-     //console.log('Id de la imagen', idImagen);
+    idImagen = ( await this.subirImagen() ).public_id.split('/')[1];
+    console.log('La encuesta es falso y se subio la imagen', idImagen);
 
-     const noticia = {
+    }
+
+    const noticia = {
       titulo : this.formaNoticia.value.titulo,
       categoria: this.formaNoticia.value.categoria,
       urlImg: idImagen,
@@ -221,9 +221,9 @@ public mostrarNoticia(){
       cuerpo : this.formaNoticia.value.cuerpo
      };
 
-     return this.firebaseService.crearNoticia( noticia , admin );
 
-    })
+
+     this.firebaseService.crearNoticia( noticia , admin )
     .then(  creada => {
 
       //console.log('Se creo la noticia', creada);
@@ -264,7 +264,6 @@ public mostrarNoticia(){
 
           this.formaNoticia.reset({
             titulo :null,
-            urlImg:false,
             categoria:null,
             encuesta:false,
             descripcion:null,
