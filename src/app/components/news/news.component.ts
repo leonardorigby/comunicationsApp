@@ -463,6 +463,7 @@ public crearUrlImg(id: string): string{
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -488,6 +489,8 @@ public crearUrlImg(id: string): string{
               startDate: pub.startDate,
               title: pub.title,
               encuesta: pub.encuesta,
+            categoria: pub.categoria
+
               
             };
             th.firebaseService.updateNew(pub.key, notif);
@@ -512,6 +515,8 @@ public crearUrlImg(id: string): string{
               startDate: pub.startDate,
               title: pub.title,
               encuesta: pub.encuesta,
+            categoria: pub.categoria
+
               
             };
             th.firebaseService.updateNew(pub.key, notif);
@@ -540,6 +545,8 @@ public crearUrlImg(id: string): string{
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -564,6 +571,8 @@ public crearUrlImg(id: string): string{
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -587,6 +596,8 @@ public crearUrlImg(id: string): string{
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -612,6 +623,8 @@ public crearUrlImg(id: string): string{
               startDate: pub.startDate,
               title: pub.title,
               encuesta: pub.encuesta,
+            categoria: pub.categoria
+
               
             };
             th.firebaseService.updateNew(pub.key, notif);
@@ -639,6 +652,8 @@ public crearUrlImg(id: string): string{
               startDate: pub.startDate,
               title: pub.title,
               encuesta: pub.encuesta,
+            categoria: pub.categoria
+
               
             };
             th.firebaseService.updateNew(pub.key, notif);
@@ -670,6 +685,8 @@ public crearUrlImg(id: string): string{
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -696,6 +713,8 @@ public crearUrlImg(id: string): string{
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);

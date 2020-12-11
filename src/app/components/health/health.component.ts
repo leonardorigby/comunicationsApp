@@ -378,6 +378,7 @@ export class HealthComponent implements OnInit {
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -403,6 +404,8 @@ export class HealthComponent implements OnInit {
               startDate: pub.startDate,
               title: pub.title,
               encuesta: pub.encuesta,
+            categoria: pub.categoria
+
               
             };
             th.firebaseService.updateNew(pub.key, notif);
@@ -427,6 +430,8 @@ export class HealthComponent implements OnInit {
               startDate: pub.startDate,
               title: pub.title,
               encuesta: pub.encuesta,
+            categoria: pub.categoria
+
               
             };
             th.firebaseService.updateNew(pub.key, notif);
@@ -455,6 +460,8 @@ export class HealthComponent implements OnInit {
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -479,6 +486,8 @@ export class HealthComponent implements OnInit {
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -502,6 +511,8 @@ export class HealthComponent implements OnInit {
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -527,6 +538,8 @@ export class HealthComponent implements OnInit {
               startDate: pub.startDate,
               title: pub.title,
               encuesta: pub.encuesta,
+            categoria: pub.categoria
+
               
             };
             th.firebaseService.updateNew(pub.key, notif);
@@ -554,6 +567,8 @@ export class HealthComponent implements OnInit {
               startDate: pub.startDate,
               title: pub.title,
               encuesta: pub.encuesta,
+            categoria: pub.categoria
+
               
             };
             th.firebaseService.updateNew(pub.key, notif);
@@ -585,6 +600,8 @@ export class HealthComponent implements OnInit {
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
@@ -611,13 +628,15 @@ export class HealthComponent implements OnInit {
             startDate: pub.startDate,
             title: pub.title,
             encuesta: pub.encuesta,
+            categoria: pub.categoria
+
             
           };
           th.firebaseService.updateNew(pub.key, notif);
         }
       }
     }
-    localStorage.setItem("video", '' + this.player.getCurrentTime());
+   // localStorage.setItem("video", '' + this.player.getCurrentTime());
     // console.log(this.player.getCurrentTime()," lleva");
 
   }
