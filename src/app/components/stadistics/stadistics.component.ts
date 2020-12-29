@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 //  import * as CSV from 'csv-string';
 import { ExportToCSV } from "@molteni/export-csv";
 import Swal from 'sweetalert2'
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 declare var $: any;
 
@@ -17,7 +19,18 @@ declare var $: any;
 })
 export class StadisticsComponent implements OnInit {
 
-  constructor(public firebaseService: FirebaseService, public afStorage: AngularFireStorage, public auth: AuthService) { }
+  public formaNoticia: FormGroup;
+  public imagen: any=undefined;
+  public imagenFile: File = undefined;
+
+  private noticiaIndex:number;
+
+  constructor(
+    public firebaseService: FirebaseService,
+     public afStorage: AngularFireStorage,
+      public auth: AuthService,
+      private httpService : HttpClient
+      ) { }
 
   publications = new Array();
   reactions: any;
@@ -69,6 +82,9 @@ export class StadisticsComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.cargarNoticiaForm();
+
+
     this.ob = ""
     this.january = 0;
     this.february = 0;
@@ -90,7 +106,7 @@ export class StadisticsComponent implements OnInit {
       result.forEach((Data: any) => {
         // console.log(Data.payload.doc.data());
         var aux = Data.payload.doc.data();
-        if (aux.encuesta == 'true') {
+        if (aux.encuesta) {
 
           //   console.log(aux);
           aux.single = [
@@ -134,6 +150,12 @@ export class StadisticsComponent implements OnInit {
       this.view = [550, 450];
 
     }
+  }
+
+  
+
+  public imgError(){
+    this.imagen = 'assets/images/error-404-not-found.jpg'
   }
 
   public crearUrlImg(id: string): string{
@@ -290,7 +312,119 @@ export class StadisticsComponent implements OnInit {
     // this.firebaseService.deleteNew(key);
     // console.log("se supone que elimino");
   }
+
+
+  public editarNoticia( index : number){
+    console.log('las noticias', this.publications);
+    //console.log('Se presiono la noticia', this.publications[index] );
+
+    this.noticiaIndex = index;
+
+
+    this.formaNoticia.setValue({
+      titulo: this.publications[index].title,
+      categoria: this.publications[index].categoria,
+      encuesta :  this.publications[index].encuesta,
+      descripcion: this.publications[index].description,
+      endDate: this.publications[index].endDate
+    });
+
+    if(! this.publications[index].encuesta ){
+      this.imagen = this.crearUrlImg( this.publications[index].urlimg );
+    }
+
+
+  }
+
+  public actualizarFoto(){
+
+    let noticia ={
+      ...this.publications[this.noticiaIndex]
+    }
+
+    this.subirImagen().then( resp =>{
+
+    noticia.urlimg = resp.public_id.split('/')[1]
+
+    return this.firebaseService.updateNew(noticia.key, noticia );
+
+    })
+    .then( () =>{
+      console.log('Supuesta mente se cambio la imagen');
+
+
+    })
+    .catch(err =>{
+
+      console.log('Error al subir la imagen',err);
+
+    });
+
+
+  }
+
+
+  public actualizarNoticia(){
+
+    let noticiaEditada ={
+    ...this.publications[this.noticiaIndex]  
+    };
+
+    noticiaEditada.title = this.formaNoticia.value.titulo;
+    noticiaEditada.categoria = this.formaNoticia.value.categoria;
+    noticiaEditada.encuesta = this.formaNoticia.value.encuesta;
+    noticiaEditada.description = this.formaNoticia.value.descripcion;
+    noticiaEditada.endDate = this.formaNoticia.value.endDate;
+
+
+    this.firebaseService.updateNew( noticiaEditada.key, noticiaEditada)
+    .then( () =>{
+
+      console.log('Supuestamente se actualizo la noticia');
+
+    })
+    .catch( err =>{
+      console.log('Error al actualizar la noticia',err);
+    })
+    
+
+
+  }
+
+  private cargarNoticiaForm (){
+
+    this.formaNoticia = new FormGroup({
+
+      titulo: new FormControl(null, Validators.required ),
+
+      categoria: new FormControl(null, Validators.required ),
+
+      encuesta : new FormControl(false, Validators.required ),
+
+      descripcion: new FormControl(null, Validators.required),
+
+      endDate: new FormControl(null, Validators.required)
+
+
+    });
+
+
+  };
+
+  private subirImagen(){
+
+    const form = new FormData();
+    form.append('upload_preset','sanminaNews' )
+    form.append('file', this.imagenFile);
+
+
+    return this.httpService.post<any>(`https://api.cloudinary.com/v1_1/dlor7n05z/upload`, form ).toPromise();
+  
+  }
+
   update(data) {
+
+    console.log('Solo se le dio');
     this.ob = "";
     //  console.log("se supone que actualizo",data);
 
@@ -307,6 +441,33 @@ export class StadisticsComponent implements OnInit {
     $("#description").val(this.ob.description);
     $("#endDate").val(this.ob.endDate);
   }
+
+  public cargarImagen(event){
+
+
+    if( event.target.files.length > 0 ){
+      const reader = new FileReader();
+
+      reader.readAsDataURL( event.target.files[0] );
+  
+      reader.onload =( eventR : any)=>{
+        
+        this.imagenFile = event.target.files[0];
+  
+        this.imagen = eventR.target.result;
+  
+      }
+
+    }else{
+
+      console.log('Cancelo');
+    }
+
+    
+
+}
+
+  //Actualizar la noticia
   updateAll(data) {
       this.ob.title = $("#title").val(),
       this.ob.categoria = $("#categoria").val(),
@@ -318,7 +479,15 @@ export class StadisticsComponent implements OnInit {
       this.firebaseService.updateNew(this.ob.key, this.ob);
 
 
-    setTimeout($('#cerrar').click(), 5000);
+    const tiempo = setTimeout( ()=>{
+
+      $('#cerrar').click()
+
+      clearTimeout( tiempo );
+
+    }, 5000);
+
+  
     // console.log("se supone que actualizocon datos",this.ob);
 
   }
