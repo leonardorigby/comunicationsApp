@@ -15,8 +15,10 @@ import { switchMap } from 'rxjs/operators';
 })
 export class AuthService {
 
+      usuario: User;
       user$: Observable<User>;
       newUser$: Observable<NewUser>;
+ 
 
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router){
     // Get the auth state, then fetch the Firestore user document or return null
@@ -24,7 +26,9 @@ export class AuthService {
         switchMap(user => {
             // Logged in
           if (user) {
-            return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+           
+            return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+            
           } else {
             // Logged out
             this.router.navigate(['/login']);
@@ -32,6 +36,9 @@ export class AuthService {
           }
         })
       )
+      
+      
+
       this.getNewUserData();
     }
 

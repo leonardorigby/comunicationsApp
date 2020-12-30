@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,7 +20,8 @@ declare var $: any;
 export class StadisticsComponent implements OnInit {
 
   public formaNoticia: FormGroup;
-  public imagen: any=undefined;
+ 
+  @ViewChild('preview',{static:false} ) preview: ElementRef<any>;
   public imagenFile: File = undefined;
 
   private noticiaIndex:number;
@@ -154,9 +155,6 @@ export class StadisticsComponent implements OnInit {
 
   
 
-  public imgError(){
-    this.imagen = 'assets/images/error-404-not-found.jpg'
-  }
 
   public crearUrlImg(id: string): string{
 
@@ -330,7 +328,7 @@ export class StadisticsComponent implements OnInit {
     });
 
     if(! this.publications[index].encuesta ){
-      this.imagen = this.crearUrlImg( this.publications[index].urlimg );
+      this.preview.nativeElement.src = this.crearUrlImg( this.publications[index].urlimg );
     }
 
 
@@ -381,6 +379,14 @@ export class StadisticsComponent implements OnInit {
     .then( () =>{
 
       console.log('Supuestamente se actualizo la noticia');
+
+      const tiempo = setTimeout( ()=>{
+
+        $('#cerrar').click()
+  
+        clearTimeout( tiempo );
+  
+      }, 5000);
 
     })
     .catch( err =>{
@@ -454,7 +460,7 @@ export class StadisticsComponent implements OnInit {
         
         this.imagenFile = event.target.files[0];
   
-        this.imagen = eventR.target.result;
+        this.preview.nativeElement.src = eventR.target.result;
   
       }
 

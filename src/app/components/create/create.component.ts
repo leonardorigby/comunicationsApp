@@ -1,7 +1,7 @@
 
 import { Router } from '@angular/router';
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 
@@ -25,9 +25,8 @@ import { environment } from 'src/environments/environment';
 export class CreateComponent implements OnInit {
 
 
+  @ViewChild('preview',{static:false} ) preview: ElementRef<any>;
 
-
-  public imagen: any=undefined;
   public imagenFile: File = undefined;
 
 
@@ -60,7 +59,8 @@ export class CreateComponent implements OnInit {
 
     this.auth.getUserData().subscribe( usuario => this.usuarioAutor = usuario );
 
-  
+    
+
 
   }
 
@@ -70,16 +70,20 @@ export class CreateComponent implements OnInit {
   public cargarImagen(event){
 
       const reader = new FileReader();
-  
-      reader.readAsDataURL( event.target.files[0] );
+
+    reader.readAsDataURL( event.target.files[0] );
   
       reader.onload =( eventR : any)=>{
         
         this.imagenFile = event.target.files[0];
 
-        this.imagen = eventR.target.result;
+        this.preview.nativeElement.src = eventR.target.result;
+
+        //console.log('La imagen se cargo', this.imagen);
 
       }
+
+      
 
   }
 
@@ -97,7 +101,7 @@ private subirImagen(){
  
 
   public imgError(){
-    this.imagen = 'assets/images/error-404-not-found.jpg'
+    //this.imagen = 'assets/images/error-404-not-found.jpg'
   }
 
 
@@ -273,8 +277,8 @@ public mostrarNoticia(){
 
 
           this.imagenFile = undefined;
-          this.imagen = undefined;
-        
+          
+          this.preview.nativeElement.src = 'https://res.cloudinary.com/dlor7n05z/image/upload/v1609353742/noticias/fotoIcono_m7misx.png';
 
 
 

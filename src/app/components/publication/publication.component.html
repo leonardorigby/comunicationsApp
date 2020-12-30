@@ -3,19 +3,19 @@
                 <div class="card-body">
                     <h1>Publications</h1>
                     <form #publicationForm="ngForm" (ngSubmit)="onSubmit(publicationForm)">
-                        <input type="hidden" name="$key" #$key=ngModel [(ngModel)]="firebaseService.selectPublication.$key">
+                        <!-- <input type="hidden" name="$key" #$key=ngModel [(ngModel)]="firebaseService.selectPublication.$key"> -->
                         <div class="form-group">
-                            <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="firebaseService.selectPublication.name" placeholder="add Plant">
+                            <!-- <input type="text" class="form-control" name="name" #name="ngModel" [(ngModel)]="firebaseService.selectPublication.name" placeholder="add Plant"> -->
                         </div>
                         <div class="form-group">
                             <div class="input-group mb-3 ">
                                 <div class="input-group-prepend ">
                                     <span class="input-group-text inputstyle"><i class="fas fa-map-marker-alt"></i></span>
                                 </div>
-                                <input type="text" value="{{icono.class}}" class="form-control" name="icono" #icono="ngModel" [(ngModel)]="firebaseService.selectPublication.icono" placeholder="add Plant">
+                                <!-- <input type="text" value="{{icono.class}}" class="form-control" name="icono" #icono="ngModel" [(ngModel)]="firebaseService.selectPublication.icono" placeholder="add Plant">
                                 <select #icono class="form-control inputstyle" #icono="ngModel" name="icono" [(ngModel)]="firebaseService.selectPublication.icono">
                                 <option *ngFor="let icons of iconsList" value="{{icons.class}}">{{icons.name}}</option >
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                         <div class="col-md-1">

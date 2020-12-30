@@ -46,10 +46,11 @@
     <br>
     <br>
 
-    <div class="card" style="width: 100%; " *ngIf="imagen">
+    <div class="card" style="width: 100%; " >
       <div class="card-body">
 
-        <img (error)="imgError()" width="350px" height="300" [src]="imagen" alt="">
+        <img *ngIf="imagen != undefined" #preview  width="400px"  height="300" alt=""
+        src="https://res.cloudinary.com/dlor7n05z/image/upload/v1609353742/noticias/fotoIcono_m7misx.png">
 
     </div>
   </div>
