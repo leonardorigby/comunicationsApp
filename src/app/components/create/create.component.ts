@@ -52,7 +52,7 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
 
-   
+    console.log('Notificaciones activadas...');
 
     this.cargarNoticiaForm();
     this.cargarZonas();
@@ -245,26 +245,26 @@ public mostrarNoticia(){
         this.firebaseService.updateNew(creada.id, definitiva)
         .then( () =>{
           
-          // switch( notificacion ){
+          switch( notificacion ){
 
-          //   case 'todos':
+            case 'todos':
       
-          //   this.enviarATodos();
+            this.enviarATodos();
+        
+            break;
       
-          //   break;
+            case 'usuario':
       
-          //   case 'usuario':
+            this.enviarAUsuario();
       
-          //   this.enviarAUsuario();
-      
-          //   break;
+            break;
       
       
-          //   default:
+            default:
       
-          //   this.enviarATopics();
+            this.enviarATopics();
             
-          // }
+          }
 
           this.formaNoticia.reset({
             titulo :null,
