@@ -14,6 +14,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 
+import Swal from 'sweetalert2';
 
 
 
@@ -52,14 +53,13 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('Notificaciones activadas...');
+    //console.log('Notificaciones activadas...');
 
     this.cargarNoticiaForm();
     this.cargarZonas();
 
     this.auth.getUserData().subscribe( usuario => this.usuarioAutor = usuario );
 
-    
 
 
   }
@@ -71,7 +71,7 @@ export class CreateComponent implements OnInit {
 
       const reader = new FileReader();
 
-    reader.readAsDataURL( event.target.files[0] );
+      reader.readAsDataURL( event.target.files[0] );
   
       reader.onload =( eventR : any)=>{
         
@@ -86,6 +86,19 @@ export class CreateComponent implements OnInit {
       
 
   }
+
+private mostrarModal( opciones: any){
+
+ Swal.fire({
+  ...opciones,
+  showConfirmButton: false,
+  timer: 2000
+});
+
+
+
+}
+
 
 private subirImagen(){
 
@@ -266,6 +279,11 @@ public mostrarNoticia(){
             
           }
 
+          this.mostrarModal({
+            icon:'success',
+            title:'La noticia se creo correctamente'
+          })
+
           this.formaNoticia.reset({
             titulo :null,
             categoria:null,
@@ -291,7 +309,13 @@ public mostrarNoticia(){
     
     })
     
-    .catch( err => console.log('Error en el proceso  de crear una noticia ', err) );
+    .catch( err => {
+      
+      this.mostrarModal({
+        icon:'error',
+        title:'No se pudo crear la noticia'
+      });
+      console.log('Error en el proceso  de crear una noticia ', err)} );
     
     // console.log('Se creo la noticia');
       

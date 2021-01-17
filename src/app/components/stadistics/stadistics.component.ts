@@ -350,9 +350,28 @@ export class StadisticsComponent implements OnInit {
     .then( () =>{
       console.log('Supuesta mente se cambio la imagen');
 
+      this.mostrarModal({
+        icon:'success',
+        title:'Se actualizo correctamente la imagen'
+      });
+
+
+      const tiempo = setTimeout( ()=>{
+
+        $('#cerrar').click()
+        
+  
+        clearTimeout( tiempo );
+  
+      }, 2500);
 
     })
     .catch(err =>{
+
+      this.mostrarModal({
+        icon:'error',
+        title:'Error al actualizar la imagen'
+      });
 
       console.log('Error al subir la imagen',err);
 
@@ -378,6 +397,11 @@ export class StadisticsComponent implements OnInit {
     this.firebaseService.updateNew( noticiaEditada.key, noticiaEditada)
     .then( () =>{
 
+      this.mostrarModal({
+        icon:'succces',
+        title:'Se actualizo la noticia correctamente'
+      })
+
       console.log('Supuestamente se actualizo la noticia');
 
       const tiempo = setTimeout( ()=>{
@@ -386,16 +410,32 @@ export class StadisticsComponent implements OnInit {
   
         clearTimeout( tiempo );
   
-      }, 5000);
+      }, 2500);
 
     })
     .catch( err =>{
+
+      this.mostrarModal({
+        icon:'error',
+        title:'Error al actualizar la noticia'
+      })
+
       console.log('Error al actualizar la noticia',err);
     })
     
 
 
   }
+
+  private mostrarModal( opciones: any){
+
+    Swal.fire({
+     ...opciones,
+     showConfirmButton: false,
+     timer: 2000
+   });
+
+}
 
   private cargarNoticiaForm (){
 
@@ -423,7 +463,7 @@ export class StadisticsComponent implements OnInit {
     form.append('upload_preset','sanminaNews' )
     form.append('file', this.imagenFile);
 
-
+    //https://<API_KEY>:<API_SECRET>@api.cloudinary.com/v1_1/<CLOUD_NAME>/resources/image
     return this.httpService.post<any>(`https://api.cloudinary.com/v1_1/dlor7n05z/upload`, form ).toPromise();
   
   }
