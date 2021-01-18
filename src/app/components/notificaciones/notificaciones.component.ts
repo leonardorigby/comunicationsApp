@@ -7,6 +7,8 @@ import { environment} from 'src/environments/environment';
 
 import { User } from '../models/user.model';
 
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -138,8 +140,20 @@ export class NotificacionesComponent implements OnInit {
         cuerpo:''
       });
 
+
+      this.mostrarModal({
+        icon:'success',
+        title:'Se envio la notificacion a todos'
+      });
+
     })
-    .catch(err => console.log('Error al enviar notificacion para uno', err) );
+    .catch(err => {
+      
+      this.mostrarModal({
+        icon:'error',
+        title:'No se pudo enviar la notificacion'
+      });
+      console.log('Error al enviar notificacion para uno', err) });
     
 
   }
@@ -167,13 +181,33 @@ export class NotificacionesComponent implements OnInit {
         cuerpo:''
       });
 
+      this.mostrarModal({
+        icon:'success',
+        title:'Se envio la notificacion a todos'
+      });
+
     })
-    .catch(err => console.log('Error al enviar notificacion para uno', err) );
+    .catch(err => {
+      
+      this.mostrarModal({
+        icon:'error',
+        title:'No se pudo enviar la notificacion'
+      });
+
+      console.log('Error al enviar notificacion para uno', err) });
 
 
   }
 
+  private mostrarModal( opciones: any){
 
+    Swal.fire({
+     ...opciones,
+     showConfirmButton: false,
+     timer: 2000
+   });
+
+  }
   
   public enviarATopics(){
     
@@ -230,7 +264,10 @@ export class NotificacionesComponent implements OnInit {
       
       } );
 
-
+      this.mostrarModal({
+        icon:'success',
+        title:'Se envio la notificacion a todos'
+      });
      
 
     // }
