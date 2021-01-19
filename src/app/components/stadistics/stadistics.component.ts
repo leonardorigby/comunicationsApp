@@ -319,12 +319,13 @@ export class StadisticsComponent implements OnInit {
     this.noticiaIndex = index;
 
 
-    this.formaNoticia.setValue({
+    this.formaNoticia.reset({
       titulo: this.publications[index].title,
       categoria: this.publications[index].categoria,
       encuesta :  this.publications[index].encuesta,
       descripcion: this.publications[index].description,
-      endDate: this.publications[index].endDate
+      endDate: this.publications[index].endDate,
+      cambioImagen: false
     });
 
     if(! this.publications[index].encuesta ){
@@ -334,58 +335,25 @@ export class StadisticsComponent implements OnInit {
 
   }
 
-  public actualizarFoto(){
-
-    let noticia ={
-      ...this.publications[this.noticiaIndex]
-    }
-
-    this.subirImagen().then( resp =>{
-
-    noticia.urlimg = resp.public_id.split('/')[1]
-
-    return this.firebaseService.updateNew(noticia.key, noticia );
-
-    })
-    .then( () =>{
-      console.log('Supuesta mente se cambio la imagen');
-
-      this.mostrarModal({
-        icon:'success',
-        title:'Se actualizo correctamente la imagen'
-      });
 
 
-      const tiempo = setTimeout( ()=>{
-
-        $('#cerrar').click()
-        
-  
-        clearTimeout( tiempo );
-  
-      }, 2500);
-
-    })
-    .catch(err =>{
-
-      this.mostrarModal({
-        icon:'error',
-        title:'Error al actualizar la imagen'
-      });
-
-      console.log('Error al subir la imagen',err);
-
-    });
-
-
+  public verForm(){
+    console.log(this.formaNoticia);
   }
 
 
-  public actualizarNoticia(){
+  public async actualizarNoticia(){
 
     let noticiaEditada ={
     ...this.publications[this.noticiaIndex]  
     };
+
+
+    if( this.formaNoticia.controls.cambioImagen.value ){
+
+    noticiaEditada.urlimg = ( await this.subirImagen() ).public_id.split('/')[1];
+
+    }
 
     noticiaEditada.title = this.formaNoticia.value.titulo;
     noticiaEditada.categoria = this.formaNoticia.value.categoria;
@@ -398,7 +366,7 @@ export class StadisticsComponent implements OnInit {
     .then( () =>{
 
       this.mostrarModal({
-        icon:'succces',
+        icon:'success',
         title:'Se actualizo la noticia correctamente'
       })
 
@@ -449,7 +417,9 @@ export class StadisticsComponent implements OnInit {
 
       descripcion: new FormControl(null, Validators.required),
 
-      endDate: new FormControl(null, Validators.required)
+      endDate: new FormControl(null, Validators.required),
+
+      cambioImagen: new FormControl( false )
 
 
     });
@@ -501,6 +471,9 @@ export class StadisticsComponent implements OnInit {
         this.imagenFile = event.target.files[0];
   
         this.preview.nativeElement.src = eventR.target.result;
+
+        this.formaNoticia.controls.cambioImagen.setValue(true);
+        this.formaNoticia.markAsDirty();
   
       }
 

@@ -308,10 +308,6 @@
                 </button>
                 
              
-                <button [disabled]="imagenFile == undefined" 
-                (click)="actualizarFoto()" class="btn btn-info">
-                  Actualizar imagen
-                </button>
             
                 <br>
                 <br>
@@ -364,7 +360,7 @@
 
               <div class="modal-footer">
                 <button id="cerrar" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button [disabled]="formaNoticia.invalid" class="btn btn-primary"
+                <button [disabled]="formaNoticia.invalid || !formaNoticia.dirty" class="btn btn-primary"
                 (click)="actualizarNoticia()">Editar</button>
               </div>
 
